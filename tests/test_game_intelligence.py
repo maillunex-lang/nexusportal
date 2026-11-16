@@ -20,6 +20,8 @@ class GameIntelligenceTests(unittest.TestCase):
         self.assertEqual(result["player_signals"], 8)
         self.assertEqual(result["genre_blueprints"], 5)
         self.assertEqual(result["editorial_games"], 11)
+        self.assertEqual(result["market_insights"], 4)
+        self.assertEqual(result["genres_with_top100_complete"], 0)
         self.assertEqual(result["mechanic_templates"], 12)
 
     def test_not_claiming_annual_top100(self):
@@ -107,6 +109,18 @@ class GameIntelligenceTests(unittest.TestCase):
                              lambda d: d["templates"][0]["genres"].append("not_a_genre"))
         self.assertFalse(result["ok"])
         self.assertTrue(any("unknown genre" in s for s in result["errors"]))
+
+    def test_missing_genre_coverage_rejected(self):
+        result = self.mutate("research/coverage_2026.json",
+                             lambda d: d["genres"].pop())
+        self.assertFalse(result["ok"])
+        self.assertTrue(any("coverage" in e for e in result["errors"]))
+
+    def test_market_source_required(self):
+        result = self.mutate("research/market_2026.json",
+                             lambda d: d["insights"][0].update(source="unverified"))
+        self.assertFalse(result["ok"])
+        self.assertTrue(any("market: invalid source" in e for e in result["errors"]))
 
     def test_unsourced_feedback_rejected(self):
         result = self.mutate("research/player_signals.json",
