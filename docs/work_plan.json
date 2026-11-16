@@ -1,0 +1,129 @@
+{
+  "project": "NEXUS PORTAL",
+  "version": 1,
+  "packages": [
+    {
+      "id": "N1",
+      "title": "Фундамент",
+      "depends_on": [],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N2",
+      "title": "PWA",
+      "depends_on": [
+        "N1"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N3",
+      "title": "Мастер",
+      "depends_on": [
+        "N1"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N4",
+      "title": "Промпты",
+      "depends_on": [
+        "N3"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N5",
+      "title": "План",
+      "depends_on": [
+        "N3"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N6",
+      "title": "GitHub CI",
+      "depends_on": [
+        "N1"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N7",
+      "title": "Автослияние",
+      "depends_on": [
+        "N5",
+        "N6"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N8",
+      "title": "SSH",
+      "depends_on": [
+        "N1",
+        "N7"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N9",
+      "title": "APK",
+      "depends_on": [
+        "N6",
+        "N8"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    },
+    {
+      "id": "N10",
+      "title": "Память",
+      "depends_on": [
+        "N3",
+        "N5",
+        "N6"
+      ],
+      "status": "planned",
+      "done_when": [
+        "required CI green",
+        "PR merged"
+      ]
+    }
+  ]
+}
