@@ -162,7 +162,7 @@ def apply(portal, params: dict, digest: str, *, create_repo: bool = False, priva
     for path in ("docs/GDD.md", "docs/AI_RULES.md", "docs/PORTAL_PROTOCOL.md", "docs/DIRECTOR_HANDOVER.md"):
         memory.add(portal.db, pid, "doc", path, "", path)
     audit(portal.db, actor, "project_created", pid, {"repo": p["repo_full_name"], "written": written, "skipped": skipped})
-    return {"project": project, "written": written, "skipped": skipped,
+    return {"project": project, "written": written, "skipped": skipped, "warnings": warnings,
             "pull_request": pr and {"number": pr["number"], "html_url": pr["html_url"]},
             "bootstrap_prompt": preview["bootstrap_prompt"]}
 
