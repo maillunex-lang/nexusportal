@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0",
+  "project": {
+    "id": "economy-mmo",
+    "name": "Экономическая MMO",
+    "repository": "owner/economy-mmo",
+    "base_branch": "main",
+    "platforms": [
+      "android"
+    ],
+    "engine": "godot"
+  },
+  "documents": {
+    "gdd": [
+      "docs/GDD.md"
+    ],
+    "roadmap": [
+      "docs/ROADMAP.md"
+    ]
+  },
+  "stages": [
+    {
+      "id": "M1",
+      "name": "Фундамент",
+      "tasks": [
+        "A1",
+        "A2"
+      ]
+    },
+    {
+      "id": "M2",
+      "name": "Интеграция",
+      "tasks": [
+        "A3"
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "A1",
+      "title": "Контракты",
+      "description": "Изучить GDD и реализовать утверждённые требования.",
+      "priority": 100,
+      "dependencies": [],
+      "parallel_group": "foundation",
+      "file_scopes": [],
+      "acceptance": [
+        "Контракты соответствуют GDD",
+        "Автоматические проверки проходят"
+      ],
+      "checks": [
+        "unit",
+        "integration"
+      ],
+      "prompt": "Прочитай GDD и дорожную карту полностью. Изучи фактическую структуру репозитория. Реализуй описанные требования и представь результаты проверок.",
+      "executor_profile": "backend",
+      "branch": "feature/economy-mmo-a1"
+    },
+    {
+      "id": "A2",
+      "title": "Интерфейс",
+      "description": "Изучить GDD и реализовать утверждённые требования.",
+      "priority": 90,
+      "dependencies": [],
+      "parallel_group": "foundation",
+      "file_scopes": [
+        "client/economy/**"
+      ],
+      "acceptance": [
+        "Контракты соответствуют GDD",
+        "Автоматические проверки проходят"
+      ],
+      "checks": [
+        "unit",
+        "integration"
+      ],
+      "prompt": "Прочитай GDD и дорожную карту полностью. Изучи фактическую структуру репозитория. Реализуй описанные требования и представь результаты проверок.",
+      "executor_profile": "frontend",
+      "branch": "feature/economy-mmo-a2"
+    },
+    {
+      "id": "A3",
+      "title": "Интеграция",
+      "description": "Изучить GDD и реализовать утверждённые требования.",
+      "priority": 80,
+      "dependencies": [
+        "A1",
+        "A2"
+      ],
+      "parallel_group": "foundation",
+      "file_scopes": [
+        "catalog/**"
+      ],
+      "acceptance": [
+        "Контракты соответствуют GDD",
+        "Автоматические проверки проходят"
+      ],
+      "checks": [
+        "unit",
+        "integration"
+      ],
+      "prompt": "Прочитай GDD и дорожную карту полностью. Изучи фактическую структуру репозитория. Реализуй описанные требования и представь результаты проверок.",
+      "executor_profile": "frontend",
+      "branch": "feature/economy-mmo-a3"
+    }
+  ]
+}
