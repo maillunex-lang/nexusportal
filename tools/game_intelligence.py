@@ -94,6 +94,21 @@ def validate(root: Path = ROOT) -> dict:
             errors.append(f"templates: incomplete data in {t.get('id')}")
         if any(g not in ids for g in t.get("genres", [])):
             errors.append(f"templates: unknown genre in {t.get('id')}")
+    editorial = read_json("research/editorial_games.json", root).get("games", [])
+    editorial_ids = [g.get("id") for g in editorial]
+    if len(editorial_ids) != len(set(editorial_ids)) or any(not x for x in editorial_ids):
+        errors.append("editorial: missing or duplicate game id")
+    for g in editorial:
+        if not g.get("title") or not g.get("platforms") or not g.get("basis"):
+            errors.append(f"editorial: missing game metadata for {g.get('id')}")
+        if not check_url(g.get("source_url", "")):
+            errors.append(f"editorial: invalid source URL for {g.get('id')}")
+        if not g.get("genres") or any(tag not in ids for tag in g.get("genres", [])):
+            errors.append(f"editorial: unknown genre for {g.get('id')}")
+        if g.get("confidence") not in allowed_confidences:
+            errors.append(f"editorial: invalid confidence for {g.get('id')}")
+        if "pc" in g.get("platforms", []) and len(g["platforms"]) == 1 and g.get("mobile_rank") is not None:
+            errors.append(f"editorial: PC-only title cannot have mobile rank {g.get('id')}")
     return {
         "ok": not errors,
         "errors": errors,
@@ -102,6 +117,7 @@ def validate(root: Path = ROOT) -> dict:
         "chart_entries": all_rows,
         "player_signals": len(seen_signals),
         "genre_blueprints": len(blueprints),
+        "editorial_games": len(editorial),
         "mechanic_templates": len(templates),
         "annual_top100_completed": False,
         "note": "Snapshot observations do not constitute 2026 annual genre top-100 rankings.",
@@ -136,9 +152,25 @@ def context(genre_id: str, root: Path = ROOT) -> dict:
     }
 
 
+def game_catalog(genre_id: str, root: Path = ROOT) -> dict:
+    genre_ids = {g["id"] for g in read_json("genres.json", root)["genres"]}
+    if genre_id not in genre_ids:
+        raise ValueError(f"Unknown genre: {genre_id}")
+    games = [
+        g for g in read_json("research/editorial_games.json", root)["games"]
+        if genre_id in g["genres"]
+    ]
+    return {
+        "genre_id": genre_id,
+        "editorial_references": games,
+        "count": len(games),
+        "ranking_status": "NOT an official or derived 2026 top-100",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("validate", "stats", "context"))
+    parser.add_argument("action", choices=("validate", "stats", "context", "games"))
     parser.add_argument("--genre", help="Genre ID, required for context")
     args = parser.parse_args()
     result = validate()
@@ -152,10 +184,20 @@ def main() -> int:
             result = context(args.genre)
         except ValueError as error:
             parser.error(str(error))
+    elif args.action == "games":
+        if not args.genre:
+            parser.error("--genre is required for games")
+        if not result["ok"]:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 1
+        try:
+            result = game_catalog(args.genre)
+        except ValueError as error:
+            parser.error(str(error))
     elif args.action == "stats":
         result = {k: v for k, v in result.items() if k != "errors"}
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    return 0 if (args.action == "context" or result.get("ok", True)) else 1
+    return 0 if (args.action in ("context", "games") or result.get("ok", True)) else 1
 
 
 if __name__ == "__main__":
