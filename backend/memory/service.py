@@ -1,7 +1,7 @@
 """Изолированная память проекта и генерация «Контекста для ИИ»."""
 from __future__ import annotations
 
-from ..core.db import Database, loads
+from ..core.db import Database
 from ..core.redact import redact
 
 KINDS = ("decision", "task", "error", "context", "doc")

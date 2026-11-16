@@ -14,7 +14,7 @@ GitHub ──webhook (HMAC SHA-256)───────────────
 | Пакет | Модули |
 |---|---|
 | N1 | `backend/core` (config, db+миграции, security, audit, redact, app_settings), `backend/api`, `backend/main.py`, `backend/cli.py` |
-| N2 | `frontend/` (13 экранов, PWA: manifest, service worker, иконки) |
+| N2 | `frontend/` (15 экранов, PWA: manifest, service worker, иконки) |
 | N3 | `backend/projects` (analyzer, wizard) |
 | N4 | `backend/prompts/generator.py` |
 | N5 | `backend/roadmap/engine.py` (stdlib, копируется в проекты как `tools/work_plan.py`), `service.py` |

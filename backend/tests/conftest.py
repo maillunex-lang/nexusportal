@@ -5,7 +5,6 @@ import hashlib
 import hmac
 import json
 import re
-from pathlib import Path
 
 import httpx
 import pytest
