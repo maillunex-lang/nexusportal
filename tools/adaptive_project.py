@@ -80,6 +80,8 @@ def schedule(plan):
     index = {t["id"]: t for t in plan["tasks"]}
     eligible = [t for t in plan["tasks"] if t.get("status", "todo") in ("todo", "ready")
                 and all(index[d].get("status") in DONE for d in t.get("dependencies", []))]
+    active = [t for t in plan["tasks"] if t.get("status") in ("in_progress", "pr_open", "tests_passed")]
+    eligible = [t for t in eligible if t.get("file_scopes") and not any(scope_overlap(t["file_scopes"], a.get("file_scopes", [])) for a in active)]
     eligible.sort(key=lambda t: (-int(t.get("priority", 0)), t["id"]))
     batches = []
     while eligible:
@@ -108,6 +110,11 @@ def prompt(plan, task_id):
     unmet = [d for d in task.get("dependencies", []) if index[d].get("status") not in DONE]
     if unmet:
         raise ValueError(f"task is blocked by: {', '.join(unmet)}")
+    if not task.get("file_scopes"):
+        raise ValueError("file scopes must be confirmed before dispatch")
+    active = [t for t in plan["tasks"] if t.get("status") in ("in_progress", "pr_open", "tests_passed") and t["id"] != task_id]
+    if any(scope_overlap(task["file_scopes"], t.get("file_scopes", [])) for t in active):
+        raise ValueError("file scopes conflict with active task")
     if task.get("status", "todo") not in ("todo", "ready"):
         raise ValueError("task is not in a dispatchable status")
     ref = plan.get("base_sha")
