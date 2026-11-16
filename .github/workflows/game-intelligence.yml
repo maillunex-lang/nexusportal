@@ -6,13 +6,17 @@ on:
     paths:
       - "docs/game_intelligence/**"
       - "tools/game_intelligence.py"
+      - "tools/game_intelligence_liveops.py"
       - "tests/test_game_intelligence.py"
+      - "tests/test_game_intelligence_liveops.py"
       - ".github/workflows/game-intelligence.yml"
   pull_request:
     paths:
       - "docs/game_intelligence/**"
       - "tools/game_intelligence.py"
+      - "tools/game_intelligence_liveops.py"
       - "tests/test_game_intelligence.py"
+      - "tests/test_game_intelligence_liveops.py"
       - ".github/workflows/game-intelligence.yml"
 
 permissions:
@@ -28,3 +32,5 @@ jobs:
           python-version: "3.12"
       - run: python tools/game_intelligence.py validate
       - run: python -m unittest discover -s tests -p "test_game_intelligence.py" -v
+      - run: python tools/game_intelligence_liveops.py validate
+      - run: python -m unittest discover -s tests -p "test_game_intelligence_liveops.py" -v
