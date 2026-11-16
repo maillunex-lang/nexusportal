@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { api, CI_LABELS, Plan, STATUS_LABELS, Task } from "../api";
 import { Badge, Card, Empty, ErrorText, Modal, ProjectPicker, PromptBox, statusTone, useCurrentProject, useLoad } from "../components/ui";
 
@@ -10,6 +10,29 @@ export default function Tasks() {
   const pid = cp.current?.id;
   const rm = useLoad(() => (pid ? api(`/api/projects/${pid}/roadmap`) : Promise.resolve(null)), [pid]);
   const [filter, setFilter] = useState("all");
+  const [syncState, setSyncState] = useState<{synced_at: string; main_sha: string; branch: string} | null>(null);
+  const [syncError, setSyncError] = useState<string | null>(null);
+  const [syncing, setSyncing] = useState(false);
+  useEffect(() => {
+    if (!pid) return;
+    let active = true;
+    const refresh = async () => {
+      if (!active || document.hidden) return;
+      setSyncing(true);
+      try {
+        const state = await api<{synced_at: string; main_sha: string; branch: string}>(`/api/projects/${pid}/sync-and-state`, {method: "POST"});
+        if (active) { setSyncState(state); setSyncError(null); rm.reload(); }
+      } catch (e: any) {
+        if (active) setSyncError(e.message || "Ошибка синхронизации GitHub");
+      } finally { if (active) setSyncing(false); }
+    };
+    setSyncState(null);
+    void refresh();
+    const timer = window.setInterval(refresh, 60000);
+    const onVisible = () => { if (!document.hidden) void refresh(); };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => { active = false; window.clearInterval(timer); document.removeEventListener("visibilitychange", onVisible); };
+  }, [pid]);
   const [prompt, setPrompt] = useState<{ title: string; text: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [level, setLevel] = useState<"brief" | "standard" | "extended">("standard");
@@ -43,6 +66,11 @@ export default function Tasks() {
       <div className="page-head">
         <div><h1>Задачи</h1><p className="muted">Компактный контекст и промпты для исполнителей</p></div>
         <ProjectPicker {...cp} />
+      </div>
+      <div className="row gap wrap small muted" aria-live="polite">
+        {syncState ? <span>GitHub: {syncState.branch} <span className="mono">{syncState.main_sha.slice(0, 8)}</span> · синхронизация {new Date(syncState.synced_at).toLocaleString("ru-RU")}</span> : <span>GitHub: проверка состояния…</span>}
+        {syncing && <span>Обновляется…</span>}
+        {syncError && <span className="error">Данные могут устареть: {syncError}</span>}
       </div>
       <div className="tabs" role="tablist">
         {FILTERS.map((f) => (
