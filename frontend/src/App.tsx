@@ -83,7 +83,7 @@ export default function App() {
   return (
     <div className="shell">
       <aside className="sidebar" aria-label="Навигация">
-        <div className="brand"><img src="/icon.svg" alt="" width={32} height={32} /> <span>NEXUS PORTAL</span></div>
+        <div className="brand"><img src={`${import.meta.env.BASE_URL}icon.svg`} alt="" width={32} height={32} /> <span>NEXUS PORTAL</span></div>
         <nav>
           {NAV.map((n) => (
             <a key={n.to} href={`#${n.to}`} className={base === n.to ? "active" : ""} aria-current={base === n.to ? "page" : undefined}>
