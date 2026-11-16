@@ -216,6 +216,272 @@
         "Which outcome metrics matter?",
         "How to compare runs fairly?"
       ]
+    },
+    {
+      "id": "rts",
+      "core_loop": [
+        "Scout enemy positions",
+        "Harvest and allocate resources",
+        "Build production and defenses",
+        "Micro-manage unit groups",
+        "Attack and adapt"
+      ],
+      "mvp": [
+        "One map",
+        "Two factions with asymmetry",
+        "Three unit classes",
+        "One AI skirmish",
+        "Touch control tutorial"
+      ],
+      "technical": [
+        "Deterministic command validation",
+        "Authoritative pathfinding and combat",
+        "Fog-of-war data isolation",
+        "Tick sync and reconnect"
+      ],
+      "mobile": [
+        "Group selection and clear commands",
+        "Tap-to-move and drag camera",
+        "Limit simultaneous on-screen units"
+      ],
+      "pitfalls": [
+        "High APM requirement on touch",
+        "Unclear unit counters",
+        "Hidden unfair AI bonuses"
+      ],
+      "questions": [
+        "Real-time or pause-friendly?",
+        "Unit cap?",
+        "PvP synchronization?"
+      ]
+    },
+    {
+      "id": "city_builder",
+      "core_loop": [
+        "Zone and build districts",
+        "Connect roads and services",
+        "Balance budgets and population",
+        "Respond to bottlenecks",
+        "Expand"
+      ],
+      "mvp": [
+        "One town map",
+        "Three zone types",
+        "Basic utility services",
+        "Budget ledger",
+        "Population satisfaction"
+      ],
+      "technical": [
+        "Chunked world storage",
+        "Deterministic city growth",
+        "Service coverage graph",
+        "Integer fiscal ledger"
+      ],
+      "mobile": [
+        "Zone painting gesture",
+        "Traffic and coverage overlays",
+        "Readable budget summaries"
+      ],
+      "pitfalls": [
+        "No meaningful tradeoffs",
+        "Unclear coverage radii",
+        "Unbounded traffic simulation"
+      ],
+      "questions": [
+        "Fixed or infinite map?",
+        "What is the population model?",
+        "How are disasters handled?"
+      ]
+    },
+    {
+      "id": "survival",
+      "core_loop": [
+        "Explore and gather",
+        "Craft equipment",
+        "Build shelter",
+        "Face environmental threats",
+        "Cooperate and improve"
+      ],
+      "mvp": [
+        "One biome",
+        "Resource tiers",
+        "Shelter construction",
+        "Co-op for four players",
+        "Persistent inventory"
+      ],
+      "technical": [
+        "Authoritative item transfers",
+        "Craft recipe integrity",
+        "World save and reconnect",
+        "Co-op session lifecycle"
+      ],
+      "mobile": [
+        "Quick-access crafting",
+        "Touch combat accessibility",
+        "Low-memory terrain chunks"
+      ],
+      "pitfalls": [
+        "Excessive resource grind",
+        "Punitive loss on disconnect",
+        "Unclear co-op ownership"
+      ],
+      "questions": [
+        "Persistent server or session?",
+        "PvP enabled?",
+        "How harsh is death?"
+      ]
+    },
+    {
+      "id": "sandbox",
+      "core_loop": [
+        "Explore possibilities",
+        "Acquire creative tools",
+        "Build or alter world",
+        "Share creations",
+        "Iterate"
+      ],
+      "mvp": [
+        "Editable area",
+        "Three building tools",
+        "Save/load",
+        "Co-op permissions",
+        "Undo/redo"
+      ],
+      "technical": [
+        "Versioned object changes",
+        "Permissions and moderation",
+        "Undo log",
+        "Chunk streaming"
+      ],
+      "mobile": [
+        "Gesture conflict prevention",
+        "Precision placement assists",
+        "Compact tool palette"
+      ],
+      "pitfalls": [
+        "Unbounded creation lag",
+        "Griefing",
+        "No meaningful first-session goal"
+      ],
+      "questions": [
+        "Private or public worlds?",
+        "What can users create?",
+        "How to moderate creations?"
+      ]
+    },
+    {
+      "id": "idle_rpg",
+      "core_loop": [
+        "Claim progress",
+        "Upgrade heroes",
+        "Choose formation",
+        "Clear content",
+        "Return to new choices"
+      ],
+      "mvp": [
+        "Five heroes",
+        "Three roles",
+        "Offline progress cap",
+        "Ten PvE stages",
+        "One build decision"
+      ],
+      "technical": [
+        "Server-validated time deltas",
+        "Bounded offline rewards",
+        "Deterministic combat simulation",
+        "Economy sink/source ledger"
+      ],
+      "mobile": [
+        "Short claim loop",
+        "Readable progress deltas",
+        "No mandatory notification spam"
+      ],
+      "pitfalls": [
+        "Forced login chores",
+        "Predatory monetization",
+        "No meaningful strategy"
+      ],
+      "questions": [
+        "How long is offline accumulation?",
+        "Manual combat optional?",
+        "How are duplicate heroes handled?"
+      ]
+    },
+    {
+      "id": "naval_strategy",
+      "core_loop": [
+        "Explore sea routes",
+        "Gather or trade cargo",
+        "Upgrade ship and crew",
+        "Fight or evade enemies",
+        "Coordinate fleet"
+      ],
+      "mvp": [
+        "One sea region",
+        "Two ships",
+        "Trading port",
+        "PvE encounters",
+        "Four-player fleet"
+      ],
+      "technical": [
+        "Authoritative ship state",
+        "Route and cargo ledger",
+        "Network interpolation",
+        "Combat collision budget"
+      ],
+      "mobile": [
+        "Clear ship steering",
+        "Readable wind and heading",
+        "Touch-friendly firing arcs"
+      ],
+      "pitfalls": [
+        "Slow travel with no decisions",
+        "Overloaded naval HUD",
+        "Cargo duplication"
+      ],
+      "questions": [
+        "Real-time sea or tactical turns?",
+        "How many players per fleet?",
+        "Ship loss permanence?"
+      ]
+    },
+    {
+      "id": "tower_defense",
+      "core_loop": [
+        "Inspect incoming waves",
+        "Place defensive towers",
+        "Counter enemy types",
+        "Earn upgrade resources",
+        "Refine layout"
+      ],
+      "mvp": [
+        "One map",
+        "Four tower types",
+        "Three enemy types",
+        "Ten waves",
+        "Upgrade and retry"
+      ],
+      "technical": [
+        "Seeded wave scheduler",
+        "Path validity",
+        "Deterministic targeting",
+        "Balance replay fixtures"
+      ],
+      "mobile": [
+        "One-tap tower placement",
+        "Range previews",
+        "Readable enemy resistances"
+      ],
+      "pitfalls": [
+        "Mandatory single optimal solution",
+        "Unreadable swarms",
+        "No counterplay for leaks"
+      ],
+      "questions": [
+        "Fixed or dynamic routes?",
+        "Co-op defense?",
+        "How many towers on mobile?"
+      ]
     }
   ]
 }
