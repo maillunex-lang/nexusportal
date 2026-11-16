@@ -18,6 +18,8 @@ class GameIntelligenceTests(unittest.TestCase):
         self.assertEqual(result["genre_count"], 12)
         self.assertEqual(result["chart_entries"], 92)
         self.assertEqual(result["player_signals"], 8)
+        self.assertEqual(result["genre_blueprints"], 5)
+        self.assertEqual(result["mechanic_templates"], 12)
 
     def test_not_claiming_annual_top100(self):
         self.assertFalse(validate()["annual_top100_completed"])
@@ -38,6 +40,12 @@ class GameIntelligenceTests(unittest.TestCase):
         result = context("mmorpg")
         self.assertEqual(len(result["player_signals"]), 1)
         self.assertEqual(result["player_signals"][0]["game"], "Albion Online")
+
+    def test_mechanic_context_is_genre_scoped(self):
+        result = context("arpg")
+        self.assertEqual(result["blueprint"]["id"], "arpg")
+        self.assertTrue(result["mechanic_templates"])
+        self.assertTrue(all("arpg" in t["genres"] for t in result["mechanic_templates"]))
 
     def test_unknown_genre_rejected(self):
         with self.assertRaises(ValueError):
@@ -75,6 +83,12 @@ class GameIntelligenceTests(unittest.TestCase):
                              lambda d: d["items"][0].update(sentiment="probably_good"))
         self.assertFalse(result["ok"])
         self.assertTrue(any("invalid sentiment" in s for s in result["errors"]))
+
+    def test_bad_template_genre_rejected(self):
+        result = self.mutate("mechanic_templates.json",
+                             lambda d: d["templates"][0]["genres"].append("not_a_genre"))
+        self.assertFalse(result["ok"])
+        self.assertTrue(any("unknown genre" in s for s in result["errors"]))
 
     def test_unsourced_feedback_rejected(self):
         result = self.mutate("research/player_signals.json",
