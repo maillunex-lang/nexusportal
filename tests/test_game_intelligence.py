@@ -18,7 +18,7 @@ class GameIntelligenceTests(unittest.TestCase):
         self.assertEqual(result["genre_count"], 12)
         self.assertEqual(result["chart_entries"], 143)
         self.assertEqual(result["player_signals"], 8)
-        self.assertEqual(result["genre_blueprints"], 5)
+        self.assertEqual(result["genre_blueprints"], 12)
         self.assertEqual(result["editorial_games"], 11)
         self.assertEqual(result["market_insights"], 4)
         self.assertEqual(result["genres_with_top100_complete"], 0)
@@ -77,10 +77,13 @@ class GameIntelligenceTests(unittest.TestCase):
         self.assertTrue(result["player_feedback"])
         self.assertTrue(all("source_url" in x for x in result["player_feedback"]))
 
-    def test_unfinished_genre_is_not_presented_as_ready(self):
-        result = architect_brief("tower_defense")
-        self.assertEqual(result["status"], "taxonomy_only")
-        self.assertTrue(result["questions"])
+    def test_all_genres_have_blueprints(self):
+        genres = json.loads((ROOT / "genres.json").read_text(encoding="utf-8"))["genres"]
+        for genre in genres:
+            result = architect_brief(genre["id"])
+            self.assertEqual(result["status"], "design_proposal_not_implemented")
+            self.assertTrue(result["mvp"])
+            self.assertTrue(result["open_questions"])
 
     def test_unknown_genre_rejected(self):
         with self.assertRaises(ValueError):
