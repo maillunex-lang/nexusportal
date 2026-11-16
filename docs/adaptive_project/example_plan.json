@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "project": "Example cooperative naval MMO",
+  "repository": "OWNER/REPO",
+  "base_branch": "main",
+  "gdd_refs": [
+    "docs/gdd/01_CONCEPT.md",
+    "docs/gdd/02_NETWORK.md"
+  ],
+  "tasks": [
+    {
+      "id": "A1",
+      "title": "Сетевые контракты",
+      "description": "Определить серверные события и безопасную синхронизацию состояния",
+      "status": "todo",
+      "priority": 100,
+      "dependencies": [],
+      "file_scopes": [
+        "docs/network/**"
+      ],
+      "branch": "feature/network-contracts",
+      "acceptance": [
+        "Описаны команды и события",
+        "Есть модель переподключения",
+        "Согласована модель авторитетного сервера"
+      ],
+      "checks": [
+        "Проверка схем",
+        "Ревью контрактов"
+      ]
+    },
+    {
+      "id": "A2",
+      "title": "Прототип управления кораблём",
+      "status": "todo",
+      "priority": 80,
+      "dependencies": [],
+      "file_scopes": [
+        "client/ships/**"
+      ],
+      "branch": "feature/ship-control",
+      "acceptance": [
+        "Управление работает на Android",
+        "Учтены вырезы и безопасные зоны"
+      ],
+      "checks": [
+        "Godot headless validation",
+        "Android manual touch test"
+      ]
+    },
+    {
+      "id": "A3",
+      "title": "Серверное состояние кораблей",
+      "status": "todo",
+      "priority": 70,
+      "dependencies": [
+        "A1"
+      ],
+      "file_scopes": [
+        "server/ships/**"
+      ],
+      "acceptance": [
+        "Сервер проверяет команды",
+        "Повторная команда не дублирует действие"
+      ],
+      "checks": [
+        "Server unit tests"
+      ]
+    },
+    {
+      "id": "A4",
+      "title": "Сетевое соединение клиента",
+      "status": "todo",
+      "priority": 60,
+      "dependencies": [
+        "A1"
+      ],
+      "file_scopes": [
+        "client/network/**"
+      ],
+      "acceptance": [
+        "Переподключение восстанавливает состояние"
+      ],
+      "checks": [
+        "Reconnect test"
+      ]
+    },
+    {
+      "id": "A5",
+      "title": "Интеграция кооператива",
+      "status": "todo",
+      "priority": 50,
+      "dependencies": [
+        "A2",
+        "A3",
+        "A4"
+      ],
+      "file_scopes": [
+        "client/ships/**",
+        "server/ships/**"
+      ],
+      "acceptance": [
+        "Четыре игрока синхронизированы"
+      ],
+      "checks": [
+        "Four-client integration test"
+      ]
+    }
+  ]
+}
