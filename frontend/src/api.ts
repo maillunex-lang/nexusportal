@@ -31,7 +31,9 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
     headers["content-type"] = "application/json";
     body = JSON.stringify(opts.body);
   }
-  const res = await fetch(path, { method, headers, body, credentials: "same-origin" });
+  const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+  const url = path.startsWith("/api/") ? base + path : path;
+  const res = await fetch(url, { method, headers, body, credentials: "same-origin" });
   if (res.status === 401 && !path.startsWith("/api/auth/")) unauthListeners.forEach((f) => f());
   const text = await res.text();
   let data: any = null;
