@@ -192,6 +192,19 @@ class DispatchTests(unittest.TestCase):
     # Separate dispatch scenarios exercise atomic reservation rather than read-only preview.
     def test_dispatch_reserves(self):self.review();text=self.s.dispatch('sea-coop','A1','owner',self.v);self.assertTrue(text.endswith(self.p['tasks'][0]['prompt']));self.assertEqual(self.s.snapshot('sea-coop')['states']['A1']['status'],'in_progress')
     def test_dispatch_replay(self):self.review();text=self.s.dispatch('sea-coop','A1','owner',self.v);self.assertEqual(self.s.dispatch('sea-coop','A1','owner',self.v),text)
+    def test_unknown_scope_can_be_refined_after_dispatch(self):
+        self.p['tasks'][0]['file_scopes']=[];v=self.s.import_plan(raw(self.p),'owner');self.s.approve(v,'owner',self.v);self.v=v
+        self.review();initial=self.s.dispatch('sea-coop','A1','owner',v)
+        self.s.review('sea-coop','A1','owner',v,'Реальная зона изучена',['authority/**'])
+        updated=self.s.dispatch('sea-coop','A1','owner',v)
+        self.assertNotEqual(initial,updated);self.assertIn('Разрешённая зона: authority/**',updated)
+        self.assertIn('A2',self.s.snapshot('sea-coop')['queue']['ready'])
+    def test_approved_diff_is_historical(self):
+        self.p['tasks'][0]['title']='New title';v=self.s.import_plan(raw(self.p),'owner');self.s.approve(v,'owner',self.v)
+        with self.s.connection() as db:
+            p=self.s.preview(db,v)
+            self.assertEqual(p['diff']['changed'],['A1']);self.assertEqual(p['task_changes']['A1']['title']['after'],'New title')
+            self.assertEqual(p['compared_to_version'],self.v)
     def test_dispatch_cannot_skip_dependencies(self):
         self.review('A3')
         with self.assertRaises(ValueError):self.s.dispatch('sea-coop','A3','owner',self.v)

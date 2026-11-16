@@ -61,7 +61,11 @@ class Store:
         row=db.execute('SELECT * FROM bp_versions WHERE id=?',(version,)).fetchone()
         if not row:raise ValueError('Версия не найдена')
         row=dict(row);new=json.loads(row['document']);cur=self.current(db,row['project'])
-        old=json.loads(cur['document']) if cur else None
+        baseline=cur
+        if row['approved_at']:
+            parent=db.execute('SELECT * FROM bp_versions WHERE id=?',(row['parent_id'],)).fetchone()
+            baseline=dict(parent) if parent else None
+        old=json.loads(baseline['document']) if baseline else None
         delta=diff(old,new);states=self.states(db,row['project'])
         affected=set(delta['changed']+delta['removed']) | (set(delta['added']) & set(states))
         if delta['context_changed']:affected.update(states)
@@ -72,7 +76,10 @@ class Store:
             affected|=more
         active=sorted(k for k in affected if states.get(k,{}).get('status') in ACTIVE)
         reset=sorted(k for k in affected if states.get(k,{}).get('status')=='accepted' and k in {t['id'] for t in new['tasks']})
-        return {**row,'plan':new,'diff':delta,'active_affected':active,'reset_required':reset,
+        before={t['id']:t for t in old['tasks']} if old else {}
+        after={t['id']:t for t in new['tasks']}
+        changes={k:{field:{'before':before[k].get(field),'after':after[k].get(field)} for field in before[k].keys()|after[k].keys() if before[k].get(field)!=after[k].get(field)} for k in delta['changed']}
+        return {**row,'plan':new,'diff':delta,'task_changes':changes,'compared_to_version':baseline['id'] if baseline else None,'active_affected':active if not row['approved_at'] else [],'reset_required':reset if not row['approved_at'] else [],
                 'current_version':cur['id'] if cur else None,'affected':sorted(affected)}
     def approve(self,version,actor,expected_version,reset_ids=(),ack_active=False):
         with self.transaction() as db:
@@ -117,11 +124,21 @@ class Store:
             raise ValueError('Небезопасные файловые зоны')
         with self.transaction() as db:
             plan,task,states=self._context(db,project,tid,version)
-            if states[tid]['status'] in ACTIVE|{'accepted'}:raise Conflict('Нельзя менять зоны выданной задачи')
+            active=states[tid]['status'] in ACTIVE
+            if states[tid]['status']=='accepted' or (active and (states[tid].get('scopes',task['file_scopes']) or not scopes)):
+                raise Conflict('Нельзя менять подтверждённые зоны выданной задачи')
+            if active:
+                hypothetical={**states,tid:{**states[tid],'status':'todo','scopes':scopes}}
+                if tid not in schedule(plan,hypothetical)['ready']:raise Conflict('Уточнение создаёт конфликт с активной работой')
             if prompt_conflicts(task):raise Conflict('; '.join(prompt_conflicts(task)))
             db.execute('UPDATE bp_tasks SET reviewed=1,review_note=?,scopes=? WHERE project=? AND task=?',
                        (note,canonical(scopes) if scopes is not None else None,project,tid))
             self.event(db,project,actor,'review',{'note':note,'scopes':scopes},tid,version)
+            if active:
+                updated=self.states(db,project)
+                text=render_prompt(plan,task,updated,allow_active=True)
+                db.execute('INSERT INTO bp_dispatches(project,task,version,actor,prompt) VALUES(?,?,?,?,?)',(project,tid,version,actor,text))
+                self.event(db,project,actor,'scope_clarification',{'scopes':scopes,'prompt_hash':digest(text)},tid,version)
     def prompt(self,project,tid,version,base_sha=None):
         with self.connection() as db:
             plan,task,states=self._context(db,project,tid,version)
@@ -155,9 +172,10 @@ class Store:
             if status in ('ready','in_progress') and old in ('todo','ready'):
                 if tid not in schedule(plan,states)['ready']:raise Conflict('Задача заблокирована')
                 if status=='in_progress':
-                    render_prompt(plan,task,states)
+                    issued=render_prompt(plan,task,states)
                     if any(t['branch']==task['branch'] and states[t['id']]['status'] in ACTIVE for t in plan['tasks'] if t['id']!=tid):
                         raise Conflict('Рабочая ветка занята')
+                    db.execute('INSERT INTO bp_dispatches(project,task,version,actor,prompt) VALUES(?,?,?,?,?)',(project,tid,version,actor,issued))
             # Resuming blocked/failed work requires fresh scheduling and prompt review.
             if status=='todo':db.execute('UPDATE bp_tasks SET reviewed=0 WHERE project=? AND task=?',(project,tid))
             if pr is not None and (type(pr)!=int or pr<1):raise ValueError('Некорректный номер PR')

@@ -140,9 +140,12 @@ def diff(old,new):
             'dependencies_changed':sorted(k for k in changed if a[k]['dependencies']!=b[k]['dependencies']),
             'context_changed':bool(old and any(old[k]!=new[k] for k in ('project','documents')))}
 
-def render_prompt(plan,task,states,base_sha=None):
+def render_prompt(plan,task,states,base_sha=None,allow_active=False):
     tid=task['id']
-    if tid not in schedule(plan,states)['ready']:raise ValueError('Задача заблокирована или уже выдана')
+    checking=states
+    if allow_active and states.get(tid,{}).get('status') in ACTIVE:
+        checking={**states,tid:{**states[tid],'status':'todo'}}
+    if tid not in schedule(plan,checking)['ready']:raise ValueError('Задача заблокирована или уже выдана')
     state=states.get(tid,{})
     if not state.get('reviewed'):raise ValueError('Директор должен проверить смысл промпта и подтвердить ограничения')
     zone=scopes(task,state)
