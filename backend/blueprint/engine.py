@@ -119,7 +119,7 @@ def schedule(plan,states):
         unmet=[d for d in t['dependencies'] if states.get(d,{}).get('status')!='accepted']
         if unmet:reasons.append('Ожидает принятия: '+', '.join(unmet))
         reasons+=prompt_conflicts(t)
-        conflicts=[a['id'] for a in active if overlap(scopes(t,s),scopes(a,states.get(a['id'],{})))]
+        conflicts=[a['id'] for a in active if t['branch']==a['branch'] or overlap(scopes(t,s),scopes(a,states.get(a['id'],{})))]
         if conflicts:reasons.append('Конфликт с активными задачами: '+', '.join(conflicts))
         if reasons:blocked[t['id']]=reasons
         else:candidates.append(t)

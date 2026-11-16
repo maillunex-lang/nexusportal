@@ -142,6 +142,8 @@ class Store:
             self.event(db,project,actor,'dispatch',{'from':states[tid]['status'],'to':'in_progress','prompt_hash':digest(prompt)},tid,version)
             return prompt
     def transition(self,project,tid,status,actor,role,version,expected_status,note='',executor='',pr=None,evidence=None):
+        if not isinstance(status,str) or not isinstance(expected_status,str):raise ValueError('Статус должен быть строкой')
+        if not isinstance(note,str) or len(note)>20000 or not isinstance(executor,str) or len(executor)>200:raise ValueError('Некорректный отчёт или исполнитель')
         with self.transaction() as db:
             plan,task,states=self._context(db,project,tid,version);old=states[tid]['status']
             if old!=expected_status:raise Conflict('Статус изменился, обновите экран')
