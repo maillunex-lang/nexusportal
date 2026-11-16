@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.game_intelligence import ROOT, architect_brief, check_url, context, game_catalog, validate
+from tools.game_intelligence import ROOT, blueprint_context, architect_brief, check_url, context, game_catalog, validate
 
 
 class GameIntelligenceTests(unittest.TestCase):
@@ -17,9 +17,9 @@ class GameIntelligenceTests(unittest.TestCase):
         result = validate()
         self.assertEqual(result["genre_count"], 12)
         self.assertEqual(result["chart_entries"], 143)
-        self.assertEqual(result["player_signals"], 8)
+        self.assertEqual(result["player_signals"], 14)
         self.assertEqual(result["genre_blueprints"], 12)
-        self.assertEqual(result["editorial_games"], 11)
+        self.assertEqual(result["editorial_games"], 20)
         self.assertEqual(result["market_insights"], 4)
         self.assertEqual(result["genres_with_top100_complete"], 0)
         self.assertEqual(result["mechanic_templates"], 12)
@@ -41,7 +41,7 @@ class GameIntelligenceTests(unittest.TestCase):
 
     def test_context_does_not_load_other_genres(self):
         result = context("mmorpg")
-        self.assertEqual(len(result["player_signals"]), 1)
+        self.assertEqual(len(result["player_signals"]), 3)
         self.assertEqual(result["player_signals"][0]["game"], "Albion Online")
 
     def test_mechanic_context_is_genre_scoped(self):
@@ -88,6 +88,95 @@ class GameIntelligenceTests(unittest.TestCase):
     def test_unknown_genre_rejected(self):
         with self.assertRaises(ValueError):
             context("unknown")
+
+    def test_blueprint_envelope_all_genres(self):
+        genres = json.loads((ROOT / "genres.json").read_text())["genres"]
+        for g in genres:
+            with self.subTest(genre=g["id"]):
+                result = blueprint_context(g["id"])
+                self.assertEqual(result["schema_version"], "nexus.game-intelligence.context.v1")
+                self.assertFalse(result["integration_contract"]["approval_granted"])
+                self.assertFalse(result["research_gaps"]["annual_top100_complete"])
+                self.assertTrue(result["brief"]["game_dossiers"])
+                self.assertTrue(all(g["id"] in d["genre_ids"] for d in result["brief"]["game_dossiers"]))
+                source_ids = {x["id"] for x in result["sources"]}
+                self.assertTrue(all(set(d["source_ids"]) <= source_ids for d in result["brief"]["game_dossiers"]))
+                self.assertNotIn("tasks", result)
+                self.assertNotIn("file_scope", result)
+
+    def test_blueprint_feedback_provenance(self):
+        result = blueprint_context("mmorpg")
+        urls = {s["url"] for s in result["sources"]}
+        self.assertTrue(all(s["source_url"] in urls for s in result["brief"]["player_feedback"]))
+        self.assertTrue(all(s["published_at"] and s["source_type"] for s in result["brief"]["player_feedback"]))
+
+    def test_blueprint_deterministic(self):
+        self.assertEqual(blueprint_context("rts"), blueprint_context("rts"))
+
+    def test_blueprint_unknown_genre(self):
+        with self.assertRaises(ValueError):
+            blueprint_context("invented")
+
+    def test_blueprint_digest_changes_with_evidence(self):
+        with tempfile.TemporaryDirectory() as temp:
+            target = Path(temp) / "data"
+            shutil.copytree(ROOT, target)
+            before = blueprint_context("rts", target)
+            file = target / "research/game_dossiers.json"
+            data = json.loads(file.read_text())
+            data["dossiers"][0]["design_proposal"]["risk"] += " New caveat."
+            file.write_text(json.dumps(data))
+            self.assertNotEqual(before["knowledge_digest"], blueprint_context("rts", target)["knowledge_digest"])
+
+    def test_blueprint_fails_closed(self):
+        with tempfile.TemporaryDirectory() as temp:
+            target = Path(temp) / "data"
+            shutil.copytree(ROOT, target)
+            file = target / "research/game_dossiers.json"
+            data = json.loads(file.read_text())
+            data["dossiers"][0]["source_ids"] = ["unknown"]
+            file.write_text(json.dumps(data))
+            with self.assertRaises(ValueError):
+                blueprint_context("mmorpg", target)
+
+    def test_dossier_counts(self):
+        self.assertEqual(validate()["game_dossiers"], 12)
+
+    def test_dossier_duplicate_rejected(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"].append(d["dossiers"][0]))
+        self.assertTrue(any("duplicate game" in e for e in result["errors"]))
+
+    def test_dossier_missing_source(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(source_ids=["fake"]))
+        self.assertTrue(any("missing provenance" in e for e in result["errors"]))
+
+    def test_dossier_missing_fact(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0]["facts"].pop("economy"))
+        self.assertTrue(any("missing economy" in e for e in result["errors"]))
+
+    def test_dossier_invalid_genre(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(genre_ids=["invented"]))
+        self.assertFalse(result["ok"])
+
+    def test_dossier_unrelated_review(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(review_signal_ids=["caplab_city_1"]))
+        self.assertTrue(any("unrelated review" in e for e in result["errors"]))
+
+    def test_dossier_pc_identity_rejected(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][-1].update(store_identity={"store": "app_store", "app_id": "123"}))
+        self.assertTrue(any("PC reference" in e for e in result["errors"]))
+
+    def test_dossier_store_id_must_match_source(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0]["store_identity"].update(app_id="wrong_id"))
+        self.assertTrue(any("identity not supported" in e for e in result["errors"]))
+
+    def test_dossier_future_date_rejected(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(observed_at="2027-01-01"))
+        self.assertTrue(any("future observation" in e for e in result["errors"]))
+
+    def test_dossier_missing_caveats_rejected(self):
+        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(limitations=[]))
+        self.assertTrue(any("missing limitations" in e for e in result["errors"]))
 
     def mutate(self, path, fn):
         with tempfile.TemporaryDirectory() as temp:

@@ -217,6 +217,153 @@
         "subsidiaries",
         "market_information"
       ]
+    },
+    {
+      "id": "titan_quest_ultimate",
+      "title": "Titan Quest: Ultimate Edition",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "arpg"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-IE&id=com.hg.titanquestultimate",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Action combat, masteries and equipment loot."
+      ]
+    },
+    {
+      "id": "rise_of_kingdoms",
+      "title": "Rise of Kingdoms: Lost Crusade",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.roc.gp",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Exploration, investigation, alliance territory and real-time warfare."
+      ]
+    },
+    {
+      "id": "sim_companies",
+      "title": "Sim Companies",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en_US&id=com.simcompanies.simcompaniespwa",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Production, retail and research businesses compete in a shared economy."
+      ]
+    },
+    {
+      "id": "rusted_warfare",
+      "title": "Rusted Warfare - RTS Strategy",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "rts"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.corrodinggames.rts",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Base construction, resource extraction and land/air/sea unit commands."
+      ]
+    },
+    {
+      "id": "last_day_on_earth",
+      "title": "Last Day on Earth: Survival",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "survival"
+      ],
+      "source_url": "https://apps.apple.com/us/app/last-day-on-earth-survival/id1241932094",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Gather, craft shelter/equipment and explore dangerous locations."
+      ]
+    },
+    {
+      "id": "minecraft_bedrock",
+      "title": "Minecraft: Play with Friends!",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "sandbox",
+        "survival"
+      ],
+      "source_url": "https://apps.apple.com/us/app/minecraft-play-with-friends/id479516143",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Editable block world, crafting and exploration; Creative and Survival modes."
+      ]
+    },
+    {
+      "id": "afk_arena",
+      "title": "AFK Arena",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "idle_rpg"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.hgame.gp",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Auto-battle and offline rewards; current listing promotes Companions."
+      ]
+    },
+    {
+      "id": "warship_craft_ios",
+      "title": "Warship Craft",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "naval_strategy",
+        "sandbox"
+      ],
+      "source_url": "https://apps.apple.com/us/app/warship-craft/id906560615",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Construct ships from parts with buoyancy, speed and durability simulation."
+      ]
+    },
+    {
+      "id": "bloons_td6",
+      "title": "Bloons TD 6",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "tower_defense"
+      ],
+      "source_url": "https://apps.apple.com/us/app/bloons-td-6/id1118115766?platform=ipad",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Tower placement, upgrade branches and heroes counter invading waves."
+      ]
     }
   ],
   "ranking_policy": "No annual or custom-genre rank assigned. Source chart positions remain in snapshots, independent from these editorial labels."

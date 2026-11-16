@@ -1,0 +1,397 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "status": "partial_primary_source_research",
+  "dossiers": [
+    {
+      "game_id": "albion_online",
+      "genre_ids": [
+        "mmorpg"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_albion_online"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.albiononline"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Nonlinear exploration and classless customization; guilds, markets and territory conflict.",
+        "economy": "Living markets; exact sink balance not audited.",
+        "progression": "Character builds and gathering.",
+        "pve_pvp": "Solo/group dungeons and territory PvP.",
+        "monetization": "In-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Separate touch targeting from camera gestures; test travel costs against trade incentives.",
+        "risk": "Transport friction may undermine social access; hypothesis, not a measured defect."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": [
+        "albion_store_travel",
+        "albion_store_prompts"
+      ]
+    },
+    {
+      "game_id": "titan_quest_ultimate",
+      "genre_ids": [
+        "arpg"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_titan_quest_ultimate"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.hg.titanquestultimate"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Action combat, masteries and equipment loot.",
+        "economy": "Loot acquisition; trading model not audited.",
+        "progression": "Mastery/class choices and increasingly difficult enemies.",
+        "pve_pvp": "PvE journey; mobile co-op/PvP not established here.",
+        "monetization": "Paid bundle including expansions."
+      },
+      "design_proposal": {
+        "opportunity": "Prototype respec and readable loot comparisons before expanding item counts.",
+        "risk": "Large build space can overload a phone UI; design risk requiring a playtest."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "rise_of_kingdoms",
+      "genre_ids": [
+        "4x"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_rise_of_kingdoms"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.lilithgame.roc.gp"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Exploration, investigation, alliance territory and real-time warfare.",
+        "economy": "Resource and timer balance not audited.",
+        "progression": "Commander development.",
+        "pve_pvp": "Alliance competition; detailed PvE distribution unknown.",
+        "monetization": "Ads and in-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Test newcomer protection and time-zone fairness before competitive events.",
+        "risk": "Alliance scheduling may exclude casual players; validate separately."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "sim_companies",
+      "genre_ids": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_sim_companies"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.simcompanies.simcompaniespwa"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Production, retail and research businesses compete in a shared economy.",
+        "economy": "Supply-chain management, financing and market-responsive pricing.",
+        "progression": "Start with capital/assets and develop a competitive company.",
+        "pve_pvp": "Economic competition; combat not established.",
+        "monetization": "In-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Expose contribution margins and compare buying inputs against internal production.",
+        "risk": "Market opacity and dominant incumbents require scenario tests."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "rusted_warfare",
+      "genre_ids": [
+        "rts"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_rusted_warfare"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.corrodinggames.rts"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Base construction, resource extraction and land/air/sea unit commands.",
+        "economy": "Resource allocation to armies.",
+        "progression": "Advanced and experimental units within matches.",
+        "pve_pvp": "AI missions/skirmishes and online/offline multiplayer.",
+        "monetization": "Paid; developer states no microtransactions."
+      },
+      "design_proposal": {
+        "opportunity": "Prototype unit groups, minimap commands and reconnect before adding factions.",
+        "risk": "Touch command density needs testing; no performance benchmark collected."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": [
+        "rts_store_controls"
+      ]
+    },
+    {
+      "game_id": "simcity_buildit",
+      "genre_ids": [
+        "city_builder"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_simcity_buildit"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.ea.game.simcitymobile_row"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Build a city, keep citizens happy, trade and join mayor clubs.",
+        "economy": "Trade; detailed production costs not audited.",
+        "progression": "Expand the city and earn competition rewards.",
+        "pve_pvp": "Monster encounters, club wars and mayor competitions.",
+        "monetization": "Ads and optional currency/item purchases, including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Keep service coverage visible and separate peaceful building goals from optional conflict.",
+        "risk": "Competition rewards may distort city planning; hypothesis."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "last_day_on_earth",
+      "genre_ids": [
+        "survival"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_last_day_on_earth"
+      ],
+      "store_identity": {
+        "store": "app_store",
+        "app_id": "1241932094"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Gather, craft shelter/equipment and explore dangerous locations.",
+        "economy": "Resource collection and crafting.",
+        "progression": "Recipes, skills, weapons and vehicles unlock access.",
+        "pve_pvp": "Zombie encounters; Crater social play and PvP.",
+        "monetization": "Free with in-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Show a first-session recipe path and quantify recovery after death.",
+        "risk": "Rare-resource bottlenecks may stall progression; review sample is limited."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": [
+        "survival_store_scarcity"
+      ]
+    },
+    {
+      "game_id": "minecraft_bedrock",
+      "genre_ids": [
+        "sandbox",
+        "survival"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_minecraft_bedrock"
+      ],
+      "store_identity": {
+        "store": "app_store",
+        "app_id": "479516143"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Editable block world, crafting and exploration; Creative and Survival modes.",
+        "economy": "Resource gathering/crafting; marketplace is separate from survival resources.",
+        "progression": "Player goals; resource/tool acquisition in Survival.",
+        "pve_pvp": "Solo, cross-platform multiplayer and community servers.",
+        "monetization": "Paid app, marketplace purchases and optional Realms subscriptions."
+      },
+      "design_proposal": {
+        "opportunity": "Separate creative permissions from survival inventory and add reversible build operations.",
+        "risk": "Public creations require moderation; complex edits require mobile precision aids."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "afk_arena",
+      "genre_ids": [
+        "idle_rpg"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_afk_arena"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.lilithgame.hgame.gp"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Auto-battle and offline rewards; current listing promotes Companions.",
+        "economy": "Reward and summon systems; current cap/drop rates not audited.",
+        "progression": "Stage unlocks, hero summons and borrowing friends' heroes.",
+        "pve_pvp": "Stages and competitive-multiplayer store tag; exact modes unknown.",
+        "monetization": "In-app purchases including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Use server time for capped rewards and test useful formation choices without spending.",
+        "risk": "Classic-era reviews cannot establish current Companions balance."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": [
+        "afk_store_tutorial"
+      ]
+    },
+    {
+      "game_id": "warship_craft_ios",
+      "genre_ids": [
+        "naval_strategy",
+        "sandbox"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_warship_craft_ios"
+      ],
+      "store_identity": {
+        "store": "app_store",
+        "app_id": "906560615"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Construct ships from parts with buoyancy, speed and durability simulation.",
+        "economy": "Parts acquisition costs not audited.",
+        "progression": "Improve ship designs and compete on a leaderboard.",
+        "pve_pvp": "Real-time Game Center battles; PvE depth needs independent verification.",
+        "monetization": "Free with in-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Budget physics by ship complexity and provide clear damage feedback.",
+        "risk": "Naval-combat construction reference; does not establish trade/diplomacy genre coverage."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": [
+        "naval_store_endgame"
+      ]
+    },
+    {
+      "game_id": "bloons_td6",
+      "genre_ids": [
+        "tower_defense"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_bloons_td6"
+      ],
+      "store_identity": {
+        "store": "app_store",
+        "app_id": "1118115766"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Tower placement, upgrade branches and heroes counter invading waves.",
+        "economy": "In-match defensive spending; wider economy not audited.",
+        "progression": "Tower upgrades and hero levels.",
+        "pve_pvp": "Offline play and online co-op; PvP not established here.",
+        "monetization": "Paid app with in-app purchases."
+      },
+      "design_proposal": {
+        "opportunity": "Provide wave previews, range feedback and a small set of viable counters.",
+        "risk": "Content quantity is not proof of balanced strategy diversity."
+      },
+      "limitations": [
+        "Listing availability does not establish 2026 popularity or rank.",
+        "No independent playthrough or retention measurement."
+      ],
+      "review_signal_ids": []
+    },
+    {
+      "game_id": "capitalism_lab",
+      "genre_ids": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "capitalism_lab_home_20261116"
+      ],
+      "store_identity": null,
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Subsidiaries with AI CEOs and stock listings; city-policy and technology-business DLC.",
+        "economy": "Business ownership and city simulation.",
+        "progression": "Expansion through companies and DLC scenarios.",
+        "pve_pvp": "AI-managed firms; multiplayer not established here.",
+        "monetization": "Paid base game and DLC."
+      },
+      "design_proposal": {
+        "opportunity": "Compare delegated company management against repetitive manual procurement in a deterministic prototype.",
+        "risk": "PC management density needs mobile adaptation; no claim of retention improvement."
+      },
+      "limitations": [
+        "PC reference only; not eligible for mobile ranking.",
+        "Publisher statements are not independent reviews."
+      ],
+      "review_signal_ids": [
+        "caplab_margin_1",
+        "caplab_information_1",
+        "caplab_city_1",
+        "caplab_depth_1",
+        "caplab_ux_1"
+      ]
+    }
+  ]
+}

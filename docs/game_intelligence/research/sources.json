@@ -137,6 +137,123 @@
       "type": "player_discussion",
       "date": "2026-06-01",
       "method": "Single public discussion post"
+    },
+    {
+      "id": "primary_albion_online",
+      "url": "https://play.google.com/store/apps/details/Albion_Online?hl=en&id=com.albiononline",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_titan_quest_ultimate",
+      "url": "https://play.google.com/store/apps/details?hl=en-IE&id=com.hg.titanquestultimate",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "IE",
+      "language": "en"
+    },
+    {
+      "id": "primary_rise_of_kingdoms",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.roc.gp",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_sim_companies",
+      "url": "https://play.google.com/store/apps/details?hl=en_US&id=com.simcompanies.simcompaniespwa",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_rusted_warfare",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.corrodinggames.rts",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_simcity_buildit",
+      "url": "https://play.google.com/store/apps/details?hl=de&id=com.ea.game.simcitymobile_row",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "DE",
+      "language": "de"
+    },
+    {
+      "id": "primary_last_day_on_earth",
+      "url": "https://apps.apple.com/us/app/last-day-on-earth-survival/id1241932094",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_minecraft_bedrock",
+      "url": "https://apps.apple.com/us/app/minecraft-play-with-friends/id479516143",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_afk_arena",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.hgame.gp",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_warship_craft_ios",
+      "url": "https://apps.apple.com/us/app/warship-craft/id906560615",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_bloons_td6",
+      "url": "https://apps.apple.com/us/app/bloons-td-6/id1118115766?platform=ipad",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "capitalism_lab_home_20261116",
+      "url": "https://www.capitalismlab.com/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Official publisher homepage; DLC feature claims, not representative sentiment."
     }
   ]
 }

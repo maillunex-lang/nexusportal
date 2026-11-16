@@ -20,7 +20,7 @@ python -m unittest discover -s tests -p "test_game_intelligence.py" -v
 
 ### Known limitations
 - 143 dated chart observations are not 143 unique, app-ID-verified titles and are not a complete top-100 for any of the 12 editorial genres.
-- Genre memberships are currently provisional editorial assessments; full independent mechanics audits and stable store IDs are pending.
+- Genre memberships are currently provisional editorial assessments; independent playthrough audits and remaining store identities are pending; the new dossiers include one verified store identity per mobile reference.
 - Player signals are a small, self-selected sample; no statistical population claims.
 - Market estimates from external analytics companies are not official store financial statements.
 - All 12 genres now have first-pass authored MVP/architecture blueprints, but these are design proposals, not independently validated implementation templates.
@@ -29,3 +29,17 @@ python -m unittest discover -s tests -p "test_game_intelligence.py" -v
 
 ## Integration plan
 After portal 1.0 lands, expose read-only API endpoints for `genres`, `games`, `context` and `architect` under a feature flag; do not touch the in-progress Claude branch. Require explicit editorial review before an insight can be marked verified. Add a scheduled importer only after licensing, provenance and rate limits are established.
+
+## Primary dossiers and Blueprint preparation
+
+The corpus now includes 12 primary-source game dossiers spanning all 12 genres,
+20 editorial reference games and 14 qualitative player signals. New samples retain
+publication dates, including older feedback; they are not all 2026 opinions.
+
+```bash
+python tools/game_intelligence.py blueprint --genre naval_strategy
+```
+
+See [BLUEPRINT_CONTEXT.md](BLUEPRINT_CONTEXT.md) for the versioned envelope,
+provenance, corpus digest and approval boundary. See
+[the research checkpoint](research/UPDATE_2026_11_16.md) for current gaps.
