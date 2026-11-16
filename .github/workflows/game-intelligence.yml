@@ -1,0 +1,30 @@
+name: Game Intelligence checks
+
+on:
+  push:
+    branches: [feat/game-intelligence-knowledge]
+    paths:
+      - "docs/game_intelligence/**"
+      - "tools/game_intelligence.py"
+      - "tests/test_game_intelligence.py"
+      - ".github/workflows/game-intelligence.yml"
+  pull_request:
+    paths:
+      - "docs/game_intelligence/**"
+      - "tools/game_intelligence.py"
+      - "tests/test_game_intelligence.py"
+      - ".github/workflows/game-intelligence.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate-research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/game_intelligence.py validate
+      - run: python -m unittest discover -s tests -p "test_game_intelligence.py" -v
