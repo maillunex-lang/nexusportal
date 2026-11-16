@@ -34,7 +34,8 @@ SIGNS = [
 ]
 PORTAL_FILES = ["README.md", "docs/AI_RULES.md", "docs/DIRECTOR_HANDOVER.md", "docs/PORTAL_PROTOCOL.md",
                 "docs/GDD.md", "docs/gdd/DECISIONS_APPROVED.md", "docs/WORK_PLAN.md", "docs/work_plan.json",
-                "docs/EXECUTOR_RULES.md", "tools/work_plan.py", ".github/workflows/nexus-checks.yml"]
+                "docs/EXECUTOR_RULES.md", "tools/work_plan.py", "tools/context_pack.py",
+                "docs/PROJECT_INDEX.md", "docs/context/modules.json", ".github/workflows/nexus-checks.yml"]
 
 
 def analyze(tree: list[dict]) -> dict:

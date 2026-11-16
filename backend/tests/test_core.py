@@ -15,7 +15,7 @@ from .conftest import TOKEN
 def test_migrations_idempotent_and_wal(tmp_path):
     db = Database(tmp_path / "x.sqlite3")
     applied = db.migrate()
-    assert applied == ["0001_init"]
+    assert applied == ["0001_init", "0002_context_index"]
     assert db.migrate() == []
     assert db.journal_mode() == "wal"
     tables = {r["name"] for r in db.all("SELECT name FROM sqlite_master WHERE type='table'")}

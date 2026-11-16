@@ -21,6 +21,14 @@ jobs:
         run: python3 tools/work_plan.py check
       - name: Готовые задачи
         run: python3 tools/work_plan.py next
+      - name: Smart Context — индекс модулей, устаревшие ссылки, циклы
+        run: python3 tools/context_pack.py check --strict
+      - name: Smart Context — PROJECT_INDEX.md актуален
+        run: |
+          python3 tools/context_pack.py index > /tmp/index.md
+          diff -u docs/PROJECT_INDEX.md /tmp/index.md
+      - name: Smart Context — движок самодостаточен (stdlib)
+        run: python3 -I backend/context/engine.py check
       - name: Шаблонный движок самодостаточен (stdlib)
         run: python3 -I backend/roadmap/engine.py --file docs/work_plan.json check
 
@@ -46,6 +54,8 @@ jobs:
         run: python -m pytest -q backend/tests/test_deploy.py
       - name: Релизы и APK
         run: python -m pytest -q backend/tests/test_releases.py
+      - name: Smart Context
+        run: python -m pytest -q backend/tests/test_context.py
       - name: Память и уведомления
         run: python -m pytest -q backend/tests/test_memory_notify.py
       - name: Все тесты

@@ -227,6 +227,12 @@ def pull_roadmap(request: Request, project=Depends(get_project), p=Depends(porta
     except (ValueError, engine.PlanError) as e:
         raise HTTPException(400, f"План некорректен: {e}")
     audit(p.db, "owner", "roadmap_pulled", project["id"], {"tasks": len(plan["tasks"])}, client_ip(request))
+    try:
+        mf = p.github().get_file(project["repo_full_name"], "docs/context/modules.json", project["default_branch"])
+        if mf:
+            _store_index(p, project, json.loads(mf[0]))
+    except (GitHubError, ValueError, HTTPException):
+        pass
     return {"plan": plan}
 
 
@@ -282,3 +288,90 @@ def del_memory(entry_id: int, project=Depends(get_project), p=Depends(portal)):
     if not memory.delete(p.db, project["id"], entry_id):
         raise HTTPException(404, "Запись не найдена")
     return {"ok": True}
+
+
+# --- NEXUS Smart Context
+from ..context import engine as ctx  # noqa: E402
+
+
+def _index(p, project: dict) -> dict:
+    row = p.db.one("SELECT context_index FROM projects WHERE id=?", (project["id"],))
+    idx = loads(row["context_index"], {}) or {}
+    idx.pop("task_modules", None)
+    return idx
+
+
+@router.get("/projects/{project_id}/context-index")
+def get_context_index(project=Depends(get_project), p=Depends(portal)):
+    idx = _index(p, project)
+    plan = roadmap.export_plan(p.db, project)
+    return {"index": idx, "check": ctx.check(idx, plan), "markdown": ctx.render_index(idx, plan) if idx else ""}
+
+
+class IndexIn(BaseModel):
+    index: dict[str, Any]
+
+
+def _store_index(p, project: dict, idx: dict) -> dict:
+    res = ctx.check(idx, roadmap.export_plan(p.db, project))
+    if res["errors"]:
+        raise HTTPException(400, "Индекс некорректен: " + "; ".join(res["errors"]))
+    cur = loads(p.db.one("SELECT context_index FROM projects WHERE id=?", (project["id"],))["context_index"], {}) or {}
+    idx = dict(idx, task_modules=cur.get("task_modules", {}))
+    p.db.execute("UPDATE projects SET context_index=? WHERE id=?", (dumps(idx), project["id"]))
+    return res
+
+
+@router.put("/projects/{project_id}/context-index")
+def put_context_index(body: IndexIn, request: Request, project=Depends(get_project), p=Depends(portal)):
+    res = _store_index(p, project, body.index)
+    audit(p.db, "owner", "context_index_updated", project["id"], {"modules": len(body.index.get("modules", []))}, client_ip(request))
+    return {"check": res}
+
+
+@router.post("/projects/{project_id}/context-index/pull")
+def pull_context_index(project=Depends(get_project), p=Depends(portal)):
+    """Обновить индекс из репозитория и выявить устаревшие ссылки по фактическому дереву файлов."""
+    if not project["repo_full_name"]:
+        raise HTTPException(400, "Репозиторий не подключён")
+    gh = p.github()
+    try:
+        f = gh.get_file(project["repo_full_name"], ctx.INDEX_PATH, project["default_branch"])
+        tree = {t["path"] for t in gh.tree(project["repo_full_name"], project["default_branch"])}
+    except GitHubError as e:
+        _gh_error(e)
+    if not f:
+        raise HTTPException(404, f"{ctx.INDEX_PATH} не найден в репозитории")
+    try:
+        idx = json.loads(f[0])
+    except ValueError:
+        raise HTTPException(400, "modules.json: некорректный JSON")
+    res = _store_index(p, project, idx)
+    res["warnings"] += stale_refs(idx, tree)
+    return {"check": res}
+
+
+def stale_refs(idx: dict, tree: set[str]) -> list[str]:
+    out = []
+    dirs = {"/".join(x.split("/")[:i]) for x in tree for i in range(1, x.count("/") + 1)}
+    for k, d in idx.get("docs", {}).items():
+        if d["path"] not in tree:
+            out.append(f"Документ {k}: файл {d['path']} отсутствует в репозитории")
+    for m in idx.get("modules", []):
+        for kind in ("paths", "contracts", "tests"):
+            for pat in m.get(kind, []):
+                base = ctx._pattern_base(pat)
+                if base and base not in tree and base not in dirs:
+                    out.append(f"Модуль {m['id']}: {kind} {pat} отсутствует в репозитории")
+    return out
+
+
+@router.get("/projects/{project_id}/tasks/{key}/context")
+def task_context(key: str, level: str = "standard", project=Depends(get_project), p=Depends(portal)):
+    idx = _index(p, project)
+    plan = roadmap.export_plan(p.db, project)
+    try:
+        text = ctx.pack(idx, plan, key, level)
+    except ctx.ContextError as e:
+        raise HTTPException(404 if "не найдена" in str(e) else 400, str(e))
+    return {"prompt": text, "level": level, "chars": len(text)}

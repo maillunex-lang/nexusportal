@@ -35,7 +35,7 @@
       "goal": "FastAPI, SQLite WAL, миграции, авторизация владельца, сессии, CSRF, журнал действий, API, конфигурация.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/core/**",
@@ -51,7 +51,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "core"
+      ]
     },
     {
       "id": "N2",
@@ -61,7 +64,7 @@
       "goal": "React/TypeScript/Vite PWA, светлая/тёмная темы, от 360 px, safe-area, 13 экранов на русском.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "frontend/**"
@@ -75,7 +78,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "ui"
+      ]
     },
     {
       "id": "N3",
@@ -85,7 +91,7 @@
       "goal": "Типы проектов, подключение/создание репозитория, анализ, шаблоны, предпросмотр и запись только отсутствующих файлов.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/projects/**"
@@ -99,7 +105,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "projects"
+      ]
     },
     {
       "id": "N4",
@@ -109,7 +118,7 @@
       "goal": "Стартовый промпт директора, AI_RULES, DIRECTOR_HANDOVER, PORTAL_PROTOCOL, GDD, дорожная карта, правила исполнителей.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/prompts/**"
@@ -123,7 +132,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "prompts"
+      ]
     },
     {
       "id": "N5",
@@ -133,7 +145,7 @@
       "goal": "Этапы, зависимости DAG, линии, готовые задачи, промпты задач, команды next/prompt/check/render.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/roadmap/**",
@@ -148,7 +160,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "roadmap"
+      ]
     },
     {
       "id": "N6",
@@ -158,7 +173,7 @@
       "goal": "Общий токен на сервере, REST API, подписанные webhooks, дедупликация, резервная сверка, PR/коммиты/CI/SHA.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/github/**"
@@ -172,7 +187,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "github"
+      ]
     },
     {
       "id": "N7",
@@ -182,7 +200,7 @@
       "goal": "Слияние после зелёного обязательного CI на актуальном SHA, done после слияния, промпт исправления, аварийные выключатели.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/orchestration/**"
@@ -197,7 +215,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "orchestration"
+      ]
     },
     {
       "id": "N8",
@@ -207,7 +228,7 @@
       "goal": "Один VPS, SSH, сценарии dev/prod проекта, резервные копии, журнал, откат, установочные сценарии портала.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/deploy/**",
@@ -223,7 +244,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "deploy"
+      ]
     },
     {
       "id": "N9",
@@ -233,7 +257,7 @@
       "goal": "Релизный CI, проверка артефакта, SHA-256, подписи и SHA, атомарная публикация, история и откат.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/releases/**"
@@ -248,7 +272,10 @@
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",
-      "status": "in_progress"
+      "status": "in_progress",
+      "modules": [
+        "releases"
+      ]
     },
     {
       "id": "N10",
@@ -258,7 +285,7 @@
       "goal": "Изолированная память проекта, «Контекст для ИИ», уведомления в портале, Telegram и MAX.",
       "context": "Реализовано в ветке feat/nexusportal-full-v1 (один PR). done выставит портал после слияния.",
       "gdd_refs": [
-        "docs/GDD.md"
+        "spec"
       ],
       "file_scope": [
         "backend/memory/**",
@@ -272,6 +299,40 @@
       "done_when": [
         "Обязательный CI зелёный",
         "Тесты пакета проходят",
+        "PR слит"
+      ],
+      "branch": "feat/nexusportal-full-v1",
+      "status": "in_progress",
+      "modules": [
+        "memory"
+      ]
+    },
+    {
+      "id": "SC",
+      "title": "NEXUS Smart Context",
+      "stage": "S3",
+      "lane": "context",
+      "goal": "Модульные индексы, разделённый GDD, пакеты контекста трёх уровней, проверка устаревших ссылок и циклов.",
+      "context": "Дополнение владельца к заданию.",
+      "gdd_refs": [
+        "protocol"
+      ],
+      "file_scope": [
+        "backend/context/**",
+        "tools/context_pack.py",
+        "docs/context/**",
+        "docs/PROJECT_INDEX.md"
+      ],
+      "modules": [
+        "context"
+      ],
+      "depends_on": [
+        "N4",
+        "N5"
+      ],
+      "done_when": [
+        "Обязательный CI зелёный",
+        "Тесты выбора контекста проходят",
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",

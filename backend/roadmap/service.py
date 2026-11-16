@@ -19,6 +19,7 @@ def _task_row(r: dict) -> dict:
 
 
 def export_plan(db: Database, project: dict) -> dict:
+    project = db.one("SELECT * FROM projects WHERE id=?", (project["id"],)) or project
     stages = db.all("SELECT stage_key, title FROM stages WHERE project_id=? ORDER BY position, id", (project["id"],))
     tasks = db.all("SELECT * FROM tasks WHERE project_id=? ORDER BY id", (project["id"],))
     return engine.normalize({
@@ -28,8 +29,15 @@ def export_plan(db: Database, project: dict) -> dict:
         "default_branch": project.get("default_branch") or "main",
         "gdd": "docs/GDD.md",
         "stages": [{"id": s["stage_key"], "title": s["title"]} for s in stages],
-        "tasks": [_task_row(t) for t in tasks],
+        "tasks": [_with_modules(_task_row(t), project) for t in tasks],
     })
+
+
+def _with_modules(t: dict, project: dict) -> dict:
+    mods = (loads(project.get("context_index"), {}) or {}).get("task_modules", {}).get(t["id"])
+    if mods:
+        t["modules"] = mods
+    return t
 
 
 def import_plan(db: Database, project: dict, plan: dict) -> dict:
@@ -38,6 +46,10 @@ def import_plan(db: Database, project: dict, plan: dict) -> dict:
     plan = engine.normalize(plan)
     engine.check(plan)
     pid = project["id"]
+    task_modules = {t["id"]: t["modules"] for t in plan["tasks"] if t.get("modules")}
+    idx = loads(db.one("SELECT context_index FROM projects WHERE id=?", (pid,))["context_index"], {}) or {}
+    idx["task_modules"] = task_modules
+    db.execute("UPDATE projects SET context_index=? WHERE id=?", (dumps(idx), pid))
     existing = {r["task_key"]: r for r in db.all("SELECT * FROM tasks WHERE project_id=?", (pid,))}
     with db.transaction():
         db.execute("DELETE FROM stages WHERE project_id=?", (pid,))

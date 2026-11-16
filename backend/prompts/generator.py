@@ -10,6 +10,23 @@ from pathlib import Path
 from ..projects.analyzer import KINDS, TEMPLATES
 
 ENGINE_PATH = Path(__file__).resolve().parents[1] / "roadmap" / "engine.py"
+CONTEXT_ENGINE_PATH = Path(__file__).resolve().parents[1] / "context" / "engine.py"
+
+# Тематические документы GDD: ключ -> (файл, заголовок, краткое описание)
+GDD_DOCS = {
+    "gdd.vision": ("docs/gdd/01_vision.md", "Цель и аудитория", "зачем проект, для кого, платформы"),
+    "gdd.features": ("docs/gdd/02_features.md", "Функциональность", "функции и приоритеты"),
+    "gdd.architecture": ("docs/gdd/03_architecture.md", "Архитектура и модули", "модули, зоны файлов, данные"),
+    "gdd.ui": ("docs/gdd/04_ui.md", "Интерфейс", "экраны, адаптивность, доступность"),
+    "gdd.quality": ("docs/gdd/05_quality.md", "Качество и безопасность", "нефункциональные требования, тесты, безопасность"),
+    "gdd.release": ("docs/gdd/06_release.md", "Релизы и эксплуатация", "сборка, публикация, откат"),
+    "gdd.decisions": ("docs/gdd/DECISIONS_APPROVED.md", "Утверждённые решения", "решения владельца"),
+}
+LANE_DOCS = {
+    "core": ["gdd.architecture"], "gameplay": ["gdd.features"], "ui": ["gdd.ui"], "data": ["gdd.architecture"],
+    "api": ["gdd.architecture"], "security": ["gdd.quality"], "release": ["gdd.release"], "feature": ["gdd.features"],
+    "director": ["gdd.vision"],
+}
 
 KIND_STARTER = {
     "game": [
@@ -67,7 +84,7 @@ def initial_plan(p: dict) -> dict:
     tasks = [{
         "id": "T0", "title": "GDD и дорожная карта", "stage": "S0", "lane": "director",
         "goal": "Директор готовит docs/GDD.md, решения и docs/work_plan.json; владелец утверждает ключевые решения.",
-        "gdd_refs": ["docs/gdd/DECISIONS_APPROVED.md"], "file_scope": ["docs/**"], "depends_on": [],
+        "gdd_refs": ["gdd.vision", "gdd.decisions"], "file_scope": ["docs/**"], "depends_on": [],
         "done_when": ["GDD утверждён владельцем", "work_plan.json проходит check", "PR слит"],
         "branch": "task/t0-gdd", "status": "planned",
     }]
@@ -75,7 +92,8 @@ def initial_plan(p: dict) -> dict:
         stages.append({"id": sid, "title": stitle})
         for tid, title, lane, goal, scope in items:
             deps = ["T0"] if tid in ("T1",) else (["T1"] if tid != "T4" else [t[0] for t in KIND_STARTER[p["kind"]][0][2]])
-            tasks.append({"id": tid, "title": title, "stage": sid, "lane": lane, "goal": goal, "gdd_refs": [],
+            tasks.append({"id": tid, "title": title, "stage": sid, "lane": lane, "goal": goal,
+                          "gdd_refs": LANE_DOCS.get(lane, ["gdd.features"]), "modules": [lane],
                           "file_scope": scope, "depends_on": deps,
                           "done_when": ["Обязательный CI зелёный", "Тесты покрывают новую логику", "PR слит порталом"],
                           "branch": f"task/{tid.lower()}", "status": "planned"})
@@ -170,38 +188,55 @@ def executor_rules(p: dict) -> str:
 
 
 def gdd(p: dict) -> str:
-    return f"""# {p['name']} · GDD
+    """docs/GDD.md — короткое оглавление; содержание разделено на тематические файлы."""
+    rows = "\n".join(f"| {k} | [{t}]({path.removeprefix('docs/')}) | {d} |" for k, (path, t, d) in GDD_DOCS.items())
+    return f"""# {p['name']} · GDD (оглавление)
 
-> Черновик создан порталом. Директор дополняет разделы; ключевые решения утверждает владелец
-> и фиксирует в docs/gdd/DECISIONS_APPROVED.md.
+GDD разделён на тематические документы. Читай только нужные задаче (они указаны в её пакете контекста).
+Общая карта репозитория: docs/PROJECT_INDEX.md.
 
-## 1. Цель
-{p.get('goals') or '_Заполняет директор._'}
-
-## 2. Аудитория
-{p.get('audience') or '_Заполняет директор._'}
-
-## 3. Платформы
-{p.get('platforms') or '_Заполняет директор._'}
-
-## 4. Технологии
-{p.get('stack') or TEMPLATES[p['template']]}
-
-## 5. Функциональность
-_Список функций с приоритетами._
-
-## 6. Нефункциональные требования
-Производительность, безопасность, доступность, адаптация от 360 px.
-
-## 7. Архитектура и модули
-_Модули и зоны файлов — основа для параллельных линий разработки._
-
-## 8. Релизы и эксплуатация
-Релизная сборка из CI (release.json + SHA256SUMS), публикация порталом, откат.
-
-## 9. Критерии приёмки
-Зелёный обязательный CI и слияние PR по каждой задаче.
+| Ключ | Документ | О чём |
+|---|---|---|
+{rows}
 """
+
+
+def gdd_parts(p: dict) -> dict[str, str]:
+    t = "_Заполняет директор._"
+    body = {
+        "gdd.vision": f"## Цель\n{p.get('goals') or t}\n\n## Аудитория\n{p.get('audience') or t}\n\n## Платформы\n{p.get('platforms') or t}\n",
+        "gdd.features": "## Функции\n_Список функций с приоритетами (P0/P1/P2) и ссылками на задачи._\n",
+        "gdd.architecture": f"## Технологии\n{p.get('stack') or TEMPLATES[p['template']]}\n\n## Модули\n_Модули и их каталоги ведутся в docs/context/modules.json._\n\n## Контракты\n_Межмодульные интерфейсы — в docs/contracts/._\n",
+        "gdd.ui": "## Экраны\n_Экраны и сценарии. Адаптация от 360 px._\n",
+        "gdd.quality": "## Требования\nПроизводительность, безопасность, доступность.\n\n## Тесты\nКаждая задача добавляет автоматические тесты в CI.\n",
+        "gdd.release": "## Релизы\nРелизная сборка из CI (release.json + SHA256SUMS), публикация порталом, откат.\n",
+    }
+    return {GDD_DOCS[k][0]: f"# {p['name']} · {GDD_DOCS[k][1]}\n\n{v}" for k, v in body.items()}
+
+
+def modules_index(p: dict, plan: dict) -> dict:
+    """docs/context/modules.json: модули = линии стартового плана."""
+    mods = {}
+    for t in plan["tasks"]:
+        lane = t["lane"]
+        if lane == "director":
+            continue
+        m = mods.setdefault(lane, {"id": lane, "title": lane, "paths": [], "docs": list(LANE_DOCS.get(lane, ["gdd.features"])),
+                                   "contracts": [f"docs/contracts/{lane}.md"], "tests": [f"tests/{lane}/**"],
+                                   "public": [], "depends_on": []})
+        for f in t["file_scope"]:
+            if f not in m["paths"]:
+                m["paths"].append(f)
+    for lane, m in mods.items():
+        if lane != "core" and "core" in mods:
+            m["depends_on"] = ["core"]
+    return {
+        "version": 1, "project": p["name"],
+        "docs": {k: {"path": path, "title": t, "summary": d} for k, (path, t, d) in GDD_DOCS.items()},
+        "always_docs": ["gdd.decisions"],
+        "modules": list(mods.values()),
+        "critical_rules": ["Релиз публикуется только из релизного workflow (канал release, подпись, SHA256SUMS)."],
+    }
 
 
 def decisions(p: dict) -> str:
@@ -258,6 +293,7 @@ jobs:
         with: {{python-version: '3.12'}}
       - run: python3 tools/work_plan.py check
       - run: python3 tools/work_plan.py next
+      - run: python3 tools/context_pack.py check
 {extra}"""
 
 
@@ -275,12 +311,21 @@ def project_files(p: dict, analysis: dict) -> dict[str, str]:
         "docs/PORTAL_PROTOCOL.md": portal_protocol(p),
         "docs/EXECUTOR_RULES.md": executor_rules(p),
         "docs/GDD.md": gdd(p),
+        **gdd_parts(p),
+        "docs/context/modules.json": json.dumps(modules_index(p, plan), ensure_ascii=False, indent=2) + "\n",
+        "docs/PROJECT_INDEX.md": project_index(p, plan),
+        "tools/context_pack.py": CONTEXT_ENGINE_PATH.read_text(encoding="utf-8"),
         "docs/gdd/DECISIONS_APPROVED.md": decisions(p),
         "docs/work_plan.json": json.dumps(plan, ensure_ascii=False, indent=2) + "\n",
         "docs/WORK_PLAN.md": work_plan_md(plan),
         "tools/work_plan.py": ENGINE_PATH.read_text(encoding="utf-8"),
         ".github/workflows/nexus-checks.yml": workflow(p),
     }
+
+
+def project_index(p: dict, plan: dict) -> str:
+    from ..context import engine as ctx
+    return ctx.render_index(modules_index(p, plan), plan)
 
 
 def director_bootstrap_prompt(p: dict) -> str:
@@ -313,7 +358,11 @@ def director_bootstrap_prompt(p: dict) -> str:
 4. Составь docs/work_plan.json: этапы (stages), задачи (tasks) с полями id, title, stage, lane, goal, context,
    gdd_refs, file_scope, depends_on, done_when, branch. Зависимости — DAG без циклов.
    Раздели работу на параллельные линии (lane) с непересекающимися file_scope.
-5. Проверь план: `python3 tools/work_plan.py check`, затем `python3 tools/work_plan.py render --write`.
+   GDD держи разделённым на тематические файлы docs/gdd/*.md (оглавление — docs/GDD.md), не один большой документ.
+   Для каждой задачи укажи gdd_refs ключами документов (например gdd.features#Функции) и modules.
+5. Веди машинный индекс docs/context/modules.json (модули, каталоги, документы, контракты docs/contracts/, тесты,
+   зависимости без циклов) и обновляй docs/PROJECT_INDEX.md: `python3 tools/context_pack.py index --write`.
+   Проверка: `python3 tools/context_pack.py check`, `python3 tools/work_plan.py check`, затем `render --write`.
 6. Открой PR `[T0] GDD и дорожная карта`. После слияния портал откроет следующие задачи.
 
 ## Правила

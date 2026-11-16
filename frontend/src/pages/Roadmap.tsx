@@ -10,7 +10,16 @@ export default function Roadmap() {
   const [importing, setImporting] = useState(false);
   const [json, setJson] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [view, setView] = useState<"stages" | "lanes" | "md">("stages");
+  const [view, setView] = useState<"stages" | "lanes" | "md" | "index">("stages");
+  const ci = useLoad(() => (pid && view === "index" ? api(`/api/projects/${pid}/context-index`) : Promise.resolve(null)), [pid, view]);
+  const pullIndex = async () => {
+    setError(null);
+    try {
+      const r = await api(`/api/projects/${pid}/context-index/pull`, { method: "POST" });
+      ci.reload();
+      if (r.check.warnings.length) setError("Устаревшие ссылки: " + r.check.warnings.join("; "));
+    } catch (e: any) { setError(e.message); }
+  };
 
   const plan: Plan | null = rm.data?.plan ?? null;
   const openPrompt = async (t: Task) => {
@@ -52,8 +61,8 @@ export default function Roadmap() {
       {pid && (
         <div className="row gap wrap" style={{ marginBottom: 12 }}>
           <div className="tabs" role="tablist">
-            {(["stages", "lanes", "md"] as const).map((v) => (
-              <button key={v} role="tab" aria-selected={view === v} className="btn btn-sm" onClick={() => setView(v)}>{{ stages: "По этапам", lanes: "По линиям", md: "Markdown" }[v]}</button>
+            {(["stages", "lanes", "md", "index"] as const).map((v) => (
+              <button key={v} role="tab" aria-selected={view === v} className="btn btn-sm" onClick={() => setView(v)}>{{ stages: "По этапам", lanes: "По линиям", md: "Markdown", index: "Индекс контекста" }[v]}</button>
             ))}
           </div>
           <button className="btn btn-sm" onClick={pull} disabled={!cp.current?.repo_full_name}>Загрузить work_plan.json из GitHub</button>
@@ -79,6 +88,12 @@ export default function Roadmap() {
         </Card>
       ))}
       {plan && view === "md" && <Card><pre className="pre">{rm.data.markdown}</pre></Card>}
+      {view === "index" && ci.data && (
+        <Card title="NEXUS Smart Context" actions={<button className="btn btn-sm" onClick={pullIndex} disabled={!cp.current?.repo_full_name}>Обновить из GitHub</button>}>
+          {[...ci.data.check.errors, ...ci.data.check.warnings].map((w: string) => <p key={w} className="warn-box small">{w}</p>)}
+          {ci.data.markdown ? <pre className="pre">{ci.data.markdown}</pre> : <Empty>Индекс модулей не задан (docs/context/modules.json)</Empty>}
+        </Card>
+      )}
       {prompt && <Modal title={prompt.title} onClose={() => setPrompt(null)}><PromptBox title="" text={prompt.text} /></Modal>}
       {importing && (
         <Modal title="work_plan.json" onClose={() => setImporting(false)}>

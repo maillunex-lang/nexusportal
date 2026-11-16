@@ -24,6 +24,8 @@ Self-hosted система управления разработкой прог�
 | `deploy/` | установщик, откат, systemd, пример nginx |
 | `templates/` | примеры релизных workflow для проектов |
 | `tools/work_plan.py` | CLI дорожной карты: `check`, `next`, `lanes`, `prompt <ID>`, `render [--write]` |
+| `tools/context_pack.py` | NEXUS Smart Context: `pack <ID> --level brief|standard|extended`, `check`, `index` |
+| `docs/PROJECT_INDEX.md` | компактная карта репозитория (читать первой) |
 | `docs/` | спецификация, план, установка, архитектура, правила |
 
 ## Быстрый старт (разработка)

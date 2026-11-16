@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import difflib
+import json
 import hashlib
 import re
 import time
@@ -144,7 +145,10 @@ def apply(portal, params: dict, digest: str, *, create_repo: bool = False, priva
         "required_checks": '["nexus-plan"]' if any(c["path"] == ".github/workflows/nexus-checks.yml" and c["action"] == "create" for c in preview["changes"]) else "[]",
     })
     project = portal.project(pid)
-    roadmap.import_plan(portal.db, project, generator.initial_plan(p))
+    plan = generator.initial_plan(p)
+    portal.db.execute("UPDATE projects SET context_index=? WHERE id=?",
+                      (json.dumps(generator.modules_index(p, plan), ensure_ascii=False), pid))
+    roadmap.import_plan(portal.db, project, plan)
     memory.add(portal.db, pid, "context", "Проект создан мастером",
                f"Тип: {KINDS[p['kind']]}; шаблон: {TEMPLATES[p['template']]}; стек: {', '.join(preview['analysis']['stack']) or 'не определён'}")
     for path in ("docs/GDD.md", "docs/AI_RULES.md", "docs/PORTAL_PROTOCOL.md", "docs/DIRECTOR_HANDOVER.md"):
@@ -165,7 +169,10 @@ def register_local(portal, params: dict, actor: str = "owner") -> dict:
                                         "template": p["template"], "default_branch": p["default_branch"],
                                         "description": p["description"]})
     project = portal.project(pid)
-    roadmap.import_plan(portal.db, project, generator.initial_plan(p))
+    plan = generator.initial_plan(p)
+    portal.db.execute("UPDATE projects SET context_index=? WHERE id=?",
+                      (json.dumps(generator.modules_index(p, plan), ensure_ascii=False), pid))
+    roadmap.import_plan(portal.db, project, plan)
     audit(portal.db, actor, "project_created", pid, {"repo": None})
     return {"project": project, "files": generator.project_files(p, {"stack": []}),
             "bootstrap_prompt": generator.director_bootstrap_prompt(p)}

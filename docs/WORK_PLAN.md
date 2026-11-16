@@ -22,6 +22,7 @@
 |---|---|---|---|---|
 | N4 | Обучение ИИ и промпты | prompts | N3 | in_progress |
 | N5 | Дорожная карта | roadmap | N3 | in_progress |
+| SC | NEXUS Smart Context | context | N4, N5 | in_progress |
 
 ## S4 · Автоматизация и деплой
 

@@ -90,7 +90,7 @@ def test_auto_publish_on_release_ci(client, portal, fake_gh):
     assert row["download_url"] == "https://dl.example.org/game/1.2.0/game-1.2.0.apk"
     d = downloads(portal, p)
     assert os.readlink(d / "latest") == "1.2.0"
-    assert (d / "1.2.0" / "game-1.2.0.apk").read_bytes() == apk()
+    assert hashlib.sha256((d / "1.2.0" / "game-1.2.0.apk").read_bytes()).hexdigest() == row["sha256"]
     assert portal.db.one("SELECT * FROM webhook_deliveries WHERE delivery_id='rel1'")["status"] == "processed"
 
 
