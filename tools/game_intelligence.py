@@ -78,6 +78,22 @@ def validate(root: Path = ROOT) -> dict:
             errors.append(f"signals: invalid source URL in {sid}")
         if signal.get("source_url") not in {s.get("url") for s in sources.get("sources", [])}:
             errors.append(f"signals: missing provenance source for {sid}")
+    blueprints = read_json("genre_blueprints.json", root).get("genre_blueprints", [])
+    templates = read_json("mechanic_templates.json", root).get("templates", [])
+    blueprint_ids = [b.get("id") for b in blueprints]
+    if len(blueprint_ids) != len(set(blueprint_ids)):
+        errors.append("blueprints: duplicate genre id")
+    for b in blueprints:
+        if b.get("id") not in ids or not b.get("core_loop") or not b.get("technical") or not b.get("pitfalls"):
+            errors.append(f"blueprints: missing core data or unknown genre {b.get('id')}")
+    template_ids = [t.get("id") for t in templates]
+    if len(template_ids) != len(set(template_ids)) or any(not t for t in template_ids):
+        errors.append("templates: duplicate or missing id")
+    for t in templates:
+        if not t.get("purpose") or not t.get("contracts") or not t.get("tests"):
+            errors.append(f"templates: incomplete data in {t.get('id')}")
+        if any(g not in ids for g in t.get("genres", [])):
+            errors.append(f"templates: unknown genre in {t.get('id')}")
     return {
         "ok": not errors,
         "errors": errors,
@@ -85,6 +101,8 @@ def validate(root: Path = ROOT) -> dict:
         "source_count": len(source_map),
         "chart_entries": all_rows,
         "player_signals": len(seen_signals),
+        "genre_blueprints": len(blueprints),
+        "mechanic_templates": len(templates),
         "annual_top100_completed": False,
         "note": "Snapshot observations do not constitute 2026 annual genre top-100 rankings.",
     }
@@ -100,8 +118,15 @@ def context(genre_id: str, root: Path = ROOT) -> dict:
         for item in read_json("research/player_signals.json", root)["items"]
         if item["genre_id"] == genre_id
     ]
+    blueprint = next((b for b in read_json("genre_blueprints.json", root)["genre_blueprints"] if b["id"] == genre_id), None)
+    templates = [
+        t for t in read_json("mechanic_templates.json", root)["templates"]
+        if genre_id in t["genres"]
+    ]
     return {
         "genre": match,
+        "blueprint": blueprint,
+        "mechanic_templates": templates,
         "player_signals": relevant,
         "warnings": [
             "This is curated evidence and deterministic retrieval, not model training.",
