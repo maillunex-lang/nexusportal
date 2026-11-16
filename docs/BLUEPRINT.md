@@ -45,10 +45,10 @@ todo → ready/in_progress/blocked/cancelled; in_progress → pr_open/tests_pass
 
 ```python
 from backend.blueprint.portal_adapter import attach
-attach(app, db_path='/path/to/blueprint.sqlite', github=portal.github)
+attach(app, db_path='/path/to/blueprint.sqlite', github=portal.github())
 ```
 
-Передать реальный существующий GitHubClient из контейнера зависимостей портала (имя portal.github в примере следует сверить при интеграции). Новый отдельный SQLite-файл исключает вмешательство в чужие миграции. Авторизация и CSRF используют существующий require_owner; отдельные Blueprint login/session являются адаптером к существующей auth. В существующую навигацию добавить ссылку /blueprint. В main этих компонентов ещё нет; чужая ветка не изменяется и не сливается.
+Передать существующий GitHubClient из portal.github(). При последующем изменении контейнера зависимостей адаптер следует сверить с его актуальным контрактом. Новый отдельный SQLite-файл исключает вмешательство в чужие миграции. Авторизация и CSRF используют существующий require_owner; отдельные Blueprint login/session являются адаптером к существующей auth. В существующую навигацию добавить ссылку /blueprint. В main этих компонентов ещё нет; чужая ветка не изменяется и не сливается.
 
 Для иных хостов: install(app, Store(path), authorize, github), где authorize — FastAPI dependency, проверяющая сессию/CSRF и возвращающая actor/role. owner: импорт/утверждение/проверка/приёмка; executor: выдача, статусы, PR/тесты; viewer: чтение. Самостоятельный режим поддерживает те же роли в серверном users-файле.
 

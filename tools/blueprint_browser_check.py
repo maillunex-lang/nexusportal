@@ -27,7 +27,7 @@ def run(url,username,password,output):
         page.get_by_role('textbox',name='Результат проверки').fill('Проверены GDD, ограничения и исходный промпт. Неизвестная зона — эксклюзивный режим до подтверждения.')
         page.get_by_role('button',name='Подтвердить промпт и зоны',exact=True).click()
         page.get_by_role('button',name='Скопировать промпт для ChatGPT / Claude',exact=True).click()
-        page.wait_for_function("document.querySelector('textarea[aria-label=\"Полный промпт для исполнителя\"]').value.includes('Исходный промпт')")
+        page.wait_for_function("() => document.querySelector('textarea[aria-label=\"Полный промпт для исполнителя\"]').value.includes('Исходный промпт')")
         assert 'эксклюзивный' in page.get_by_role('textbox',name='Полный промпт для исполнителя').input_value()
         page.locator('#taskBody .badge').get_by_text('В работе',exact=True).wait_for()
         page.get_by_role('combobox',name='Новый статус').select_option('tests_passed')
@@ -45,7 +45,12 @@ def run(url,username,password,output):
                 for name,tab in [('blueprint','Blueprint проекта'),('roadmap','Дорожная карта'),('now','Что делать сейчас'),('versions','Версии Blueprint')]:
                     page.get_by_role('button',name=tab,exact=True).click()
                     page.screenshot(path=str(output/f'{label}-{theme}-{name}.png'),full_page=True)
-                    assert page.evaluate('document.documentElement.scrollWidth <= innerWidth'),f'Overflow {label} {theme} {name}'
+                    assert page.evaluate('() => document.documentElement.scrollWidth <= innerWidth'),f'Overflow {label} {theme} {name}'
+                page.get_by_role('button',name='Дорожная карта',exact=True).click()
+                page.locator('#roadmap .task').nth(1).get_by_role('button',name='Открыть').click()
+                page.screenshot(path=str(output/f'{label}-{theme}-task.png'),full_page=True)
+                assert page.evaluate('() => document.querySelector("dialog").scrollWidth <= document.querySelector("dialog").clientWidth'),f'Dialog overflow {label} {theme}'
+                page.get_by_role('button',name='Закрыть карточку',exact=True).click()
         # Import an unapproved revision containing hostile text; preview must render inert text.
         import json
         payload=json.loads((Path(__file__).resolve().parents[1]/'examples/blueprint/sea-coop.json').read_text())
@@ -55,11 +60,11 @@ def run(url,username,password,output):
         page.get_by_role('button',name='Проверить и импортировать',exact=True).click()
         page.locator('#preview').get_by_text('Версия 2 · Морской кооператив',exact=True).wait_for()
         page.locator('#preview summary').click()
-        assert not page.evaluate('Boolean(window.xssExecuted)')
+        assert not page.evaluate('() => Boolean(window.xssExecuted)')
         assert page.locator('#preview img').count()==0
         assert not errors,errors
         browser.close()
-        print('PASS: login → import → preview → approve → review → copy → dispatch → tests → accept; 16 screenshots; no overflow or JS errors')
+        print('PASS: login → import → preview → approve → review → copy → dispatch → tests → accept; 20 screenshots; no overflow or JS errors')
 
 if __name__=='__main__':
     import getpass
