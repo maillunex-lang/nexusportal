@@ -23,7 +23,7 @@ python -m unittest discover -s tests -p "test_game_intelligence.py" -v
 - Genre memberships are currently provisional editorial assessments; full independent mechanics audits and stable store IDs are pending.
 - Player signals are a small, self-selected sample; no statistical population claims.
 - Market estimates from external analytics companies are not official store financial statements.
-- Five genre blueprints have deep authored MVP/architecture content. Seven remain taxonomy-only and are explicitly labeled incomplete by `architect`.
+- All 12 genres now have first-pass authored MVP/architecture blueprints, but these are design proposals, not independently validated implementation templates.
 - Validation proves structural consistency only; it does not prove that a third-party page is historically correct.
 - No runtime portal API, UI, scheduler, crawler, historical ranking algorithm or automated source refreshing yet.
 
