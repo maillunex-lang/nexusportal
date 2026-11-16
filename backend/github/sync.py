@@ -139,6 +139,20 @@ def sync_project(portal, project: dict) -> dict:
         seen.add(pr["number"])
         row = upsert_pr(portal, project, pr)
         results.append(automerge.process_pr(portal, project, row["number"], gh=gh))
+    # Восстановление истории после подключения проекта или пропущенных webhook.
+    # GitHub возвращает и закрытые без слияния PR: только merged=True подтверждает done.
+    # Обрабатываем ограниченную первую страницу (до 50), не меняем статусы для closed-unmerged.
+    merged_recovered = 0
+    for pr in gh.list_prs(repo, "closed"):
+        if not (pr.get("merged") or pr.get("merged_at")):
+            continue
+        row = upsert_pr(portal, project, pr)
+        if row.get("task_key"):
+            from ..roadmap import service as roadmap
+            task = roadmap.get_task(portal.db, project["id"], row["task_key"])
+            if task and task["status"] != "done":
+                automerge.on_merged(portal, project, row["number"], pr.get("merge_commit_sha") or "")
+                merged_recovered += 1
     # PR, которые закрылись/слились без доставленного webhook
     for row in portal.db.all("SELECT * FROM pull_requests WHERE project_id=? AND state='open'", (project["id"],)):
         if row["number"] not in seen:
@@ -150,7 +164,7 @@ def sync_project(portal, project: dict) -> dict:
         record_commits(portal, repo, project["default_branch"], gh.list_commits(repo, project["default_branch"], 10))
     except Exception as e:
         log.warning("commits: %s", e)
-    return {"open_prs": len(open_prs), "decisions": results}
+    return {"open_prs": len(open_prs), "merged_recovered": merged_recovered, "decisions": results}
 
 
 def handle_event(portal, event: str, payload: dict) -> str:
