@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "target_per_genre": 100,
+  "methodology": "docs/game_intelligence/research/METHODOLOGY_2026.md",
+  "note": "The 143 store-category chart observations have not yet been app-ID deduplicated and independently classified into editorial genres. Do not count them as genre-eligible games.",
+  "genres": [
+    {
+      "genre_id": "mmorpg",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "arpg",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "4x",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "economic_strategy",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "economic_simulation",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "rts",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "city_builder",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "survival",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "sandbox",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "idle_rpg",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "naval_strategy",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    },
+    {
+      "genre_id": "tower_defense",
+      "verified_eligible_ranked_games": 0,
+      "target": 100,
+      "status": "research_incomplete",
+      "caveat": "Pending stable app IDs, historical chart coverage, manual genre classification and score computation"
+    }
+  ],
+  "complete": false
+}
