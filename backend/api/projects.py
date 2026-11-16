@@ -239,11 +239,16 @@ def pull_roadmap(request: Request, project=Depends(get_project), p=Depends(porta
 @router.get("/projects/{project_id}/tasks/{key}/prompt")
 def task_prompt(key: str, project=Depends(get_project), p=Depends(portal)):
     from ..blueprint import service as bps
+    from ..github.fresh_context import snapshot, appendix
+    try:
+        fresh = snapshot(p, project)
+    except GitHubError as e:
+        raise HTTPException(503, f"Не удалось проверить GitHub перед выдачей промпта: {e}")
     bp = bps.approved(p.db, project["id"])
     if bp and any(t["id"] == key for t in bp["content"]["tasks"]):
-        return {"prompt": bps.assignment(p, project, key, "generic")}
+        return {"prompt": bps.assignment(p, project, key, "generic") + appendix(fresh), "github_context": fresh}
     try:
-        return {"prompt": roadmap.task_prompt(p.db, project, key)}
+        return {"prompt": roadmap.task_prompt(p.db, project, key) + appendix(fresh), "github_context": fresh}
     except engine.PlanError as e:
         raise HTTPException(404, str(e))
 
@@ -372,10 +377,19 @@ def stale_refs(idx: dict, tree: set[str]) -> list[str]:
 
 @router.get("/projects/{project_id}/tasks/{key}/context")
 def task_context(key: str, level: str = "standard", project=Depends(get_project), p=Depends(portal)):
+    # Validate request arguments before contacting external GitHub.
+    if level not in ("brief", "standard", "extended"):
+        raise HTTPException(400, "Недопустимый уровень контекста")
+    from ..github.fresh_context import snapshot, appendix
+    try:
+        fresh = snapshot(p, project)
+    except GitHubError as e:
+        raise HTTPException(503, f"Не удалось проверить GitHub перед выдачей контекста: {e}")
     idx = _index(p, project)
     plan = roadmap.export_plan(p.db, project)
     try:
         text = ctx.pack(idx, plan, key, level)
     except ctx.ContextError as e:
         raise HTTPException(404 if "не найдена" in str(e) else 400, str(e))
-    return {"prompt": text, "level": level, "chars": len(text)}
+    text += appendix(fresh)
+    return {"prompt": text, "level": level, "chars": len(text), "github_context": fresh}

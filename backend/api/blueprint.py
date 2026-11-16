@@ -144,7 +144,12 @@ def reject(bid: int, request: Request, project=Depends(get_project), p=Depends(p
 
 @router.get("/projects/{project_id}/now")
 def what_now(project=Depends(get_project), p=Depends(portal)):
-    return bps.now(p, project)
+    from ..github.fresh_context import snapshot
+    try:
+        fresh = snapshot(p, project)
+    except GitHubError as e:
+        raise HTTPException(503, f"Не удалось обновить данные директора: {e}")
+    return {**bps.now(p, project), "github_context": fresh}
 
 
 @router.get("/now")
@@ -160,8 +165,13 @@ def what_now_all(p=Depends(portal), _=Depends(require_owner)):
 
 @router.get("/projects/{project_id}/tasks/{task_id}/assignment")
 def assignment(task_id: str, executor: str = "generic", project=Depends(get_project), p=Depends(portal)):
+    from ..github.fresh_context import snapshot, appendix
     try:
-        return {"prompt": bps.assignment(p, project, task_id, executor), "executor": executor}
+        fresh = snapshot(p, project)
+        return {"prompt": bps.assignment(p, project, task_id, executor) + appendix(fresh),
+                "executor": executor, "github_context": fresh}
+    except GitHubError as e:
+        raise HTTPException(503, f"Не удалось проверить GitHub перед выдачей задания: {e}")
     except (core.BlueprintError, bps.BlueprintServiceError) as e:
         _err(e)
 

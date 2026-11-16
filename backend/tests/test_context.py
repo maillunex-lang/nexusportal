@@ -131,8 +131,15 @@ def test_context_api(authed, fake_gh):
     params = {"name": "Космо", "slug": "kosmo", "kind": "game", "repo_full_name": ""}
     pid = authed.post("/api/wizard/apply", json={"params": params}).json()["project"]["id"]
     r = authed.get(f"/api/projects/{pid}/tasks/T2/context?level=brief")
+    # Without a repository the director must not claim a fresh context.
+    assert r.status_code == 503
+    from unittest.mock import patch
+    verified = dict(repo="o/r", branch="main", main_sha="abc", synced_at="2026-01-01T00:00:00Z", tasks=[], open_prs=[], sync={})
+    with patch("backend.github.fresh_context.snapshot", return_value=verified):
+        r = authed.get("/api/projects/{}/tasks/T2/context?level=brief".format(pid))
     assert r.status_code == 200 and "docs/gdd/02_features.md" in r.json()["prompt"]
     assert "docs/gdd/04_ui.md" not in r.json()["prompt"]
+    assert "abc" in r.json()["prompt"]
     ci = authed.get(f"/api/projects/{pid}/context-index").json()
     assert ci["check"]["errors"] == [] and ci["markdown"]
     bad = ci["index"]
