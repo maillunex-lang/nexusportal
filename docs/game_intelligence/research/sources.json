@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-11-16",
+  "sources": [
+    {
+      "id": "aw_strategy_us_android_20261116",
+      "url": "https://appwinners.eu/charts/android/us/grossing/game-strategy",
+      "platform": "google_play",
+      "country": "US",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games: Strategy",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of country Google Play chart; not original Google publication"
+    },
+    {
+      "id": "aw_rpg_ww_android_20261116",
+      "url": "https://appwinners.eu/charts/android/ww/grossing/game-role-playing",
+      "platform": "google_play",
+      "country": "WW",
+      "date": "2026-11-16",
+      "type": "derived_chart",
+      "category": "Games: Role Playing",
+      "metric": "grossing",
+      "method": "AppWinners synthesized worldwide ranking, NOT official ranking or revenue amount"
+    },
+    {
+      "id": "aw_sim_ww_android_20261116",
+      "url": "https://appwinners.eu/charts/android/ww/grossing/game-simulation",
+      "platform": "google_play",
+      "country": "WW",
+      "date": "2026-11-16",
+      "type": "derived_chart",
+      "category": "Games: Simulation",
+      "metric": "grossing",
+      "method": "AppWinners synthesized worldwide ranking, NOT official ranking or revenue amount"
+    },
+    {
+      "id": "aw_ios_us_20261116",
+      "url": "https://appwinners.eu/charts/ios/us/grossing/games",
+      "platform": "app_store",
+      "country": "US",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of iOS chart"
+    },
+    {
+      "id": "aw_ios_de_20261116",
+      "url": "https://appwinners.eu/charts/ios/de/grossing/games",
+      "platform": "app_store",
+      "country": "DE",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of iOS chart"
+    },
+    {
+      "id": "aw_android_de_sim_20261116",
+      "url": "https://appwinners.eu/charts/android/de/free/game-simulation",
+      "platform": "google_play",
+      "country": "DE",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games: Simulation",
+      "metric": "free",
+      "method": "AppWinners daily capture of country chart"
+    },
+    {
+      "id": "capitalism_lab_press",
+      "url": "https://www.capitalismlab.com/press-kit/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Publisher-provided description, not independent user opinion"
+    },
+    {
+      "id": "capitalism_lab_features",
+      "url": "https://www.capitalismlab.com/new-content/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Official feature list"
+    },
+    {
+      "id": "reddit_rok_f2p_20260511",
+      "url": "https://www.reddit.com/r/RiseofKingdoms/comments/1ta79m1/is_it_possible_to_get_play_the_game_casually_as/",
+      "type": "player_discussion",
+      "date": "2026-05-11",
+      "method": "Reddit thread, self-selected respondents, no representative sampling"
+    },
+    {
+      "id": "reddit_albion_mobile_20260414",
+      "url": "https://www.reddit.com/r/albiononline/comments/1sldf0z/is_it_worth_to_start_now_on_mobile/",
+      "type": "player_discussion",
+      "date": "2026-04-14",
+      "method": "Reddit thread, self-selected respondents, no representative sampling"
+    },
+    {
+      "id": "appmagic_h1_2026",
+      "url": "https://www.pocketgamer.biz/h1-2026-genre-analysis-strategy-stumbles-rpgs-fall-and-puzzle-revenue-ramps-up/",
+      "type": "industry_report_summary",
+      "date": "2026-07-16",
+      "method": "Third party interpretation of AppMagic estimates; not direct store telemetry"
+    }
+  ]
+}
