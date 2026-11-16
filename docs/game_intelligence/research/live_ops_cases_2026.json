@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "status": "selected_2026_industry_case_studies_not_annual_rankings",
+  "cases": [
+    {
+      "id": "whiteout_june_2026",
+      "game": "Whiteout Survival",
+      "period": "2026-06",
+      "genre_ids": [
+        "4x"
+      ],
+      "evidence_type": "industry_report_observation",
+      "observed": "Sensor Tower identifies Whiteout Survival as the highest-grossing mobile game globally in June 2026 and describes recurring Alliance Mobilization and Frostdragon Tyrant events.",
+      "source_url": "https://develop.sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-june-2026",
+      "mechanics": [
+        "alliance_events",
+        "timed_boss_encounters",
+        "live_ops"
+      ],
+      "design_hypothesis": "Offer cooperative alliance goals without requiring every player to be online at the same time.",
+      "testable_questions": [
+        "Can casual guilds finish an event without daily attendance?",
+        "Does an opt-in event schedule reduce pressure?"
+      ],
+      "limitations": [
+        "A monthly worldwide revenue position is not a 2026 annual genre rank.",
+        "Publisher/event reporting does not establish user satisfaction or retention."
+      ]
+    },
+    {
+      "id": "whiteout_august_2026",
+      "game": "Whiteout Survival",
+      "period": "2026-08",
+      "genre_ids": [
+        "4x"
+      ],
+      "evidence_type": "industry_report_observation",
+      "observed": "Sensor Tower describes a cooperative polar-bear expedition in a Kingshot collaboration and alliance competitions State of Power and Winter Siege.",
+      "source_url": "https://sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-august-2026",
+      "mechanics": [
+        "cooperative_events",
+        "cross_promotion",
+        "alliance_competition"
+      ],
+      "design_hypothesis": "Separate collaborative progression from competitive leaderboard rewards to preserve a path for smaller alliances.",
+      "testable_questions": [
+        "Can four-player teams participate without joining a large alliance?",
+        "Are rewards meaningful without leaderboard placement?"
+      ],
+      "limitations": [
+        "The event description is not evidence that players liked the event.",
+        "Cross-promotion effects are not measured in this report."
+      ]
+    },
+    {
+      "id": "sol_enchant_june_2026",
+      "game": "SOL: enchant",
+      "period": "2026-06",
+      "genre_ids": [
+        "mmorpg"
+      ],
+      "evidence_type": "industry_report_observation",
+      "observed": "Sensor Tower reports SOL: enchant as second worldwide in June revenue growth and describes player-influenced server rules, item creation, an open player economy and offline progression.",
+      "source_url": "https://develop.sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-june-2026",
+      "mechanics": [
+        "player_economy",
+        "offline_progress",
+        "server_governance"
+      ],
+      "design_hypothesis": "Prototype constrained player governance with rollback and economy audit logs before considering unrestricted rule changes.",
+      "testable_questions": [
+        "Can governance be abused to lock out new players?",
+        "What fraction of offline rewards can be earned without payment?"
+      ],
+      "limitations": [
+        "Revenue growth position is not a worldwide grossing rank or genre top-100.",
+        "Features reflect an industry launch description, not independently verified gameplay."
+      ]
+    },
+    {
+      "id": "honor_of_kings_august_2026",
+      "game": "Honor of Kings",
+      "period": "2026-08",
+      "genre_ids": [
+        "arpg"
+      ],
+      "evidence_type": "adjacent_genre_reference",
+      "observed": "Sensor Tower reports the highest global mobile revenue in August 2026 and describes a limited-time Extreme Frenzy mode with shorter cooldowns and stacking upgrades.",
+      "source_url": "https://sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-august-2026",
+      "mechanics": [
+        "limited_time_modes",
+        "combat_modifiers",
+        "cosmetics"
+      ],
+      "design_hypothesis": "For ARPG prototypes, experiment with temporary combat-rule variants without changing the permanent balance.",
+      "testable_questions": [
+        "Does a short event mode preserve build diversity?",
+        "Can event modifiers be removed without corrupting saves?"
+      ],
+      "limitations": [
+        "Honor of Kings is a MOBA, not an ARPG; included only as adjacent combat/live-ops inspiration.",
+        "Highest revenue is across mobile games for August, not a 2026 annual ARPG ranking."
+      ]
+    },
+    {
+      "id": "roblox_august_2026",
+      "game": "Roblox",
+      "period": "2026-08",
+      "genre_ids": [
+        "sandbox"
+      ],
+      "evidence_type": "platform_ecosystem_observation",
+      "observed": "Sensor Tower lists Roblox as the most downloaded mobile game worldwide in August 2026 and cites diverse featured experiences, including fashion, tower defense and RPG content.",
+      "source_url": "https://sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-august-2026",
+      "mechanics": [
+        "user_generated_content",
+        "content_discovery",
+        "creator_ecosystem"
+      ],
+      "design_hypothesis": "A sandbox MVP needs discoverability and content safety before scaling creator tools.",
+      "testable_questions": [
+        "Can players find suitable experiences with minimal search?",
+        "Can harmful content be reported and removed promptly?"
+      ],
+      "limitations": [
+        "Roblox is a multi-genre platform, not a standalone sandbox genre chart entry.",
+        "Download rank says nothing about creator economics or retention."
+      ]
+    },
+    {
+      "id": "township_adjacent_market_2026",
+      "game": "Gossip Harbor",
+      "period": "2026-08",
+      "genre_ids": [
+        "economic_simulation",
+        "city_builder"
+      ],
+      "evidence_type": "adjacent_genre_reference",
+      "observed": "Sensor Tower describes recurring narrative merge events and collection goals that supported Gossip Harbor's August 2026 commercial performance.",
+      "source_url": "https://sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-august-2026",
+      "mechanics": [
+        "narrative_live_ops",
+        "collection_goals",
+        "event_cadence"
+      ],
+      "design_hypothesis": "For city/economy simulations, evaluate optional narrative objectives without replacing meaningful production decisions.",
+      "testable_questions": [
+        "Can a player ignore narrative events without an economic penalty?",
+        "Do timed collections obscure production costs?"
+      ],
+      "limitations": [
+        "Gossip Harbor is a merge/narrative game, not a city builder or deep economic simulation.",
+        "This is an adjacent design reference, not genre ranking evidence."
+      ]
+    }
+  ]
+}
