@@ -1,6 +1,7 @@
 import json
 
 import pytest
+from unittest.mock import patch
 
 from backend.roadmap import engine, service
 from .conftest import make_project
@@ -111,6 +112,12 @@ def test_roadmap_api(authed, portal):
     assert authed.put(f"/api/projects/{pr['id']}/roadmap", json={"plan": bad}).status_code == 400
     r = authed.get(f"/api/projects/{pr['id']}/roadmap").json()
     assert r["ready"] == ["A"]
-    assert "Задача A" in authed.get(f"/api/projects/{pr['id']}/tasks/A/prompt").json()["prompt"]
+    assert authed.get(f"/api/projects/{pr.get("id")}/tasks/A/prompt").status_code == 503
+    verified = dict(repo="o/r", branch="main", main_sha="abc", synced_at="2026-01-01T00:00:00Z", tasks=[], open_prs=[], sync={})
+    with patch("backend.github.fresh_context.snapshot", return_value=verified):
+        response = authed.get(f"/api/projects/{pr.get("id")}/tasks/A/prompt")
+    assert response.status_code == 200
+    assert "Задача A" in response.json()["prompt"]
+    assert "abc" in response.json()["prompt"]
     assert authed.post(f"/api/projects/{pr['id']}/tasks/A/status", json={"status": "done"}).status_code == 400
     assert authed.post(f"/api/projects/{pr['id']}/tasks/A/status", json={"status": "in_progress"}).status_code == 200
