@@ -79,6 +79,21 @@ class AdaptiveProjectTests(unittest.TestCase):
     def test_disjoint_scopes(self):
         self.assertFalse(scope_overlap(["client/ui/**"], ["server/ships/**"]))
 
+    def test_active_work_prevents_overlap(self):
+        plan = copy.deepcopy(PLAN)
+        plan["tasks"][0]["status"] = "in_progress"
+        plan["tasks"][1]["file_scopes"] = ["docs/network/api.py"]
+        self.assertEqual(schedule(plan)["parallel_batches"], [])
+        with self.assertRaisesRegex(ValueError, "conflict"):
+            prompt(plan, "A2")
+
+    def test_missing_scope_prevents_dispatch(self):
+        plan = copy.deepcopy(PLAN)
+        plan["tasks"][0]["file_scopes"] = []
+        self.assertNotIn("A1", schedule(plan)["parallel_batches"][0])
+        with self.assertRaisesRegex(ValueError, "scopes"):
+            prompt(plan, "A1")
+
     def test_unknown_task_prompt(self):
         with self.assertRaisesRegex(ValueError, "unknown task"):
             prompt(PLAN, "UNKNOWN")
