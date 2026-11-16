@@ -22,6 +22,16 @@ export default function Blueprint() {
   const [msg, setMsg] = useState<string | null>(null);
   const [view, setView] = useState<{ title: string; text: string } | null>(null);
   const [path, setPath] = useState("docs/blueprint.json");
+  const [genre, setGenre] = useState("economic_strategy");
+  const [knowledge, setKnowledge] = useState<any>(null);
+  const [knowledgeError, setKnowledgeError] = useState<string | null>(null);
+  const [knowledgeBusy, setKnowledgeBusy] = useState(false);
+  const loadKnowledge = async () => {
+    setKnowledgeBusy(true); setKnowledgeError(null); setKnowledge(null);
+    try { setKnowledge(await api(`/api/blueprint/genre-knowledge/${genre}`)); }
+    catch (e: any) { setKnowledgeError(e?.message ?? String(e)); }
+    finally { setKnowledgeBusy(false); }
+  };
 
   const reload = () => { versions.reload(); hist.reload(); };
   const fail = (e: any) => {
@@ -81,6 +91,26 @@ export default function Blueprint() {
             <button className="btn btn-sm" onClick={() => setText(std.data.template)}>Шаблон в редактор</button>
           </div>
         )}
+      </Card>
+      <Card title="Game Intelligence · знания для ИИ-архитектора">
+        <p className="small muted">Исследования и игровые механики по жанрам. Это не утверждённые задачи и не полный рейтинг топ-100.</p>
+        <div className="row gap wrap">
+          <select aria-label="Жанр исследований" value={genre} onChange={(e) => { setGenre(e.target.value); setKnowledge(null); setKnowledgeError(null); }}>
+            {[
+              ["mmorpg", "MMORPG"], ["arpg", "ARPG"], ["4x", "4X"],
+              ["economic_strategy", "Экономические стратегии"], ["economic_simulation", "Экономические симуляторы"],
+              ["rts", "RTS"], ["city_builder", "Градостроительные"], ["survival", "Survival"],
+              ["sandbox", "Sandbox"], ["idle_rpg", "Idle RPG"], ["naval_strategy", "Морские стратегии"],
+              ["tower_defense", "Tower Defense"],
+            ].map(([id, name]) => <option key={id} value={id}>{name}</option>)}
+          </select>
+          <button className="btn btn-sm" onClick={loadKnowledge} disabled={knowledgeBusy}>{knowledgeBusy ? "Загрузка…" : "Получить исследования"}</button>
+          {knowledge && <CopyButton label="Копировать контекст для ИИ" text={std.data?.architect_prompt
+            ? std.data.architect_prompt + "\n\nНиже исследовательский контекст, не являющийся утверждённым GDD или задачами. Используй только проверяемые факты, указывай источники и ограничения.\n" + JSON.stringify(knowledge, null, 2)
+            : JSON.stringify(knowledge, null, 2)} />}
+        </div>
+        {knowledge && <p className="small muted">Жанр: {knowledge.genre_id}; исследований игр: {knowledge.research_gaps?.dossier_count ?? 0}; полный топ-100: не подтверждён. <button className="btn btn-sm" onClick={() => setView({ title: "Исследования жанра", text: JSON.stringify(knowledge, null, 2) })}>Посмотреть источники</button></p>}
+        <ErrorText error={knowledgeError} />
       </Card>
       {pid && (
         <Card title="Импорт">
