@@ -1,0 +1,13 @@
+name: Checks
+on:
+  push:
+  pull_request:
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate roadmap
+        run: python3 tools/work_plan.py check
+      - name: Verify ready tasks
+        run: python3 tools/work_plan.py next
