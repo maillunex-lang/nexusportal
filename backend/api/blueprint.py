@@ -34,6 +34,19 @@ def standard(_=Depends(require_owner)):
             "guide": read("README.md"), "architect_prompt": read("ARCHITECT_PROMPT.md")}
 
 
+@router.get("/blueprint/genre-knowledge/{genre_id}")
+def genre_knowledge(genre_id: str, _=Depends(require_owner)):
+    """Unapproved, source-linked research for the architect, never an executable Blueprint."""
+    from tools.game_intelligence import blueprint_context
+    try:
+        result = blueprint_context(genre_id)
+    except ValueError:
+        raise HTTPException(404, "Неизвестный жанр")
+    if result.get("status") != "unapproved_knowledge_context":
+        raise HTTPException(503, "Контекст исследований не прошёл границу утверждения")
+    return result
+
+
 class ValidateIn(BaseModel):
     document: Any
 
