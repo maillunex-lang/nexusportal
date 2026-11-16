@@ -1,13 +1,99 @@
 name: Checks
 on:
   push:
+    branches: [main]
   pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   plan:
+    name: roadmap
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate roadmap
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - name: Проверка дорожной карты (DAG)
         run: python3 tools/work_plan.py check
-      - name: Verify ready tasks
+      - name: Готовые задачи
         run: python3 tools/work_plan.py next
+      - name: Шаблонный движок самодостаточен (stdlib)
+        run: python3 -I backend/roadmap/engine.py --file docs/work_plan.json check
+
+  backend:
+    name: backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12', cache: pip, cache-dependency-path: backend/requirements-dev.txt }
+      - run: pip install -r backend/requirements-dev.txt
+      - name: Ядро, авторизация, CSRF, секреты
+        run: python -m pytest -q backend/tests/test_core.py
+      - name: Дорожная карта
+        run: python -m pytest -q backend/tests/test_roadmap.py
+      - name: Мастер проектов и промпты
+        run: python -m pytest -q backend/tests/test_wizard.py
+      - name: GitHub Webhooks
+        run: python -m pytest -q backend/tests/test_github.py
+      - name: Автоматическое слияние
+        run: python -m pytest -q backend/tests/test_automerge.py
+      - name: SSH-деплой и откат
+        run: python -m pytest -q backend/tests/test_deploy.py
+      - name: Релизы и APK
+        run: python -m pytest -q backend/tests/test_releases.py
+      - name: Память и уведомления
+        run: python -m pytest -q backend/tests/test_memory_notify.py
+      - name: Все тесты
+        run: python -m pytest -q backend/tests
+
+  migrations:
+    name: migrations
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install -r backend/requirements.txt
+      - name: Миграции с нуля, повторно и резервная копия
+        env: { NEXUS_DATA_DIR: /tmp/nexus-ci }
+        run: |
+          python -m backend.cli migrate
+          python -m backend.cli migrate | grep "нет новых"
+          python -m backend.cli check
+          python -m backend.cli backup --dir /tmp/nexus-ci/b
+          python -m backend.cli verify-backup "$(ls /tmp/nexus-ci/b/*.sqlite3 | head -1)"
+
+  security:
+    name: security
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Нет секретов в репозитории
+        run: |
+          ! git grep -nE '(ghp_|gho_|ghs_)[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{50,}|-----BEGIN [A-Z ]*PRIVATE KEY-----' -- . ':!backend/tests/**' ':!backend/core/redact.py'
+      - name: Синтаксис установочных сценариев
+        run: |
+          bash -n deploy/install.sh
+          bash -n deploy/rollback.sh
+          shellcheck -S error deploy/install.sh deploy/rollback.sh
+
+  frontend:
+    name: frontend
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: frontend } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20', cache: npm, cache-dependency-path: frontend/package-lock.json }
+      - run: npm ci --no-audit --no-fund
+      - name: TypeScript
+        run: npm run typecheck
+      - name: Сборка PWA
+        run: npm run build
+      - name: Проверка PWA-файлов
+        run: test -f dist/manifest.webmanifest && test -f dist/sw.js && test -f dist/icon-512.png

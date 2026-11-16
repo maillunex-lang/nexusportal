@@ -1,0 +1,26 @@
+[Unit]
+Description=NEXUS PORTAL
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=nexus
+Group=nexus
+WorkingDirectory=/opt/nexus-portal/current
+EnvironmentFile=/etc/nexus-portal/nexus-portal.env
+Environment=NEXUS_FRONTEND_DIST=/opt/nexus-portal/current/frontend/dist
+ExecStart=/opt/nexus-portal/current/venv/bin/python -m uvicorn backend.main:app --host 127.0.0.1 --port __PORT__ --proxy-headers --forwarded-allow-ips=127.0.0.1 --no-server-header
+Restart=on-failure
+RestartSec=5
+# Ограничения: служба видит только свои каталоги
+NoNewPrivileges=false
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/var/lib/nexus-portal /etc/nexus-portal/secrets /srv/nexus
+MemoryMax=512M
+CPUQuota=100%
+
+[Install]
+WantedBy=multi-user.target

@@ -1,16 +1,42 @@
-# NEXUS PORTAL · план реализации
+# NEXUS PORTAL · дорожная карта
 
-| Пакет | Результат | Зависимости |
-|---|---|---|
-| N1 | Backend, SQLite, auth, API, CI | нет |
-| N2 | Forest Glass PWA | N1 API |
-| N3 | Мастер GitHub и безопасная запись шаблонов | N1 |
-| N4 | Обучающие промпты, правила и handover | N3 |
-| N5 | DAG дорожной карты и генератор задач | N3 |
-| N6 | GitHub Webhooks, required CI и синхронизация | N1 |
-| N7 | Автослияние, статусы done, следующие задачи | N5,N6 |
-| N8 | SSH, dev/prod, копии и откат | N1,N7 |
-| N9 | APK и публичные релизы после релизного CI | N6,N8 |
-| N10 | Память, контекст, Telegram/MAX | N3,N5,N6 |
+Сгенерировано командой `python3 tools/work_plan.py render`. Источник истины: docs/work_plan.json.
 
-Исполнители работают в отдельных ветках и PR; shared files docs/GDD.md и docs/WORK_PLAN.md изменяет только директор. Не выдавать статус done до успешного слияния. На каждом этапе тесты включены в CI, не требовать скриншотов. Файловые зоны: N1 backend/**; N2 frontend/**; N3 backend/projects/** templates/**; N4 backend/prompts/**; N5 backend/roadmap/**; N6 backend/github/**; N7 backend/orchestration/**; N8 backend/deploy/**; N9 backend/releases/**; N10 backend/memory/** backend/notifications/**. Пересечения требуют последовательной интеграции.
+## S1 · Фундамент
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| N1 | Backend и безопасность | core | — | in_progress |
+
+## S2 · Интерфейс и интеграции
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| N2 | Интерфейс Forest Glass 2.0 (PWA) | ui | N1 | in_progress |
+| N3 | Мастер создания проектов | projects | N1 | in_progress |
+| N6 | GitHub | github | N1 | in_progress |
+
+## S3 · Промпты и план
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| N4 | Обучение ИИ и промпты | prompts | N3 | in_progress |
+| N5 | Дорожная карта | roadmap | N3 | in_progress |
+
+## S4 · Автоматизация и деплой
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| N7 | Автоматическое слияние | orchestration | N5, N6 | in_progress |
+| N8 | SSH и деплой | deploy | N1, N7 | in_progress |
+
+## S5 · Релизы и память
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| N9 | APK и релизы | releases | N6, N8 | in_progress |
+| N10 | Память и уведомления | memory | N3, N5, N6 | in_progress |
+
+## Готовы к выдаче
+
+- нет
