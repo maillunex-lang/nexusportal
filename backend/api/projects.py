@@ -238,6 +238,10 @@ def pull_roadmap(request: Request, project=Depends(get_project), p=Depends(porta
 
 @router.get("/projects/{project_id}/tasks/{key}/prompt")
 def task_prompt(key: str, project=Depends(get_project), p=Depends(portal)):
+    from ..blueprint import service as bps
+    bp = bps.approved(p.db, project["id"])
+    if bp and any(t["id"] == key for t in bp["content"]["tasks"]):
+        return {"prompt": bps.assignment(p, project, key, "generic")}
     try:
         return {"prompt": roadmap.task_prompt(p.db, project, key)}
     except engine.PlanError as e:

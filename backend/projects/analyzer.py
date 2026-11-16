@@ -34,7 +34,7 @@ SIGNS = [
 ]
 PORTAL_FILES = ["README.md", "docs/AI_RULES.md", "docs/DIRECTOR_HANDOVER.md", "docs/PORTAL_PROTOCOL.md",
                 "docs/GDD.md", "docs/gdd/DECISIONS_APPROVED.md", "docs/WORK_PLAN.md", "docs/work_plan.json",
-                "docs/EXECUTOR_RULES.md", "tools/work_plan.py", "tools/context_pack.py",
+                "docs/EXECUTOR_RULES.md", "tools/work_plan.py", "tools/context_pack.py", "tools/blueprint.py",
                 "docs/PROJECT_INDEX.md", "docs/context/modules.json", ".github/workflows/nexus-checks.yml"]
 
 

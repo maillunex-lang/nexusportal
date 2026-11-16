@@ -7,9 +7,11 @@ export function setCsrf(token: string | null) {
 
 export class ApiError extends Error {
   status: number;
-  constructor(status: number, message: string) {
+  errors: string[];
+  constructor(status: number, message: string, errors: string[] = []) {
     super(message);
     this.status = status;
+    this.errors = errors;
   }
 }
 
@@ -40,6 +42,9 @@ export async function api<T = any>(path: string, opts: { method?: string; body?:
   }
   if (!res.ok) {
     const detail = data && typeof data === "object" ? data.detail : data;
+    if (detail && typeof detail === "object" && typeof detail.message === "string") {
+      throw new ApiError(res.status, detail.message, Array.isArray(detail.errors) ? detail.errors : []);
+    }
     throw new ApiError(res.status, typeof detail === "string" ? detail : `Ошибка ${res.status}`);
   }
   return data as T;

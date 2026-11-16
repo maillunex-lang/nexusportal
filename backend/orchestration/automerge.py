@@ -132,6 +132,7 @@ def process_pr(portal, project: dict, number: int, gh=None) -> dict:
             if pr_row["task_key"]:
                 roadmap.set_status(portal.db, project, pr_row["task_key"], "blocked",
                                    reason=f"CI упал на {pr_row['head_sha'][:10]} (PR #{number})")
+            _bp_event(portal, project, "ci_failed", pr_row["task_key"], f"PR #{number} SHA {pr_row['head_sha'][:10]}")
             memory.add(portal.db, project["id"], "error", f"CI упал: PR #{number} {pr_row['title']}",
                        prompt[:3000], pr_row["html_url"])
             notify(portal, f"CI упал: PR #{number}", f"{pr_row['title']}\nПромпт исправления готов в портале.",
@@ -176,9 +177,17 @@ def on_merged(portal, project: dict, number: int, merge_sha: str) -> list[str]:
     if not task or task["status"] == "done":
         return []
     roadmap.set_status(db, project, row["task_key"], "done", confirmed_merge=True)
+    _bp_event(portal, project, "merged", row["task_key"], f"PR #{number} слит, SHA {merge_sha[:12]}")
     became = roadmap.refresh(db, project)
     memory.add(db, project["id"], "task", f"{row['task_key']} выполнена: PR #{number} слит",
                f"SHA слияния {merge_sha[:12]}", row["html_url"])
     notify(portal, f"Задача {row['task_key']} выполнена",
            f"PR #{number} слит.\nГотовы к выдаче: {', '.join(became) or 'нет новых'}", "success", project["id"])
     return became
+
+
+def _bp_event(portal, project: dict, ev: str, task_id: str | None, detail: str) -> None:
+    if not task_id:
+        return
+    from ..blueprint import service as bps
+    bps.event(portal.db, project["id"], ev, task_id, detail)

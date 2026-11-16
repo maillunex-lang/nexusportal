@@ -9,7 +9,7 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.responses import FileResponse, JSONResponse
 
-from .api import auth, ops, projects
+from .api import auth, blueprint, ops, projects
 from .core.config import Settings, load_settings
 from .core.db import Database
 from .core.portal import Portal
@@ -79,6 +79,7 @@ def create_app(settings: Settings | None = None, portal: Portal | None = None, b
     app.include_router(auth.router)
     app.include_router(projects.router)
     app.include_router(ops.router)
+    app.include_router(blueprint.router)
 
     @app.get("/api/health")
     def health():

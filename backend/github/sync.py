@@ -32,6 +32,11 @@ def upsert_pr(portal, project: dict, pr: dict) -> dict:
     branch = pr["head"]["ref"]
     task_key = detect_task(db, project, branch, pr.get("title", ""))
     state = "merged" if pr.get("merged") or pr.get("merged_at") else pr.get("state", "open")
+    known = db.one("SELECT head_sha FROM pull_requests WHERE repo=? AND number=?", (repo, pr["number"]))
+    if task_key and state == "open" and (known is None or known["head_sha"] != pr["head"]["sha"]):
+        from ..blueprint import service as bps
+        bps.event(db, project["id"], "pr_opened" if known is None else "pr_updated", task_key,
+                  f"PR #{pr['number']} SHA {pr['head']['sha'][:10]}")
     db.execute("""INSERT INTO pull_requests(project_id, repo, number, title, branch, base, head_sha, state, merged,
                   merge_sha, is_fork, task_key, html_url, updated_at)
                   VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,datetime('now'))

@@ -24,6 +24,10 @@
     {
       "id": "S5",
       "title": "Релизы и память"
+    },
+    {
+      "id": "S6",
+      "title": "Project Blueprint"
     }
   ],
   "tasks": [
@@ -333,6 +337,40 @@
       "done_when": [
         "Обязательный CI зелёный",
         "Тесты выбора контекста проходят",
+        "PR слит"
+      ],
+      "branch": "feat/nexusportal-full-v1",
+      "status": "in_progress"
+    },
+    {
+      "id": "BP",
+      "title": "NEXUS Project Blueprint",
+      "stage": "S6",
+      "lane": "blueprint",
+      "goal": "Стандарт nexus-blueprint/1, JSON Schema, промпт архитектора, импорт/проверка/утверждение/версии, очерёдность и параллелизм, экран «Что делать сейчас», отслеживание через PR и CI.",
+      "context": "Дополнение владельца к заданию. Учтён формат Adaptive Project Engine (PR #2).",
+      "gdd_refs": [
+        "blueprint"
+      ],
+      "file_scope": [
+        "backend/blueprint/**",
+        "backend/api/blueprint.py",
+        "docs/blueprint/**",
+        "tools/blueprint.py",
+        "frontend/src/pages/Now.tsx",
+        "frontend/src/pages/Blueprint.tsx"
+      ],
+      "modules": [
+        "blueprint"
+      ],
+      "depends_on": [
+        "N5",
+        "N7",
+        "SC"
+      ],
+      "done_when": [
+        "Обязательный CI зелёный",
+        "Тесты Blueprint проходят",
         "PR слит"
       ],
       "branch": "feat/nexusportal-full-v1",

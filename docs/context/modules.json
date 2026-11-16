@@ -26,6 +26,11 @@
       "path": "docs/AI_RULES.md",
       "title": "Правила ИИ",
       "summary": "обязательные правила исполнителей"
+    },
+    "blueprint": {
+      "path": "docs/blueprint/README.md",
+      "title": "Стандарт Blueprint",
+      "summary": "формат nexus-blueprint/1, очерёдность, параллелизм, жизненный цикл"
     }
   },
   "always_docs": [
@@ -304,6 +309,40 @@
       ],
       "depends_on": [
         "core"
+      ]
+    },
+    {
+      "id": "blueprint",
+      "title": "BP",
+      "paths": [
+        "backend/blueprint/**",
+        "backend/api/blueprint.py",
+        "docs/blueprint/**",
+        "tools/blueprint.py"
+      ],
+      "docs": [
+        "blueprint",
+        "protocol"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md",
+        "docs/blueprint/blueprint.schema.json"
+      ],
+      "tests": [
+        "backend/tests/test_blueprint.py"
+      ],
+      "public": [
+        "core.validate()",
+        "core.schedule()",
+        "core.render_assignment()",
+        "service.submit()",
+        "service.approve()",
+        "service.now()"
+      ],
+      "depends_on": [
+        "roadmap",
+        "orchestration",
+        "memory"
       ]
     }
   ],

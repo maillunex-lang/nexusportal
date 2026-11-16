@@ -15,10 +15,14 @@ import Apk from "./pages/Apk";
 import Memory from "./pages/Memory";
 import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
+import Now from "./pages/Now";
+import Blueprint from "./pages/Blueprint";
 
 export const NAV = [
   { to: "/", label: "Главная", icon: "⌂", main: true },
-  { to: "/projects", label: "Проекты", icon: "▦", main: true },
+  { to: "/now", label: "Сейчас", icon: "▶", main: true },
+  { to: "/projects", label: "Проекты", icon: "▦" },
+  { to: "/blueprint", label: "Blueprint", icon: "⧉" },
   { to: "/new", label: "Новый проект", icon: "+" },
   { to: "/roadmap", label: "Дорожная карта", icon: "⇶" },
   { to: "/tasks", label: "Задачи", icon: "☑", main: true },
@@ -35,7 +39,7 @@ export const NAV = [
 const PAGES: Record<string, () => JSX.Element> = {
   "/": Home, "/projects": Projects, "/new": NewProject, "/roadmap": Roadmap, "/tasks": Tasks, "/github": GitHub,
   "/ci": CI, "/servers": Servers, "/releases": Releases, "/apk": Apk, "/memory": Memory,
-  "/notifications": Notifications, "/settings": Settings,
+  "/notifications": Notifications, "/settings": Settings, "/now": Now, "/blueprint": Blueprint,
 };
 
 type AuthState = { loading: boolean; authenticated: boolean; ownerExists: boolean };

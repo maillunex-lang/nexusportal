@@ -1,0 +1,73 @@
+{
+  "format": "nexus-blueprint/1",
+  "blueprint_version": "1.0",
+  "generated_at": "",
+  "generated_by": "",
+  "project": {
+    "name": "",
+    "summary": "",
+    "kind": "",
+    "genre": "",
+    "platforms": [],
+    "tech_stack": [],
+    "repository": "",
+    "default_branch": "main"
+  },
+  "sources": {
+    "gdd": [
+      "docs/GDD.md"
+    ],
+    "roadmap": "",
+    "decisions": [],
+    "approved": false
+  },
+  "conventions": {
+    "branch_pattern": "task/{id}",
+    "pr_title_pattern": "[{id}] {title}",
+    "max_parallel": 3,
+    "parallel_within_workstream": false,
+    "required_checks": [],
+    "definition_of_done": [],
+    "global_rules": []
+  },
+  "phases": [
+    {
+      "id": "P1",
+      "title": "",
+      "goal": "",
+      "exit_criteria": []
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "core",
+      "title": "",
+      "description": ""
+    }
+  ],
+  "tasks": [
+    {
+      "id": "T001",
+      "title": "",
+      "phase": "P1",
+      "workstream": "core",
+      "priority": "P2",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "",
+      "context": "",
+      "gdd_refs": [],
+      "depends_on": [],
+      "conflicts_with": [],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [],
+      "verification": [],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": ""
+    }
+  ]
+}

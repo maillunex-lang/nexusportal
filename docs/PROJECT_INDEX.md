@@ -12,6 +12,7 @@
 | protocol | `docs/PORTAL_PROTOCOL.md` | жизненный цикл задачи, автослияние, релизы |
 | install | `docs/INSTALL.md` | VPS, секреты, GitHub, SSH, Telegram/MAX |
 | rules | `docs/AI_RULES.md` | обязательные правила исполнителей |
+| blueprint | `docs/blueprint/README.md` | формат nexus-blueprint/1, очерёдность, параллелизм, жизненный цикл |
 
 ## Модули
 
@@ -28,6 +29,7 @@
 | deploy | `backend/deploy/**`, `deploy/**` | install, arch | `docs/ARCHITECTURE.md` | `backend/tests/test_deploy.py` | core, memory |
 | releases | `backend/releases/**`, `templates/**` | protocol, install | `docs/ARCHITECTURE.md` | `backend/tests/test_releases.py` | deploy, github |
 | memory | `backend/memory/**`, `backend/notifications/**` | spec | `docs/ARCHITECTURE.md` | `backend/tests/test_memory_notify.py` | core |
+| blueprint | `backend/blueprint/**`, `backend/api/blueprint.py`, `docs/blueprint/**`, `tools/blueprint.py` | blueprint, protocol | `docs/ARCHITECTURE.md`, `docs/blueprint/blueprint.schema.json` | `backend/tests/test_blueprint.py` | roadmap, orchestration, memory |
 
 ## Критические правила
 - Токены и ключи только в файлах 0600 на сервере; браузеру и логам не отдаются.

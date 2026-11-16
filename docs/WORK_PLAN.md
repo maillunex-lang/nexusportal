@@ -38,6 +38,12 @@
 | N9 | APK и релизы | releases | N6, N8 | in_progress |
 | N10 | Память и уведомления | memory | N3, N5, N6 | in_progress |
 
+## S6 · Project Blueprint
+
+| ID | Задача | Линия | Зависит от | Статус |
+|---|---|---|---|---|
+| BP | NEXUS Project Blueprint | blueprint | N5, N7, SC | in_progress |
+
 ## Готовы к выдаче
 
 - нет

@@ -11,6 +11,7 @@ from ..projects.analyzer import KINDS, TEMPLATES
 
 ENGINE_PATH = Path(__file__).resolve().parents[1] / "roadmap" / "engine.py"
 CONTEXT_ENGINE_PATH = Path(__file__).resolve().parents[1] / "context" / "engine.py"
+BLUEPRINT_CORE_PATH = Path(__file__).resolve().parents[1] / "blueprint" / "core.py"
 
 # Тематические документы GDD: ключ -> (файл, заголовок, краткое описание)
 GDD_DOCS = {
@@ -315,6 +316,7 @@ def project_files(p: dict, analysis: dict) -> dict[str, str]:
         "docs/context/modules.json": json.dumps(modules_index(p, plan), ensure_ascii=False, indent=2) + "\n",
         "docs/PROJECT_INDEX.md": project_index(p, plan),
         "tools/context_pack.py": CONTEXT_ENGINE_PATH.read_text(encoding="utf-8"),
+        "tools/blueprint.py": BLUEPRINT_CORE_PATH.read_text(encoding="utf-8"),
         "docs/gdd/DECISIONS_APPROVED.md": decisions(p),
         "docs/work_plan.json": json.dumps(plan, ensure_ascii=False, indent=2) + "\n",
         "docs/WORK_PLAN.md": work_plan_md(plan),
@@ -364,6 +366,10 @@ def director_bootstrap_prompt(p: dict) -> str:
    зависимости без циклов) и обновляй docs/PROJECT_INDEX.md: `python3 tools/context_pack.py index --write`.
    Проверка: `python3 tools/context_pack.py check`, `python3 tools/work_plan.py check`, затем `render --write`.
 6. Открой PR `[T0] GDD и дорожная карта`. После слияния портал откроет следующие задачи.
+7. После утверждения GDD и дорожной карты владельцем сформируй NEXUS Project Blueprint — единый JSON
+   стандарта `nexus-blueprint/1` со всеми этапами, задачами, зависимостями, приоритетами, критериями и промптами.
+   Полная инструкция — промпт ИИ-архитектора в портале (раздел «Blueprint»). Сохрани его как docs/blueprint.json
+   и проверь: `python3 tools/blueprint.py validate docs/blueprint.json`.
 
 ## Правила
 - Не используй платные ИИ API и не проси секреты в чате.

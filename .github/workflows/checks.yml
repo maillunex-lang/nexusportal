@@ -29,6 +29,8 @@ jobs:
           diff -u docs/PROJECT_INDEX.md /tmp/index.md
       - name: Smart Context — движок самодостаточен (stdlib)
         run: python3 -I backend/context/engine.py check
+      - name: Blueprint — примеры стандарта корректны (stdlib)
+        run: for f in docs/blueprint/examples/*.json; do python3 -I backend/blueprint/core.py validate "$f"; done
       - name: Шаблонный движок самодостаточен (stdlib)
         run: python3 -I backend/roadmap/engine.py --file docs/work_plan.json check
 
@@ -56,6 +58,8 @@ jobs:
         run: python -m pytest -q backend/tests/test_releases.py
       - name: Smart Context
         run: python -m pytest -q backend/tests/test_context.py
+      - name: Project Blueprint
+        run: python -m pytest -q backend/tests/test_blueprint.py
       - name: Память и уведомления
         run: python -m pytest -q backend/tests/test_memory_notify.py
       - name: Все тесты
