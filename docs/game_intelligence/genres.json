@@ -1,0 +1,147 @@
+{
+  "schema_version": "0.1",
+  "status": "starter_taxonomy_not_trained",
+  "genres": [
+    {
+      "id": "mmorpg",
+      "label": "MMORPG",
+      "mechanics": [
+        "persistent_world",
+        "party_raids",
+        "guilds",
+        "character_progression",
+        "trading",
+        "pvp",
+        "server_authority"
+      ]
+    },
+    {
+      "id": "arpg",
+      "label": "ARPG",
+      "mechanics": [
+        "real_time_combat",
+        "loot",
+        "builds",
+        "bosses",
+        "cooperative_play",
+        "endgame"
+      ]
+    },
+    {
+      "id": "4x",
+      "label": "4X strategy",
+      "mechanics": [
+        "exploration",
+        "expansion",
+        "resource_economy",
+        "diplomacy",
+        "warfare",
+        "technology"
+      ]
+    },
+    {
+      "id": "economic_strategy",
+      "label": "Economic strategy",
+      "mechanics": [
+        "production_chains",
+        "supply_demand",
+        "logistics",
+        "competition",
+        "pricing",
+        "contracts"
+      ]
+    },
+    {
+      "id": "economic_simulation",
+      "label": "Economic simulation",
+      "mechanics": [
+        "production_chains",
+        "supply_demand",
+        "population",
+        "simulation_ticks",
+        "market_shocks",
+        "accounting"
+      ]
+    },
+    {
+      "id": "rts",
+      "label": "RTS",
+      "mechanics": [
+        "unit_control",
+        "fog_of_war",
+        "resource_economy",
+        "combat"
+      ]
+    },
+    {
+      "id": "city_builder",
+      "label": "City builder",
+      "mechanics": [
+        "zoning",
+        "population",
+        "services",
+        "logistics"
+      ]
+    },
+    {
+      "id": "survival",
+      "label": "Survival crafting",
+      "mechanics": [
+        "crafting",
+        "resource_gathering",
+        "cooperative_play",
+        "base_building"
+      ]
+    },
+    {
+      "id": "sandbox",
+      "label": "Sandbox",
+      "mechanics": [
+        "world_editing",
+        "crafting",
+        "player_creativity"
+      ]
+    },
+    {
+      "id": "idle_rpg",
+      "label": "Idle RPG",
+      "mechanics": [
+        "offline_progression",
+        "character_progression",
+        "builds"
+      ]
+    },
+    {
+      "id": "naval_strategy",
+      "label": "Naval strategy",
+      "mechanics": [
+        "ship_control",
+        "naval_combat",
+        "trading",
+        "cooperative_play"
+      ]
+    },
+    {
+      "id": "tower_defense",
+      "label": "Tower defense",
+      "mechanics": [
+        "wave_design",
+        "tower_upgrades",
+        "pathfinding"
+      ]
+    }
+  ],
+  "evidence_policy": {
+    "required": [
+      "source_url",
+      "source_type",
+      "observed_at",
+      "genre_id",
+      "theme",
+      "sentiment",
+      "summary"
+    ],
+    "no_fabricated_reviews": true
+  },
+  "reviews": []
+}

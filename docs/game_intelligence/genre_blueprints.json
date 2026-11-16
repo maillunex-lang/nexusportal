@@ -1,0 +1,487 @@
+{
+  "schema_version": 1,
+  "editorial_status": "design hypotheses informed by genre structure; not measured popularity",
+  "genre_blueprints": [
+    {
+      "id": "mmorpg",
+      "core_loop": [
+        "Explore world and discover opportunities",
+        "Complete group or solo objectives",
+        "Improve build and equipment",
+        "Trade or cooperate with other players",
+        "Return for longer-term social goals"
+      ],
+      "mvp": [
+        "One persistent region",
+        "Two distinct combat roles",
+        "Quest + dungeon",
+        "Basic guild and trading",
+        "Reconnection and server persistence"
+      ],
+      "technical": [
+        "Authoritative combat/state",
+        "Interest management and region partitions",
+        "Durable inventory/transactions",
+        "Anti-duplication protections",
+        "Reconnect and session recovery"
+      ],
+      "mobile": [
+        "Touch targeting and support-class usability",
+        "Readable ability telegraphs",
+        "Low-end frame budget",
+        "Short optional session objectives"
+      ],
+      "pitfalls": [
+        "Forced daily chores",
+        "Veteran-newcomer power gap",
+        "Unfair pay-to-win",
+        "Long travel without decisions",
+        "Loss of progress on disconnect"
+      ],
+      "questions": [
+        "How persistent is the world?",
+        "How many simultaneous players share one location?",
+        "Are social roles essential?",
+        "What happens on disconnect during combat?"
+      ]
+    },
+    {
+      "id": "arpg",
+      "core_loop": [
+        "Enter combat zone",
+        "Execute readable skill rotations",
+        "Defeat enemy patterns",
+        "Collect and compare loot",
+        "Improve build and challenge harder encounters"
+      ],
+      "mvp": [
+        "One combat class with multiple viable builds",
+        "Three enemy families and boss",
+        "Loot rarity + upgrade rules",
+        "One cooperative instance",
+        "Save/load and controller/touch checks"
+      ],
+      "technical": [
+        "Server-authoritative hits if online",
+        "Latency tolerance and animation reconciliation",
+        "Deterministic damage rules",
+        "Loot table validation",
+        "Skill cooldown and resource invariants"
+      ],
+      "mobile": [
+        "Clear joystick/targeting and camera",
+        "Telegraphs visible under effects",
+        "Low touch-button density",
+        "Battery and heat guardrails"
+      ],
+      "pitfalls": [
+        "Visual effect overload",
+        "One dominant build",
+        "Endless inventory cleanup",
+        "Unclear damage feedback",
+        "Boss attacks impossible on touch"
+      ],
+      "questions": [
+        "Camera and targeting approach?",
+        "Direct or lock-on attacks?",
+        "Loot trade allowed?",
+        "Co-op latency target?"
+      ]
+    },
+    {
+      "id": "4x",
+      "core_loop": [
+        "Scout the map",
+        "Acquire and defend resources",
+        "Develop city or base",
+        "Research and train units",
+        "Negotiate or contest territory"
+      ],
+      "mvp": [
+        "One strategic map",
+        "Base construction and resources",
+        "Two unit types and PvE targets",
+        "Alliance joining and shared objectives",
+        "Attack/defense reports"
+      ],
+      "technical": [
+        "Authoritative battle resolution",
+        "Time and tick consistency",
+        "Anti-cheat and race-safe resource transfers",
+        "Alliance permission rules",
+        "Map visibility and fog-of-war"
+      ],
+      "mobile": [
+        "Async actions with clear ETA",
+        "Readable army orders",
+        "Push notifications optional",
+        "Fair short-session catch-up"
+      ],
+      "pitfalls": [
+        "Unlimited whale power",
+        "Unprotected early-game raids",
+        "Long repetitive timers",
+        "Punitive timezone-based alliance play",
+        "Ads unlike actual gameplay"
+      ],
+      "questions": [
+        "One global world or seasons?",
+        "Is PvP opt-in or mandatory?",
+        "How are newcomers protected?",
+        "Can entire alliances relocate?"
+      ]
+    },
+    {
+      "id": "economic_strategy",
+      "core_loop": [
+        "Spot demand gap",
+        "Source or produce goods",
+        "Set prices and distribution",
+        "Respond to rivals",
+        "Reinvest into growth"
+      ],
+      "mvp": [
+        "Three multi-stage goods chains",
+        "Warehouses and transport costs",
+        "Player/NPC suppliers",
+        "Competitive retail catchment areas",
+        "Income and cash-flow reports"
+      ],
+      "technical": [
+        "Integer accounting and inventories",
+        "Transactional contracts",
+        "Market clearing with reproducible rules",
+        "Prevent buy/sell duplication",
+        "Audit trail and rollback of economic updates"
+      ],
+      "mobile": [
+        "Price adjustment without excessive taps",
+        "Readable margins and stockouts",
+        "Optional procurement policies",
+        "Clear causality for market changes"
+      ],
+      "pitfalls": [
+        "Infinite arbitrage",
+        "Omniscient AI rivals",
+        "Tedious micromanagement",
+        "No real buyer demand",
+        "Illusory competition"
+      ],
+      "questions": [
+        "What generates consumer demand?",
+        "What knowledge do competing companies have?",
+        "How are price changes timed?",
+        "How are bankruptcies handled?"
+      ]
+    },
+    {
+      "id": "economic_simulation",
+      "core_loop": [
+        "Set scenario assumptions",
+        "Run production and consumer dynamics",
+        "Inspect indicators and bottlenecks",
+        "Adjust policy or investment",
+        "Compare outcomes"
+      ],
+      "mvp": [
+        "Versioned scenario schema",
+        "Fixed-seed repeatable simulator",
+        "Three production chains",
+        "Population cohorts and budgets",
+        "Balance charts with validation"
+      ],
+      "technical": [
+        "Conservation and integer money flows",
+        "Stable timestep",
+        "Seeded pseudo-random events",
+        "Replay/golden cases",
+        "Sensitivity and stress tests"
+      ],
+      "mobile": [
+        "Summary KPIs and drill-down",
+        "Parameter presets",
+        "Time-control without precision loss",
+        "Exportable results"
+      ],
+      "pitfalls": [
+        "Unexplainable numbers",
+        "Non-reproducible outcomes",
+        "Profits disconnected from expenses",
+        "Simulation speed causing race conditions",
+        "Opaque difficulty sliders"
+      ],
+      "questions": [
+        "What is one time step?",
+        "How realistic should households be?",
+        "Which outcome metrics matter?",
+        "How to compare runs fairly?"
+      ]
+    },
+    {
+      "id": "rts",
+      "core_loop": [
+        "Scout enemy positions",
+        "Harvest and allocate resources",
+        "Build production and defenses",
+        "Micro-manage unit groups",
+        "Attack and adapt"
+      ],
+      "mvp": [
+        "One map",
+        "Two factions with asymmetry",
+        "Three unit classes",
+        "One AI skirmish",
+        "Touch control tutorial"
+      ],
+      "technical": [
+        "Deterministic command validation",
+        "Authoritative pathfinding and combat",
+        "Fog-of-war data isolation",
+        "Tick sync and reconnect"
+      ],
+      "mobile": [
+        "Group selection and clear commands",
+        "Tap-to-move and drag camera",
+        "Limit simultaneous on-screen units"
+      ],
+      "pitfalls": [
+        "High APM requirement on touch",
+        "Unclear unit counters",
+        "Hidden unfair AI bonuses"
+      ],
+      "questions": [
+        "Real-time or pause-friendly?",
+        "Unit cap?",
+        "PvP synchronization?"
+      ]
+    },
+    {
+      "id": "city_builder",
+      "core_loop": [
+        "Zone and build districts",
+        "Connect roads and services",
+        "Balance budgets and population",
+        "Respond to bottlenecks",
+        "Expand"
+      ],
+      "mvp": [
+        "One town map",
+        "Three zone types",
+        "Basic utility services",
+        "Budget ledger",
+        "Population satisfaction"
+      ],
+      "technical": [
+        "Chunked world storage",
+        "Deterministic city growth",
+        "Service coverage graph",
+        "Integer fiscal ledger"
+      ],
+      "mobile": [
+        "Zone painting gesture",
+        "Traffic and coverage overlays",
+        "Readable budget summaries"
+      ],
+      "pitfalls": [
+        "No meaningful tradeoffs",
+        "Unclear coverage radii",
+        "Unbounded traffic simulation"
+      ],
+      "questions": [
+        "Fixed or infinite map?",
+        "What is the population model?",
+        "How are disasters handled?"
+      ]
+    },
+    {
+      "id": "survival",
+      "core_loop": [
+        "Explore and gather",
+        "Craft equipment",
+        "Build shelter",
+        "Face environmental threats",
+        "Cooperate and improve"
+      ],
+      "mvp": [
+        "One biome",
+        "Resource tiers",
+        "Shelter construction",
+        "Co-op for four players",
+        "Persistent inventory"
+      ],
+      "technical": [
+        "Authoritative item transfers",
+        "Craft recipe integrity",
+        "World save and reconnect",
+        "Co-op session lifecycle"
+      ],
+      "mobile": [
+        "Quick-access crafting",
+        "Touch combat accessibility",
+        "Low-memory terrain chunks"
+      ],
+      "pitfalls": [
+        "Excessive resource grind",
+        "Punitive loss on disconnect",
+        "Unclear co-op ownership"
+      ],
+      "questions": [
+        "Persistent server or session?",
+        "PvP enabled?",
+        "How harsh is death?"
+      ]
+    },
+    {
+      "id": "sandbox",
+      "core_loop": [
+        "Explore possibilities",
+        "Acquire creative tools",
+        "Build or alter world",
+        "Share creations",
+        "Iterate"
+      ],
+      "mvp": [
+        "Editable area",
+        "Three building tools",
+        "Save/load",
+        "Co-op permissions",
+        "Undo/redo"
+      ],
+      "technical": [
+        "Versioned object changes",
+        "Permissions and moderation",
+        "Undo log",
+        "Chunk streaming"
+      ],
+      "mobile": [
+        "Gesture conflict prevention",
+        "Precision placement assists",
+        "Compact tool palette"
+      ],
+      "pitfalls": [
+        "Unbounded creation lag",
+        "Griefing",
+        "No meaningful first-session goal"
+      ],
+      "questions": [
+        "Private or public worlds?",
+        "What can users create?",
+        "How to moderate creations?"
+      ]
+    },
+    {
+      "id": "idle_rpg",
+      "core_loop": [
+        "Claim progress",
+        "Upgrade heroes",
+        "Choose formation",
+        "Clear content",
+        "Return to new choices"
+      ],
+      "mvp": [
+        "Five heroes",
+        "Three roles",
+        "Offline progress cap",
+        "Ten PvE stages",
+        "One build decision"
+      ],
+      "technical": [
+        "Server-validated time deltas",
+        "Bounded offline rewards",
+        "Deterministic combat simulation",
+        "Economy sink/source ledger"
+      ],
+      "mobile": [
+        "Short claim loop",
+        "Readable progress deltas",
+        "No mandatory notification spam"
+      ],
+      "pitfalls": [
+        "Forced login chores",
+        "Predatory monetization",
+        "No meaningful strategy"
+      ],
+      "questions": [
+        "How long is offline accumulation?",
+        "Manual combat optional?",
+        "How are duplicate heroes handled?"
+      ]
+    },
+    {
+      "id": "naval_strategy",
+      "core_loop": [
+        "Explore sea routes",
+        "Gather or trade cargo",
+        "Upgrade ship and crew",
+        "Fight or evade enemies",
+        "Coordinate fleet"
+      ],
+      "mvp": [
+        "One sea region",
+        "Two ships",
+        "Trading port",
+        "PvE encounters",
+        "Four-player fleet"
+      ],
+      "technical": [
+        "Authoritative ship state",
+        "Route and cargo ledger",
+        "Network interpolation",
+        "Combat collision budget"
+      ],
+      "mobile": [
+        "Clear ship steering",
+        "Readable wind and heading",
+        "Touch-friendly firing arcs"
+      ],
+      "pitfalls": [
+        "Slow travel with no decisions",
+        "Overloaded naval HUD",
+        "Cargo duplication"
+      ],
+      "questions": [
+        "Real-time sea or tactical turns?",
+        "How many players per fleet?",
+        "Ship loss permanence?"
+      ]
+    },
+    {
+      "id": "tower_defense",
+      "core_loop": [
+        "Inspect incoming waves",
+        "Place defensive towers",
+        "Counter enemy types",
+        "Earn upgrade resources",
+        "Refine layout"
+      ],
+      "mvp": [
+        "One map",
+        "Four tower types",
+        "Three enemy types",
+        "Ten waves",
+        "Upgrade and retry"
+      ],
+      "technical": [
+        "Seeded wave scheduler",
+        "Path validity",
+        "Deterministic targeting",
+        "Balance replay fixtures"
+      ],
+      "mobile": [
+        "One-tap tower placement",
+        "Range previews",
+        "Readable enemy resistances"
+      ],
+      "pitfalls": [
+        "Mandatory single optimal solution",
+        "Unreadable swarms",
+        "No counterplay for leaks"
+      ],
+      "questions": [
+        "Fixed or dynamic routes?",
+        "Co-op defense?",
+        "How many towers on mobile?"
+      ]
+    }
+  ]
+}

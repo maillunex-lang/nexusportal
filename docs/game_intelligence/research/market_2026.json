@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "insights": [
+    {
+      "id": "h1_strategy_revenue",
+      "period": "2026-H1",
+      "metric": "estimated_mobile_gross_player_spending",
+      "genre": "strategy",
+      "value": 9.1,
+      "unit": "USD_billion",
+      "source": "https://www.pocketgamer.biz/h1-2026-genre-analysis-strategy-stumbles-rpgs-fall-and-puzzle-revenue-ramps-up/",
+      "attribution": "AppMagic estimates as summarized by PocketGamer.biz",
+      "limitations": "Aggregate store strategy category, not 4X-specific; estimates, not official sales; includes different subgenres",
+      "implication": "Strategy has large commercial scale but genre total does not predict an individual game's success"
+    },
+    {
+      "id": "h1_strategy_share",
+      "period": "2026-H1",
+      "metric": "estimated_share_of_player_spending",
+      "genre": "strategy",
+      "value": 23,
+      "unit": "percent",
+      "source": "https://www.pocketgamer.biz/h1-2026-genre-analysis-strategy-stumbles-rpgs-fall-and-puzzle-revenue-ramps-up/",
+      "attribution": "AppMagic estimates as summarized by PocketGamer.biz",
+      "limitations": "Mobile store spending estimate and broad store genre grouping",
+      "implication": "Study competitive market design and user acquisition, not just core mechanics"
+    },
+    {
+      "id": "new_4x_launch",
+      "period": "2026-YTD-through-Q3",
+      "metric": "estimated_lifetime_iap",
+      "genre": "4x",
+      "game": "Last Asylum: Plague",
+      "value": 77.1,
+      "unit": "USD_million",
+      "source": "https://mobilegamer.biz/data-digest-q3s-top-earners-2026s-biggest-new-launches-apple-and-google-fined-47-6m-more/",
+      "attribution": "AppMagic estimates as summarized by Mobilegamer.biz",
+      "limitations": "Estimates and date-scoped; not proof of retention or gameplay quality",
+      "implication": "Include 2026 new launches in 4X mechanics and monetization research"
+    },
+    {
+      "id": "mobile_mmorg_2026",
+      "period": "2026-06",
+      "metric": "industry_launch_description",
+      "genre": "mmorpg",
+      "game": "SOL: enchant",
+      "source": "https://develop.sensortower.com/blog/top-10-worldwide-mobile-games-by-revenue-and-downloads-in-june-2026",
+      "attribution": "Sensor Tower industry report",
+      "limitations": "Launch/marketing description; features require independent gameplay verification",
+      "implication": "Investigate player economy, offline progress and user-generated rules as hypotheses"
+    }
+  ]
+}

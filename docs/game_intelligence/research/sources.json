@@ -1,0 +1,415 @@
+{
+  "schema_version": 1,
+  "retrieved_at": "2026-11-16",
+  "sources": [
+    {
+      "id": "aw_strategy_us_android_20261116",
+      "url": "https://appwinners.eu/charts/android/us/grossing/game-strategy",
+      "platform": "google_play",
+      "country": "US",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games: Strategy",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of country Google Play chart; not original Google publication",
+      "audit_status": "date_position_conflict"
+    },
+    {
+      "id": "aw_rpg_ww_android_20261116",
+      "url": "https://appwinners.eu/charts/android/ww/grossing/game-role-playing",
+      "platform": "google_play",
+      "country": "WW",
+      "date": "2026-11-16",
+      "type": "derived_chart",
+      "category": "Games: Role Playing",
+      "metric": "grossing",
+      "method": "AppWinners synthesized worldwide ranking, NOT official ranking or revenue amount",
+      "audit_status": "not_rechecked"
+    },
+    {
+      "id": "aw_sim_ww_android_20261116",
+      "url": "https://appwinners.eu/charts/android/ww/grossing/game-simulation",
+      "platform": "google_play",
+      "country": "WW",
+      "date": "2026-11-16",
+      "type": "derived_chart",
+      "category": "Games: Simulation",
+      "metric": "grossing",
+      "method": "AppWinners synthesized worldwide ranking, NOT official ranking or revenue amount",
+      "audit_status": "date_position_conflict"
+    },
+    {
+      "id": "aw_ios_us_20261116",
+      "url": "https://appwinners.eu/charts/ios/us/grossing/games",
+      "platform": "app_store",
+      "country": "US",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of iOS chart",
+      "audit_status": "excerpt_rechecked"
+    },
+    {
+      "id": "aw_ios_de_20261116",
+      "url": "https://appwinners.eu/charts/ios/de/grossing/games",
+      "platform": "app_store",
+      "country": "DE",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games",
+      "metric": "grossing",
+      "method": "AppWinners daily capture of iOS chart",
+      "audit_status": "date_position_conflict"
+    },
+    {
+      "id": "aw_android_de_sim_20261116",
+      "url": "https://appwinners.eu/charts/android/de/free/game-simulation",
+      "platform": "google_play",
+      "country": "DE",
+      "date": "2026-11-16",
+      "type": "chart_snapshot",
+      "category": "Games: Simulation",
+      "metric": "free",
+      "method": "AppWinners daily capture of country chart",
+      "audit_status": "not_rechecked"
+    },
+    {
+      "id": "capitalism_lab_press",
+      "url": "https://www.capitalismlab.com/press-kit/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Publisher-provided description, not independent user opinion"
+    },
+    {
+      "id": "capitalism_lab_features",
+      "url": "https://www.capitalismlab.com/new-content/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Official feature list"
+    },
+    {
+      "id": "reddit_rok_f2p_20260511",
+      "url": "https://www.reddit.com/r/RiseofKingdoms/comments/1ta79m1/is_it_possible_to_get_play_the_game_casually_as/",
+      "type": "player_discussion",
+      "date": "2026-05-11",
+      "method": "Reddit thread, self-selected respondents, no representative sampling"
+    },
+    {
+      "id": "reddit_albion_mobile_20260414",
+      "url": "https://www.reddit.com/r/albiononline/comments/1sldf0z/is_it_worth_to_start_now_on_mobile/",
+      "type": "player_discussion",
+      "date": "2026-04-14",
+      "method": "Reddit thread, self-selected respondents, no representative sampling"
+    },
+    {
+      "id": "appmagic_h1_2026",
+      "url": "https://www.pocketgamer.biz/h1-2026-genre-analysis-strategy-stumbles-rpgs-fall-and-puzzle-revenue-ramps-up/",
+      "type": "industry_report_summary",
+      "date": "2026-07-16",
+      "method": "Third party interpretation of AppMagic estimates; not direct store telemetry"
+    },
+    {
+      "id": "reddit_caplab_margin_20260411",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1siox9r/how_can_i_make_profits_more_realistic_in/",
+      "type": "player_discussion",
+      "date": "2026-04-11",
+      "method": "Self-selected public Reddit discussion"
+    },
+    {
+      "id": "reddit_caplab_city_20260524",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1tmr0qm/do_you_play_with_ces_enabled/",
+      "type": "player_discussion",
+      "date": "2026-05-24",
+      "method": "Self-selected public Reddit discussion"
+    },
+    {
+      "id": "reddit_caplab_clicks_20241230",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1hpxupa",
+      "type": "player_discussion",
+      "date": "2024-12-30",
+      "method": "Older public Reddit discussion"
+    },
+    {
+      "id": "caplab_forum_ux_20260210",
+      "url": "https://capitalism2.com/forum/viewtopic.php?t=10583",
+      "type": "player_discussion",
+      "date": "2026-02-10",
+      "method": "Public forum complaint thread; edited URL canonical"
+    },
+    {
+      "id": "reddit_mobile_ads_2026",
+      "url": "https://www.reddit.com/r/MobileGaming/comments/1u5twu6/the_mendacification_of_mobile_advertisements/",
+      "type": "player_discussion",
+      "date": "2026-06-01",
+      "method": "Single public discussion post"
+    },
+    {
+      "id": "primary_albion_online",
+      "url": "https://play.google.com/store/apps/details/Albion_Online?hl=en&id=com.albiononline",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_titan_quest_ultimate",
+      "url": "https://play.google.com/store/apps/details?hl=en-IE&id=com.hg.titanquestultimate",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "IE",
+      "language": "en"
+    },
+    {
+      "id": "primary_rise_of_kingdoms",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.roc.gp",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_sim_companies",
+      "url": "https://play.google.com/store/apps/details?hl=en_US&id=com.simcompanies.simcompaniespwa",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_rusted_warfare",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.corrodinggames.rts",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_simcity_buildit",
+      "url": "https://play.google.com/store/apps/details?hl=de&id=com.ea.game.simcitymobile_row",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "DE",
+      "language": "de"
+    },
+    {
+      "id": "primary_last_day_on_earth",
+      "url": "https://apps.apple.com/us/app/last-day-on-earth-survival/id1241932094",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_minecraft_bedrock",
+      "url": "https://apps.apple.com/us/app/minecraft-play-with-friends/id479516143",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_afk_arena",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.hgame.gp",
+      "type": "store_listing",
+      "platform": "google_play",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_warship_craft_ios",
+      "url": "https://apps.apple.com/us/app/warship-craft/id906560615",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "primary_bloons_td6",
+      "url": "https://apps.apple.com/us/app/bloons-td-6/id1118115766?platform=ipad",
+      "type": "store_listing",
+      "platform": "app_store",
+      "date": "2026-11-16",
+      "method": "Public search/open retrieval; developer description and visible review excerpts. Not a historical chart.",
+      "country": "US",
+      "language": "en"
+    },
+    {
+      "id": "capitalism_lab_home_20261116",
+      "url": "https://www.capitalismlab.com/",
+      "type": "developer_document",
+      "date": "2026-11-16",
+      "method": "Official publisher homepage; DLC feature claims, not representative sentiment."
+    },
+    {
+      "id": "primary_whiteout_survival",
+      "url": "https://play.google.com/store/apps/details?id=com.gof.global",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "language": "en"
+    },
+    {
+      "id": "primary_kingshot",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.run.tower.defense",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "language": "en"
+    },
+    {
+      "id": "primary_township",
+      "url": "https://apps.apple.com/us/app/township/id638689075",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "app_store",
+      "language": "en"
+    },
+    {
+      "id": "primary_the_tower",
+      "url": "https://play.google.com/store/apps/details?hl=en-US&id=com.TechTreeGames.TheTower",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "language": "en"
+    },
+    {
+      "id": "simcity_english_reviews",
+      "url": "https://play.google.com/store/apps/details?hl=en&id=com.ea.game.simcitymobile_row",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "language": "en"
+    },
+    {
+      "id": "bloons_us_reviews",
+      "url": "https://apps.apple.com/us/app/bloons-td-6/id1118115766",
+      "type": "store_listing",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "app_store",
+      "language": "en"
+    },
+    {
+      "id": "rechecked_android_us_strategy_20261115",
+      "url": "https://appwinners.eu/charts/android/us/grossing/game-strategy",
+      "type": "chart_snapshot",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "country": "US",
+      "chart_date": "2026-11-15",
+      "category": "Games: Strategy",
+      "metric": "grossing"
+    },
+    {
+      "id": "chart_identity_kingshot",
+      "url": "https://appwinners.eu/app/android/com.run.tower.defense/kingshot",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play"
+    },
+    {
+      "id": "chart_identity_whiteout_survival",
+      "url": "https://appwinners.eu/app/android/com.gof.global/whiteout-survival",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play"
+    },
+    {
+      "id": "chart_identity_rise_of_kingdoms",
+      "url": "https://appwinners.eu/app/android/com.lilithgame.roc.gp/rise-of-kingdoms-lost-crusade",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play"
+    },
+    {
+      "id": "rechecked_android_ww_sim_20261113",
+      "url": "https://appwinners.eu/charts/android/ww/grossing/game-simulation",
+      "type": "derived_chart",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play",
+      "country": "WW",
+      "chart_date": "2026-11-13",
+      "category": "Games: Simulation",
+      "metric": "grossing"
+    },
+    {
+      "id": "chart_identity_the_tower",
+      "url": "https://appwinners.eu/app/android/com.TechTreeGames.TheTower/the-tower-idle-tower-defense",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play"
+    },
+    {
+      "id": "chart_identity_simcity_buildit",
+      "url": "https://appwinners.eu/app/android/com.ea.game.simcitymobile_row/simcity-buildit",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "google_play"
+    },
+    {
+      "id": "rechecked_ios_us_games_20261116",
+      "url": "https://appwinners.eu/charts/ios/us/grossing/games",
+      "type": "chart_snapshot",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "app_store",
+      "country": "US",
+      "chart_date": "2026-11-16",
+      "category": "Games",
+      "metric": "grossing"
+    },
+    {
+      "id": "chart_identity_township",
+      "url": "https://appwinners.eu/app/ios/638689075/township",
+      "type": "app_identity",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "app_store"
+    },
+    {
+      "id": "rechecked_ios_de_games_20261115",
+      "url": "https://appwinners.eu/charts/ios/de/grossing/games",
+      "type": "chart_snapshot",
+      "date": "2026-11-16",
+      "method": "Public page retrieval; page/chart date recorded separately from retrieval date. Cached page may be older.",
+      "platform": "app_store",
+      "country": "DE",
+      "chart_date": "2026-11-15",
+      "category": "Games",
+      "metric": "grossing"
+    }
+  ]
+}

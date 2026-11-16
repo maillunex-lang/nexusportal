@@ -1,0 +1,610 @@
+{
+  "schema_version": 1,
+  "collection_date": "2026-11-16",
+  "status": "legacy_requires_identity_and_date_audit",
+  "notes": "Chart positions are positions within original store category and territory, NOT ranks within editorial genres, NOT 2026 annual top-100. Titles lack app IDs and must be disambiguated before deduplication. Repeat retrieval found conflicts for three sources; see chart_audit.json. Excluded from resolved reports pending identity/archive checks.",
+  "snapshots": [
+    {
+      "source_id": "aw_strategy_us_android_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "Total Battle: War Strategy"
+        },
+        {
+          "rank": 2,
+          "title": "Kingshot"
+        },
+        {
+          "rank": 3,
+          "title": "Whiteout Survival"
+        },
+        {
+          "rank": 4,
+          "title": "Last War:Survival Game"
+        },
+        {
+          "rank": 5,
+          "title": "Last Z: Survival Shooter"
+        },
+        {
+          "rank": 6,
+          "title": "Evony: The King's Return"
+        },
+        {
+          "rank": 7,
+          "title": "Last Asylum: Plague"
+        },
+        {
+          "rank": 8,
+          "title": "Clash of Clans"
+        },
+        {
+          "rank": 9,
+          "title": "Dark War Survival"
+        },
+        {
+          "rank": 10,
+          "title": "Lordrush"
+        },
+        {
+          "rank": 11,
+          "title": "Puzzles & Survival"
+        },
+        {
+          "rank": 12,
+          "title": "Z Route: Redemption"
+        },
+        {
+          "rank": 13,
+          "title": "Puzzles & Chaos: Frozen Castle"
+        },
+        {
+          "rank": 14,
+          "title": "Top Lords"
+        },
+        {
+          "rank": 15,
+          "title": "Star Trek Fleet Command"
+        },
+        {
+          "rank": 16,
+          "title": "Top Force"
+        },
+        {
+          "rank": 17,
+          "title": "Clash Royale"
+        },
+        {
+          "rank": 18,
+          "title": "Rise of Kingdoms: Lost Crusade"
+        },
+        {
+          "rank": 19,
+          "title": "Warline: Sniper Strike"
+        },
+        {
+          "rank": 20,
+          "title": "Police Chief"
+        },
+        {
+          "rank": 21,
+          "title": "Tiles Survive!"
+        },
+        {
+          "rank": 22,
+          "title": "Palmon: Survival"
+        },
+        {
+          "rank": 23,
+          "title": "Limbus Company"
+        },
+        {
+          "rank": 24,
+          "title": "Age of Origins"
+        },
+        {
+          "rank": 25,
+          "title": "Lands of Jail"
+        },
+        {
+          "rank": 26,
+          "title": "The Grand Mafia"
+        },
+        {
+          "rank": 27,
+          "title": "Narco Empire"
+        },
+        {
+          "rank": 28,
+          "title": "Lords Mobile: Kingdom Wars"
+        },
+        {
+          "rank": 29,
+          "title": "Top Girl"
+        },
+        {
+          "rank": 30,
+          "title": "Foundation: Galactic Frontier"
+        },
+        {
+          "rank": 31,
+          "title": "Last Shelter: War Z"
+        },
+        {
+          "rank": 32,
+          "title": "Top Heroes: Kingdom Saga"
+        },
+        {
+          "rank": 33,
+          "title": "Game of Thrones: Dragonfire"
+        },
+        {
+          "rank": 34,
+          "title": "Infinity Kingdom"
+        },
+        {
+          "rank": 35,
+          "title": "Mafia City"
+        },
+        {
+          "rank": 36,
+          "title": "War and Order"
+        },
+        {
+          "rank": 37,
+          "title": "Overgeared Hero: Merge RPG"
+        },
+        {
+          "rank": 38,
+          "title": "Rise of Castles: Ice and Fire"
+        },
+        {
+          "rank": 39,
+          "title": "Frost & Flame: King of Avalon"
+        },
+        {
+          "rank": 40,
+          "title": "Warhammer 40,000: Tacticus ™"
+        },
+        {
+          "rank": 41,
+          "title": "Titan Rush"
+        },
+        {
+          "rank": 42,
+          "title": "Forge Master"
+        },
+        {
+          "rank": 43,
+          "title": "Guns of Glory: Lost Island"
+        },
+        {
+          "rank": 44,
+          "title": "League of Legends: Wild Rift"
+        },
+        {
+          "rank": 45,
+          "title": "Auto Drill: Galaxy"
+        },
+        {
+          "rank": 46,
+          "title": "State of Survival: Zombie War"
+        },
+        {
+          "rank": 47,
+          "title": "Last Beacon: Survival"
+        },
+        {
+          "rank": 48,
+          "title": "Last Human: Final Stand"
+        },
+        {
+          "rank": 49,
+          "title": "Top War: Battle Game"
+        },
+        {
+          "rank": 50,
+          "title": "Aliens vs Zombies: Invasion"
+        }
+      ]
+    },
+    {
+      "source_id": "aw_rpg_ww_android_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "RAID: Shadow Legends"
+        },
+        {
+          "rank": 2,
+          "title": "GODDESS OF VICTORY: NIKKE"
+        },
+        {
+          "rank": 3,
+          "title": "Sword x Staff"
+        },
+        {
+          "rank": 4,
+          "title": "Chaos Zero Nightmare"
+        },
+        {
+          "rank": 5,
+          "title": "Butcher Hero: Monster Idle RPG"
+        },
+        {
+          "rank": 6,
+          "title": "Hero Wars: Alliance RPG Legend"
+        },
+        {
+          "rank": 7,
+          "title": "Fate/Grand Order"
+        },
+        {
+          "rank": 8,
+          "title": "OneState RP - Role Play Life"
+        },
+        {
+          "rank": 9,
+          "title": "Fate/Grand Order (English)"
+        },
+        {
+          "rank": 10,
+          "title": "NTE: Neverness to Everness"
+        },
+        {
+          "rank": 11,
+          "title": "MapleStory : Idle RPG"
+        },
+        {
+          "rank": 12,
+          "title": "도깨비의세계"
+        },
+        {
+          "rank": 13,
+          "title": "Zenless Zone Zero"
+        },
+        {
+          "rank": 14,
+          "title": "MARVEL Strike Force: Squad RPG"
+        },
+        {
+          "rank": 15,
+          "title": "Transformers: Eternal War"
+        }
+      ]
+    },
+    {
+      "source_id": "aw_sim_ww_android_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "Merge Cooking®"
+        },
+        {
+          "rank": 2,
+          "title": "Heyyyy: Stories that text back"
+        },
+        {
+          "rank": 3,
+          "title": "Top Tycoon: Coin Theme Empire"
+        },
+        {
+          "rank": 4,
+          "title": "Sunday City: Life RolePlay"
+        },
+        {
+          "rank": 5,
+          "title": "Umamusume: Pretty Derby"
+        },
+        {
+          "rank": 6,
+          "title": "Merge Teahouse"
+        },
+        {
+          "rank": 7,
+          "title": "The Tower - Idle Tower Defense"
+        },
+        {
+          "rank": 8,
+          "title": "ウマ娘 プリティーダービー"
+        },
+        {
+          "rank": 9,
+          "title": "Love and Deepspace"
+        },
+        {
+          "rank": 10,
+          "title": "Idle Obelisk Miner"
+        },
+        {
+          "rank": 11,
+          "title": "드래곤 나이트 키우기 : 방치형 RPG"
+        },
+        {
+          "rank": 12,
+          "title": "Klondike Adventures: Farm Game"
+        },
+        {
+          "rank": 13,
+          "title": "Heartopia"
+        },
+        {
+          "rank": 14,
+          "title": "Supermarket Tycoon Empire"
+        },
+        {
+          "rank": 15,
+          "title": "Design Home™: House Makeover"
+        },
+        {
+          "rank": 16,
+          "title": "Fishing Clash: Sport Simulator"
+        },
+        {
+          "rank": 17,
+          "title": "Oxide: Survival Island"
+        },
+        {
+          "rank": 18,
+          "title": "Paranoize"
+        },
+        {
+          "rank": 19,
+          "title": "Dragon City: Mobile Adventure"
+        },
+        {
+          "rank": 20,
+          "title": "Carnival Tycoon: Coin Games"
+        },
+        {
+          "rank": 21,
+          "title": "学園アイドルマスター"
+        },
+        {
+          "rank": 22,
+          "title": "ブレードウォー三国"
+        },
+        {
+          "rank": 23,
+          "title": "SimCity BuildIt"
+        },
+        {
+          "rank": 24,
+          "title": "Pokémon Sleep"
+        },
+        {
+          "rank": 25,
+          "title": "Gold and Goblins: Mining Games"
+        },
+        {
+          "rank": 26,
+          "title": "Fire Emblem Heroes"
+        },
+        {
+          "rank": 27,
+          "title": "戀與深空"
+        },
+        {
+          "rank": 28,
+          "title": "Cell to Singularity: Evolution"
+        },
+        {
+          "rank": 29,
+          "title": "SD Gundam G Generation ETERNAL"
+        },
+        {
+          "rank": 30,
+          "title": "Sunshine Island : Farming Game"
+        },
+        {
+          "rank": 46,
+          "title": "Happy Restaurant®3D"
+        },
+        {
+          "rank": 47,
+          "title": "Frogs Kitchen"
+        },
+        {
+          "rank": 48,
+          "title": "The Cozy Florist"
+        },
+        {
+          "rank": 49,
+          "title": "Hunting Clash: Sniper Shooting"
+        },
+        {
+          "rank": 50,
+          "title": "Melon Sandbox"
+        }
+      ]
+    },
+    {
+      "source_id": "aw_ios_us_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "Pokémon GO"
+        },
+        {
+          "rank": 2,
+          "title": "MONOPOLY GO!"
+        },
+        {
+          "rank": 3,
+          "title": "Roblox"
+        },
+        {
+          "rank": 4,
+          "title": "Gossip Harbor®: Merge & Story"
+        },
+        {
+          "rank": 5,
+          "title": "Royal Match"
+        },
+        {
+          "rank": 6,
+          "title": "Candy Crush Saga"
+        },
+        {
+          "rank": 7,
+          "title": "Royal Kingdom"
+        },
+        {
+          "rank": 8,
+          "title": "Whiteout Survival"
+        },
+        {
+          "rank": 9,
+          "title": "Kingshot"
+        },
+        {
+          "rank": 10,
+          "title": "Free Fire x NARUTO SHIPPUDEN"
+        },
+        {
+          "rank": 11,
+          "title": "Total Battle: War Strategy"
+        },
+        {
+          "rank": 12,
+          "title": "Township"
+        },
+        {
+          "rank": 13,
+          "title": "Toon Blast"
+        },
+        {
+          "rank": 14,
+          "title": "Gardenscapes"
+        }
+      ]
+    },
+    {
+      "source_id": "aw_ios_de_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "Pokémon GO"
+        },
+        {
+          "rank": 2,
+          "title": "Gossip Harbor®: Merge & Story"
+        },
+        {
+          "rank": 3,
+          "title": "Royal Match"
+        },
+        {
+          "rank": 4,
+          "title": "Coin Master"
+        },
+        {
+          "rank": 5,
+          "title": "Roblox"
+        },
+        {
+          "rank": 6,
+          "title": "Candy Crush Saga"
+        },
+        {
+          "rank": 7,
+          "title": "PUBG MOBILE"
+        },
+        {
+          "rank": 8,
+          "title": "Gardenscapes"
+        },
+        {
+          "rank": 9,
+          "title": "Kingshot"
+        },
+        {
+          "rank": 10,
+          "title": "Clash of Clans"
+        },
+        {
+          "rank": 11,
+          "title": "Township"
+        },
+        {
+          "rank": 12,
+          "title": "Disney Solitaire"
+        },
+        {
+          "rank": 13,
+          "title": "Dice Dreams™"
+        }
+      ]
+    },
+    {
+      "source_id": "aw_android_de_sim_20261116",
+      "entries": [
+        {
+          "rank": 1,
+          "title": "Clean Perfect OCD"
+        },
+        {
+          "rank": 2,
+          "title": "Block World - Craft City"
+        },
+        {
+          "rank": 3,
+          "title": "City Transport Manager"
+        },
+        {
+          "rank": 4,
+          "title": "Sunday City: Life RolePlay"
+        },
+        {
+          "rank": 5,
+          "title": "Farm Feud"
+        },
+        {
+          "rank": 6,
+          "title": "Supermarket Tycoon Empire"
+        },
+        {
+          "rank": 7,
+          "title": "Viral Streamer: Idle Clicker"
+        },
+        {
+          "rank": 8,
+          "title": "Mafia City RP:Grand Open World"
+        },
+        {
+          "rank": 9,
+          "title": "Vehicle Masters"
+        },
+        {
+          "rank": 10,
+          "title": "Annoying Uncle Punch Game®"
+        },
+        {
+          "rank": 11,
+          "title": "Pizza Ready!"
+        },
+        {
+          "rank": 12,
+          "title": "Bus Simulator: City Drive"
+        },
+        {
+          "rank": 13,
+          "title": "Solar Smash"
+        },
+        {
+          "rank": 14,
+          "title": "Pilot Simulator: Airplane Game"
+        },
+        {
+          "rank": 15,
+          "title": "My Sticker Room - Decor Game"
+        },
+        {
+          "rank": 16,
+          "title": "My Supermarket Simulator 3D®"
+        }
+      ]
+    }
+  ]
+}

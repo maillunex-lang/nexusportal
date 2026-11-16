@@ -1,0 +1,387 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "status": "editorial_seed_not_complete_ranking",
+  "games": [
+    {
+      "id": "last_asylum_plague",
+      "title": "Last Asylum: Plague",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://mobilegamer.biz/data-digest-q3s-top-earners-2026s-biggest-new-launches-apple-and-google-fined-47-6m-more/",
+      "basis": "2026 industry report explicitly identifies as 4X strategy",
+      "confidence": "high",
+      "mechanics_to_study": [
+        "base_building",
+        "alliances",
+        "progression",
+        "monetization"
+      ]
+    },
+    {
+      "id": "whiteout_survival",
+      "title": "Whiteout Survival",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://mobilegamer.biz/2026s-top-10-grossing-mobile-games-so-far-honor-of-kings-whiteout-survival-lastwar-royal-match-pubg-mobile-more/",
+      "basis": "Strategy genre market reference, provisional 4X classification requiring full mechanic audit",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "base_building",
+        "alliances",
+        "time_gates"
+      ]
+    },
+    {
+      "id": "kingshot",
+      "title": "Kingshot",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://www.appkittie.com/top-charts/top-grossing-mobile-games",
+      "basis": "Strategy chart presence and alliance-based base strategy; verify deeper 4X mechanics",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "alliances",
+        "world_map",
+        "events"
+      ]
+    },
+    {
+      "id": "last_war",
+      "title": "Last War:Survival",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://mobilegamer.biz/2026s-top-10-grossing-mobile-games-so-far-honor-of-kings-whiteout-survival-lastwar-royal-match-pubg-mobile-more/",
+      "basis": "Strategy-market reference; 4X membership editorial and provisional",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "advertised_vs_actual_gameplay",
+        "alliances",
+        "events"
+      ]
+    },
+    {
+      "id": "albion_online",
+      "title": "Albion Online",
+      "platforms": [
+        "android",
+        "ios",
+        "pc"
+      ],
+      "genres": [
+        "mmorpg",
+        "economic_strategy"
+      ],
+      "source_url": "https://www.reddit.com/r/albiononline/comments/1sldf0z/is_it_worth_to_start_now_on_mobile/",
+      "basis": "MMORPG with player economy, mobile experience discussion; economy classification secondary",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "player_market",
+        "gathering",
+        "pvp",
+        "touch_controls"
+      ]
+    },
+    {
+      "id": "maplestory_idle",
+      "title": "MapleStory : Idle RPG",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "idle_rpg"
+      ],
+      "source_url": "https://appwolf.io/genres/role-playing",
+      "basis": "2026 store-chart role-playing listing and explicit Idle RPG title",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "offline_progression",
+        "idle_rewards",
+        "monetization"
+      ]
+    },
+    {
+      "id": "children_of_morta",
+      "title": "Children of Morta",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "arpg"
+      ],
+      "source_url": "https://appwolf.io/genres/role-playing",
+      "basis": "2026 mobile chart listing; action-RPG classification requires mechanical verification",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "combat",
+        "cooperative_play",
+        "progression"
+      ]
+    },
+    {
+      "id": "township",
+      "title": "Township",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "city_builder",
+        "economic_simulation"
+      ],
+      "source_url": "https://www.appkittie.com/top-charts/top-grossing-mobile-games",
+      "basis": "Popular mobile city and production management reference, not a deep economic simulator",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "city_progression",
+        "production_timers",
+        "social_events"
+      ]
+    },
+    {
+      "id": "simcity_buildit",
+      "title": "SimCity BuildIt",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "city_builder"
+      ],
+      "source_url": "https://appwinners.eu/charts/android/ww/grossing/game-simulation",
+      "basis": "2026 simulation chart listing and city-building genre",
+      "confidence": "high",
+      "mechanics_to_study": [
+        "zoning",
+        "services",
+        "resource_bottlenecks"
+      ]
+    },
+    {
+      "id": "klondike_adventures",
+      "title": "Klondike Adventures: Farm Game",
+      "platforms": [
+        "android",
+        "ios"
+      ],
+      "genres": [
+        "economic_simulation"
+      ],
+      "source_url": "https://appwinners.eu/charts/android/ww/grossing/game-simulation",
+      "basis": "Mobile simulation chart listing; light production simulation rather than Capitalism Lab depth",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "production",
+        "energy_gates",
+        "events"
+      ]
+    },
+    {
+      "id": "capitalism_lab",
+      "title": "Capitalism Lab",
+      "platforms": [
+        "pc"
+      ],
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "source_url": "https://www.capitalismlab.com/press-kit/",
+      "basis": "Publisher documents PC economic simulation, reference only, excluded from mobile charts",
+      "confidence": "high",
+      "mechanics_to_study": [
+        "production_chains",
+        "competitors",
+        "subsidiaries",
+        "market_information"
+      ]
+    },
+    {
+      "id": "titan_quest_ultimate",
+      "title": "Titan Quest: Ultimate Edition",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "arpg"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-IE&id=com.hg.titanquestultimate",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Action combat, masteries and equipment loot."
+      ]
+    },
+    {
+      "id": "rise_of_kingdoms",
+      "title": "Rise of Kingdoms: Lost Crusade",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "4x"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.roc.gp",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Exploration, investigation, alliance territory and real-time warfare."
+      ]
+    },
+    {
+      "id": "sim_companies",
+      "title": "Sim Companies",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en_US&id=com.simcompanies.simcompaniespwa",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Production, retail and research businesses compete in a shared economy."
+      ]
+    },
+    {
+      "id": "rusted_warfare",
+      "title": "Rusted Warfare - RTS Strategy",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "rts"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.corrodinggames.rts",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Base construction, resource extraction and land/air/sea unit commands."
+      ]
+    },
+    {
+      "id": "last_day_on_earth",
+      "title": "Last Day on Earth: Survival",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "survival"
+      ],
+      "source_url": "https://apps.apple.com/us/app/last-day-on-earth-survival/id1241932094",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Gather, craft shelter/equipment and explore dangerous locations."
+      ]
+    },
+    {
+      "id": "minecraft_bedrock",
+      "title": "Minecraft: Play with Friends!",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "sandbox",
+        "survival"
+      ],
+      "source_url": "https://apps.apple.com/us/app/minecraft-play-with-friends/id479516143",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Editable block world, crafting and exploration; Creative and Survival modes."
+      ]
+    },
+    {
+      "id": "afk_arena",
+      "title": "AFK Arena",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "idle_rpg"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.lilithgame.hgame.gp",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Auto-battle and offline rewards; current listing promotes Companions."
+      ]
+    },
+    {
+      "id": "warship_craft_ios",
+      "title": "Warship Craft",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "naval_strategy",
+        "sandbox"
+      ],
+      "source_url": "https://apps.apple.com/us/app/warship-craft/id906560615",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Construct ships from parts with buoyancy, speed and durability simulation."
+      ]
+    },
+    {
+      "id": "bloons_td6",
+      "title": "Bloons TD 6",
+      "platforms": [
+        "ios"
+      ],
+      "genres": [
+        "tower_defense"
+      ],
+      "source_url": "https://apps.apple.com/us/app/bloons-td-6/id1118115766?platform=ipad",
+      "basis": "Primary store listing observed in 2026; editorial mechanic classification, NOT a popularity rank.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "Tower placement, upgrade branches and heroes counter invading waves."
+      ]
+    },
+    {
+      "id": "the_tower",
+      "title": "The Tower - Idle Tower Defense",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "tower_defense"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.TechTreeGames.TheTower",
+      "basis": "Primary store listing, editorial genre classification; no annual popularity claim.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "wave_upgrades",
+        "permanent_research"
+      ]
+    }
+  ],
+  "ranking_policy": "No annual or custom-genre rank assigned. Source chart positions remain in snapshots, independent from these editorial labels."
+}

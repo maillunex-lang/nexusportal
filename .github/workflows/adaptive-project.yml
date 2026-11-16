@@ -1,0 +1,27 @@
+name: Adaptive Project Engine
+on:
+  push:
+    paths:
+      - "tools/adaptive_project.py"
+      - "tests/test_adaptive_project.py"
+      - "docs/adaptive_project/**"
+      - ".github/workflows/adaptive-project.yml"
+  pull_request:
+    paths:
+      - "tools/adaptive_project.py"
+      - "tests/test_adaptive_project.py"
+      - "docs/adaptive_project/**"
+      - ".github/workflows/adaptive-project.yml"
+permissions:
+  contents: read
+jobs:
+  planner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python tools/adaptive_project.py validate docs/adaptive_project/example_plan.json
+      - run: python tools/adaptive_project.py next docs/adaptive_project/example_plan.json
+      - run: python -m unittest discover -s tests -p "test_adaptive_project.py" -v

@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "editorial_status": "implementation templates, not tested reusable code",
+  "templates": [
+    {
+      "id": "authoritative_world",
+      "genres": [
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Single authority for persistent shared state",
+      "contracts": [
+        "client command with idempotency key",
+        "validated server event",
+        "replayable snapshot"
+      ],
+      "tests": [
+        "reject stale command",
+        "reconnect after timeout",
+        "duplicate command applies once"
+      ],
+      "risks": [
+        "untrusted client economy mutation",
+        "stale cache after map edits"
+      ]
+    },
+    {
+      "id": "combat_system",
+      "genres": [
+        "arpg",
+        "mmorpg"
+      ],
+      "purpose": "Readable and consistent combat rules",
+      "contracts": [
+        "skill definition",
+        "cooldown state",
+        "damage event"
+      ],
+      "tests": [
+        "cooldown cannot be bypassed",
+        "combat events deterministic with seed",
+        "telegraphs map to damage"
+      ],
+      "risks": [
+        "mobile aiming asymmetry",
+        "unreadable particle effects"
+      ]
+    },
+    {
+      "id": "loot_and_builds",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "idle_rpg"
+      ],
+      "purpose": "Reward loop and viable character diversity",
+      "contracts": [
+        "loot tables",
+        "item rarity and modifiers",
+        "build validation"
+      ],
+      "tests": [
+        "normalized loot odds",
+        "no negative rewards",
+        "at least two viable test builds"
+      ],
+      "risks": [
+        "pay-to-win gear",
+        "dominant meta"
+      ]
+    },
+    {
+      "id": "guilds_alliances",
+      "genres": [
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Shared goals with permissions",
+      "contracts": [
+        "membership roles",
+        "alliance events",
+        "invite/leave rules"
+      ],
+      "tests": [
+        "permission boundaries",
+        "role transfer",
+        "member leave during action"
+      ],
+      "risks": [
+        "leader lockout",
+        "time zone exclusion"
+      ]
+    },
+    {
+      "id": "production_chains",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Deep material transformation and byproducts",
+      "contracts": [
+        "recipe",
+        "integer input/output",
+        "stock ledger"
+      ],
+      "tests": [
+        "conserve stock",
+        "zero/insufficient input",
+        "overflow prevention"
+      ],
+      "risks": [
+        "free goods",
+        "unbounded profit loops"
+      ]
+    },
+    {
+      "id": "demand_market",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation",
+        "4x"
+      ],
+      "purpose": "Prices and competition tied to buyers",
+      "contracts": [
+        "cohort demand",
+        "market offers",
+        "fulfilled orders"
+      ],
+      "tests": [
+        "buyers have finite budget",
+        "supplier cannot oversell",
+        "price boundaries"
+      ],
+      "risks": [
+        "omnipresent shoppers",
+        "no effective competition"
+      ]
+    },
+    {
+      "id": "contracts_logistics",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Supplier contracts and shipments",
+      "contracts": [
+        "contract terms",
+        "shipment states",
+        "stock reservation"
+      ],
+      "tests": [
+        "same shipment applied once",
+        "delayed route",
+        "cancel and refund"
+      ],
+      "risks": [
+        "inventory duplication",
+        "negative payment balances"
+      ]
+    },
+    {
+      "id": "city_population",
+      "genres": [
+        "economic_simulation",
+        "economic_strategy",
+        "city_builder"
+      ],
+      "purpose": "Population cohorts and economic demand",
+      "contracts": [
+        "cohort profile",
+        "employment/income",
+        "household purchases"
+      ],
+      "tests": [
+        "growth bounded",
+        "budget conservation",
+        "sensible baseline demand"
+      ],
+      "risks": [
+        "unrealistic population jumps",
+        "static consumption"
+      ]
+    },
+    {
+      "id": "territory_exploration",
+      "genres": [
+        "4x",
+        "rts"
+      ],
+      "purpose": "Expansion, visibility and contest",
+      "contracts": [
+        "ownership",
+        "fog-of-war mask",
+        "battle outcomes"
+      ],
+      "tests": [
+        "hidden information not leaked",
+        "contested cells consistent",
+        "relocation permission"
+      ],
+      "risks": [
+        "newcomer farming",
+        "alliance domination"
+      ]
+    },
+    {
+      "id": "android_touch_ui",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "4x",
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Readable Android landscape/mobile UX",
+      "contracts": [
+        "safe-area layout",
+        "touch gesture map",
+        "scaling rules"
+      ],
+      "tests": [
+        "narrow device layout",
+        "notch safe area",
+        "gesture conflicts"
+      ],
+      "risks": [
+        "unreachable buttons",
+        "support-class unusable"
+      ]
+    },
+    {
+      "id": "update_release",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Safe client and server content updates",
+      "contracts": [
+        "versioned manifest",
+        "hash/host verification",
+        "rollback"
+      ],
+      "tests": [
+        "wrong hash rejected",
+        "incompatible client blocked",
+        "rollback works"
+      ],
+      "risks": [
+        "APK/content mismatch",
+        "exposed keys"
+      ]
+    },
+    {
+      "id": "scenario_simulator",
+      "genres": [
+        "economic_simulation",
+        "economic_strategy"
+      ],
+      "purpose": "Reproducible balance experiments",
+      "contracts": [
+        "scenario schema",
+        "seed",
+        "KPIs and golden results"
+      ],
+      "tests": [
+        "same seed matches",
+        "edge parameters rejected",
+        "sensitivity run"
+      ],
+      "risks": [
+        "misleading synthetic outcomes",
+        "unbounded CPU loops"
+      ]
+    },
+    {
+      "id": "rts_commands",
+      "genres": [
+        "rts"
+      ],
+      "purpose": "Touch-friendly command groups and fog-safe orders",
+      "contracts": [
+        "unit group selection",
+        "move/attack order sequence",
+        "visibility-filtered state"
+      ],
+      "tests": [
+        "reject commands to hidden targets",
+        "recover orders after reconnect",
+        "group command touches only selected units"
+      ],
+      "risks": [
+        "selection precision",
+        "command flood"
+      ],
+      "implementation_notes": [
+        "Measure command errors on small screens; start with three unit classes."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "survival_crafting",
+      "genres": [
+        "survival",
+        "sandbox"
+      ],
+      "purpose": "Crafting and loss recovery without inventory duplication",
+      "contracts": [
+        "recipe prerequisites",
+        "atomic ingredient debit/output credit",
+        "death recovery rules"
+      ],
+      "tests": [
+        "disconnect during craft does not duplicate output",
+        "insufficient input consumes nothing",
+        "death recovery permissions enforced"
+      ],
+      "risks": [
+        "punitive loss",
+        "repeated resource chores"
+      ],
+      "implementation_notes": [
+        "Offer contextual first-tool recipes; compare resource work before and after a death."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "sandbox_editing",
+      "genres": [
+        "sandbox",
+        "city_builder"
+      ],
+      "purpose": "Editable worlds with ownership and reversible operations",
+      "contracts": [
+        "edit transaction and revision",
+        "undo scope",
+        "owner and collaborator permissions"
+      ],
+      "tests": [
+        "reject unauthorized edits",
+        "undo does not revert another player silently",
+        "chunk reload preserves edit"
+      ],
+      "risks": [
+        "griefing",
+        "unbounded undo memory"
+      ],
+      "implementation_notes": [
+        "Use snap previews and multi-select; cap transaction size."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "idle_rewards",
+      "genres": [
+        "idle_rpg"
+      ],
+      "purpose": "Bounded offline rewards with meaningful return decisions",
+      "contracts": [
+        "server reward watermark",
+        "reward rate and cap version",
+        "idempotent claim"
+      ],
+      "tests": [
+        "duplicate claim grants once",
+        "negative elapsed time grants nothing",
+        "cap independent of client clock"
+      ],
+      "risks": [
+        "login chores",
+        "reward inflation"
+      ],
+      "implementation_notes": [
+        "Show capped time and gains; test useful choices after claiming."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "naval_navigation",
+      "genres": [
+        "naval_strategy"
+      ],
+      "purpose": "Readable ship movement and cargo ownership",
+      "contracts": [
+        "ship movement budget",
+        "route or steering command",
+        "cargo reservation"
+      ],
+      "tests": [
+        "cargo transferred once",
+        "reconnect interpolates without changing authority",
+        "invalid route rejected"
+      ],
+      "risks": [
+        "long empty journeys",
+        "collision cost"
+      ],
+      "implementation_notes": [
+        "Start with one sea region; compare direct steering and waypoint controls."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "wave_defense",
+      "genres": [
+        "tower_defense"
+      ],
+      "purpose": "Reproducible waves and counterplay",
+      "contracts": [
+        "wave schedule",
+        "target priority",
+        "tower range and upgrade costs"
+      ],
+      "tests": [
+        "seed replays same waves",
+        "dynamic blockers retain a valid path",
+        "upgrade cannot spend negative balance"
+      ],
+      "risks": [
+        "one dominant solution",
+        "unreadable swarms"
+      ],
+      "implementation_notes": [
+        "Preview next threats; test multiple tower combinations under a mobile entity budget."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "cooperative_session",
+      "genres": [
+        "survival",
+        "sandbox",
+        "arpg",
+        "naval_strategy",
+        "tower_defense"
+      ],
+      "purpose": "Small party sessions with recoverable state",
+      "contracts": [
+        "party ownership",
+        "join/leave/reconnect states",
+        "shared reward policy"
+      ],
+      "tests": [
+        "host loss follows explicit ownership rule",
+        "joining player cannot duplicate shared loot",
+        "late join preserves objective state"
+      ],
+      "risks": [
+        "host dependency",
+        "unequal rewards"
+      ],
+      "implementation_notes": [
+        "Prototype four-player reconnect and ownership before public matchmaking."
+      ],
+      "status": "authored_proposal_not_validated"
+    },
+    {
+      "id": "city_services",
+      "genres": [
+        "city_builder"
+      ],
+      "purpose": "Explainable service coverage and expansion tradeoffs",
+      "contracts": [
+        "road adjacency graph",
+        "service capacity and reach",
+        "household demand and budget"
+      ],
+      "tests": [
+        "disconnected district loses only affected service",
+        "capacity cannot serve infinite households",
+        "overlay matches simulation reach"
+      ],
+      "risks": [
+        "opaque satisfaction",
+        "unbounded pathfinding"
+      ],
+      "implementation_notes": [
+        "Use coverage overlays; compare one district expansion with two competing services."
+      ],
+      "status": "authored_proposal_not_validated"
+    }
+  ]
+}

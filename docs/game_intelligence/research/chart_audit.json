@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "policy": "Legacy observations are retained but excluded from resolved reports until dated archive and identity verification.",
+  "items": [
+    {
+      "source_id": "aw_strategy_us_android_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": "2026-11-15",
+      "status": "date_position_conflict",
+      "note": "Page now shows Kingshot at 1, Total Battle at 2 and Rise of Kingdoms at 17; legacy has 2, 1 and 18.",
+      "eligible_for_resolved_reports": false
+    },
+    {
+      "source_id": "aw_rpg_ww_android_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": null,
+      "status": "not_rechecked",
+      "note": "No new archive/date verification in this batch.",
+      "eligible_for_resolved_reports": false
+    },
+    {
+      "source_id": "aw_sim_ww_android_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": "2026-11-13",
+      "status": "date_position_conflict",
+      "note": "Page now shows The Tower at 16 and SimCity at 24; legacy has 7 and 23.",
+      "eligible_for_resolved_reports": false
+    },
+    {
+      "source_id": "aw_ios_us_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": "2026-11-16",
+      "status": "excerpt_rechecked",
+      "note": "First 14 titles/ranks match the retrieved date; stable app identities still unresolved in legacy file.",
+      "eligible_for_resolved_reports": false
+    },
+    {
+      "source_id": "aw_ios_de_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": "2026-11-15",
+      "status": "date_position_conflict",
+      "note": "Page now shows Roblox at 4 and Kingshot at 7; legacy has 5 and 9.",
+      "eligible_for_resolved_reports": false
+    },
+    {
+      "source_id": "aw_android_de_sim_20261116",
+      "checked_at": "2026-11-16",
+      "recorded_chart_date": "2026-11-16",
+      "displayed_chart_date": null,
+      "status": "not_rechecked",
+      "note": "No new archive/date verification in this batch.",
+      "eligible_for_resolved_reports": false
+    }
+  ]
+}
