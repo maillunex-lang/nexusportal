@@ -1,6 +1,7 @@
 /* NEXUS PORTAL service worker: оболочка приложения офлайн, API — только сеть. */
-const CACHE = "nexus-shell-v1";
-const SHELL = ["/", "/index.html", "/manifest.webmanifest", "/icon.svg", "/icon-192.png", "/icon-512.png"];
+const CACHE = "nexus-shell-subpath-v2";
+const BASE = new URL(self.registration.scope).pathname;
+const SHELL = ["", "index.html", "manifest.webmanifest", "icon.svg", "icon-192.png", "icon-512.png"].map((p) => BASE + p);
 
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
@@ -15,14 +16,14 @@ self.addEventListener("activate", (e) => {
 
 self.addEventListener("fetch", (e) => {
   const url = new URL(e.request.url);
-  if (e.request.method !== "GET" || url.origin !== location.origin || url.pathname.startsWith("/api/")) return;
+  if (e.request.method !== "GET" || url.origin !== location.origin || url.pathname.startsWith(BASE + "api/")) return;
   if (e.request.mode === "navigate") {
-    e.respondWith(fetch(e.request).catch(() => caches.match("/index.html")));
+    e.respondWith(fetch(e.request).catch(() => caches.match(BASE + "index.html")));
     return;
   }
   e.respondWith(
     caches.match(e.request).then((hit) => hit || fetch(e.request).then((res) => {
-      if (res.ok && url.pathname.startsWith("/assets/")) {
+      if (res.ok && url.pathname.startsWith(BASE + "assets/")) {
         const copy = res.clone();
         caches.open(CACHE).then((c) => c.put(e.request, copy));
       }
