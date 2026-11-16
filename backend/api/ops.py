@@ -94,6 +94,21 @@ def _pr_out(r: dict) -> dict:
     return r
 
 
+@router.post("/projects/{project_id}/sync-and-state")
+def sync_and_state(project=Depends(get_project), p=Depends(portal)):
+    """Fresh GitHub reconciliation with explicit timestamp and branch SHA."""
+    from datetime import datetime, timezone
+    if not project["repo_full_name"]:
+        raise HTTPException(400, "Репозиторий не подключён")
+    try:
+        result = sync.sync_project(p, project)
+        sha = p.github().branch_sha(project["repo_full_name"], project["default_branch"] or "main")
+    except GitHubError as e:
+        raise HTTPException(502, f"GitHub недоступен, данные могут устареть: {e}")
+    return {"synced_at": datetime.now(timezone.utc).isoformat(), "main_sha": sha,
+            "branch": project["default_branch"] or "main", "sync": result}
+
+
 @router.get("/projects/{project_id}/pulls")
 def project_pulls(project=Depends(get_project), p=Depends(portal)):
     return [_pr_out(r) for r in p.db.all("SELECT * FROM pull_requests WHERE project_id=? ORDER BY state='open' DESC, number DESC LIMIT 100", (project["id"],))]
