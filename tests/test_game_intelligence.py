@@ -16,7 +16,7 @@ class GameIntelligenceTests(unittest.TestCase):
     def test_dataset_counts(self):
         result = validate()
         self.assertEqual(result["genre_count"], 12)
-        self.assertEqual(result["chart_entries"], 122)
+        self.assertEqual(result["chart_entries"], 143)
         self.assertEqual(result["player_signals"], 8)
         self.assertEqual(result["genre_blueprints"], 5)
         self.assertEqual(result["mechanic_templates"], 12)
