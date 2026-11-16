@@ -377,6 +377,9 @@ def stale_refs(idx: dict, tree: set[str]) -> list[str]:
 
 @router.get("/projects/{project_id}/tasks/{key}/context")
 def task_context(key: str, level: str = "standard", project=Depends(get_project), p=Depends(portal)):
+    # Validate request arguments before contacting external GitHub.
+    if level not in ("brief", "standard", "extended"):
+        raise HTTPException(400, "Недопустимый уровень контекста")
     from ..github.fresh_context import snapshot, appendix
     try:
         fresh = snapshot(p, project)
