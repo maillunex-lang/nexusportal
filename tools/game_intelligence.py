@@ -190,9 +190,38 @@ def game_catalog(genre_id: str, root: Path = ROOT) -> dict:
     }
 
 
+def architect_brief(genre_id: str, root: Path = ROOT) -> dict:
+    """Compose a bounded, evidence-aware draft for Auto Architect."""
+    selected = context(genre_id, root)
+    games = game_catalog(genre_id, root)
+    blueprint = selected["blueprint"]
+    if blueprint is None:
+        return {
+            "genre": selected["genre"],
+            "status": "taxonomy_only",
+            "questions": ["This genre needs an authored blueprint before architecture generation."],
+            "evidence": games["editorial_references"],
+        }
+    return {
+        "genre": selected["genre"],
+        "status": "design_proposal_not_implemented",
+        "core_loop": blueprint["core_loop"],
+        "mvp": blueprint["mvp"],
+        "architecture": blueprint["technical"],
+        "android_constraints": blueprint["mobile"],
+        "pitfalls": blueprint["pitfalls"],
+        "open_questions": blueprint["questions"],
+        "mechanics": selected["mechanic_templates"],
+        "player_feedback": selected["player_signals"],
+        "reference_games": games["editorial_references"],
+        "warnings": selected["warnings"],
+        "next_step": "Validate project-specific choices with the owner, then generate modular GDD and task DAG.",
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("validate", "stats", "context", "games"))
+    parser.add_argument("action", choices=("validate", "stats", "context", "games", "architect"))
     parser.add_argument("--genre", help="Genre ID, required for context")
     args = parser.parse_args()
     result = validate()
@@ -204,6 +233,16 @@ def main() -> int:
             return 1
         try:
             result = context(args.genre)
+        except ValueError as error:
+            parser.error(str(error))
+    elif args.action == "architect":
+        if not args.genre:
+            parser.error("--genre is required for architect")
+        if not result["ok"]:
+            print(json.dumps(result, ensure_ascii=False, indent=2))
+            return 1
+        try:
+            result = architect_brief(args.genre)
         except ValueError as error:
             parser.error(str(error))
     elif args.action == "games":
@@ -219,7 +258,7 @@ def main() -> int:
     elif args.action == "stats":
         result = {k: v for k, v in result.items() if k != "errors"}
     print(json.dumps(result, ensure_ascii=False, indent=2))
-    return 0 if (args.action in ("context", "games") or result.get("ok", True)) else 1
+    return 0 if (args.action in ("context", "games", "architect") or result.get("ok", True)) else 1
 
 
 if __name__ == "__main__":
