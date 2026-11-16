@@ -66,7 +66,9 @@
         "Listing availability does not establish 2026 popularity or rank.",
         "No independent playthrough or retention measurement."
       ],
-      "review_signal_ids": []
+      "review_signal_ids": [
+        "titan_quest_save"
+      ]
     },
     {
       "game_id": "rise_of_kingdoms",
@@ -129,7 +131,11 @@
         "Listing availability does not establish 2026 popularity or rank.",
         "No independent playthrough or retention measurement."
       ],
-      "review_signal_ids": []
+      "review_signal_ids": [
+        "sim_fairness",
+        "sim_rerolls",
+        "sim_assistant"
+      ]
     },
     {
       "game_id": "rusted_warfare",
@@ -193,7 +199,11 @@
         "Listing availability does not establish 2026 popularity or rank.",
         "No independent playthrough or retention measurement."
       ],
-      "review_signal_ids": []
+      "review_signal_ids": [
+        "simcity_return",
+        "simcity_ads",
+        "simcity_edit"
+      ]
     },
     {
       "game_id": "last_day_on_earth",
@@ -258,7 +268,9 @@
         "Listing availability does not establish 2026 popularity or rank.",
         "No independent playthrough or retention measurement."
       ],
-      "review_signal_ids": []
+      "review_signal_ids": [
+        "minecraft_precision"
+      ]
     },
     {
       "game_id": "afk_arena",
@@ -356,7 +368,9 @@
         "Listing availability does not establish 2026 popularity or rank.",
         "No independent playthrough or retention measurement."
       ],
-      "review_signal_ids": []
+      "review_signal_ids": [
+        "bloons_depth_recovery"
+      ]
     },
     {
       "game_id": "capitalism_lab",
@@ -392,6 +406,137 @@
         "caplab_depth_1",
         "caplab_ux_1"
       ]
+    },
+    {
+      "game_id": "whiteout_survival",
+      "genre_ids": [
+        "4x"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_whiteout_survival"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.gof.global"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Town rebuilding, survivor/resource management and alliances; store tags 4X.",
+        "economy": "Idle resource collection; costs and sink balance not audited.",
+        "progression": "Shared hero levels and town upgrades.",
+        "pve_pvp": "Alliance collaboration; battle balance not audited.",
+        "monetization": "In-app purchases including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Separate settlement onboarding from competitive world rules.",
+        "risk": "Store labels alone do not establish all four 4X pillars."
+      },
+      "limitations": [
+        "Developer description, no independent playthrough.",
+        "Not an annual rank; genre classification remains editorial."
+      ],
+      "review_signal_ids": [
+        "whiteout_merge"
+      ]
+    },
+    {
+      "game_id": "kingshot",
+      "genre_ids": [
+        "4x"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_kingshot"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.run.tower.defense"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Town defense, worker roles, laws, alliances and competition for resources.",
+        "economy": "Gather and allocate resources.",
+        "progression": "Hero recruitment, squad development and technology.",
+        "pve_pvp": "Invasions and competition against other governors.",
+        "monetization": "In-app purchases including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Make the transition from town defense to alliance competition explicit.",
+        "risk": "4X classification is editorial and provisional; not derived from the package name."
+      },
+      "limitations": [
+        "Developer description, no independent playthrough.",
+        "Not an annual rank; genre classification remains editorial."
+      ],
+      "review_signal_ids": [
+        "kingshot_expectation"
+      ]
+    },
+    {
+      "game_id": "township",
+      "genre_ids": [
+        "city_builder",
+        "economic_simulation"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_township"
+      ],
+      "store_identity": {
+        "store": "app_store",
+        "app_id": "638689075"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "Farming, factories, housing, community buildings and match-3 rewards.",
+        "economy": "Crops and factory output; not a deep price-formation model.",
+        "progression": "Town expansion, event prizes and collections.",
+        "pve_pvp": "Regattas and competitions; combat not established.",
+        "monetization": "Free with in-app purchases including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Preserve optional peaceful production goals when adding events.",
+        "risk": "Hybrid minigames can displace the advertised core loop."
+      },
+      "limitations": [
+        "Developer description, no independent playthrough.",
+        "Not an annual rank; genre classification remains editorial."
+      ],
+      "review_signal_ids": [
+        "township_help"
+      ]
+    },
+    {
+      "game_id": "the_tower",
+      "genre_ids": [
+        "tower_defense"
+      ],
+      "observed_at": "2026-11-16",
+      "source_ids": [
+        "primary_the_tower"
+      ],
+      "store_identity": {
+        "store": "google_play",
+        "app_id": "com.TechTreeGames.TheTower"
+      },
+      "evidence_kind": "developer_claim",
+      "facts": {
+        "mechanics": "A defensive tower survives waves, then reinvests in permanent upgrades.",
+        "economy": "Coins fund lasting upgrades; exact yield curves not audited.",
+        "progression": "Workshop, research, cards and ultimate weapons.",
+        "pve_pvp": "Enemy waves and competitive tournaments.",
+        "monetization": "Ads and in-app purchases including random items."
+      },
+      "design_proposal": {
+        "opportunity": "Compare long-term upgrade choices against per-run tactical decisions.",
+        "risk": "Idle defense is not automatically idle RPG; no hero-party evidence here."
+      },
+      "limitations": [
+        "Developer description, no independent playthrough.",
+        "Not an annual rank; genre classification remains editorial."
+      ],
+      "review_signal_ids": []
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 Status: offline research and deterministic context-export prototype. Not model training and not yet an implemented portal feature.
 
-Current continuation adds 12 primary-source game dossiers spanning all genres, 20 editorial references, 14 player signals and a proposed [Blueprint knowledge envelope](BLUEPRINT_CONTEXT.md). See the [dated checkpoint](research/UPDATE_2026_11_16.md) for limitations. No genre top-100 is complete.
+Current continuation adds 16 primary-source game dossiers spanning all genres, 21 editorial references, 26 player signals and a proposed [Blueprint knowledge envelope](BLUEPRINT_CONTEXT.md). See the [latest checkpoint](research/UPDATE_2026_11_16_BATCH2.md) and [chart audit](research/CHART_EVIDENCE.md) for limitations. No genre top-100 is complete.
 
 ## Goal
 Provide Auto Architect with modular, evidence-traceable knowledge about genres, mechanics, technical templates and player sentiment. No paid AI APIs required. Use local search/indexing plus exportable prompts to an external AI assistant.

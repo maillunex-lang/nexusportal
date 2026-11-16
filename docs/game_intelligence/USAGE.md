@@ -32,8 +32,8 @@ After portal 1.0 lands, expose read-only API endpoints for `genres`, `games`, `c
 
 ## Primary dossiers and Blueprint preparation
 
-The corpus now includes 12 primary-source game dossiers spanning all 12 genres,
-20 editorial reference games and 14 qualitative player signals. New samples retain
+The corpus now includes 16 primary-source game dossiers spanning all 12 genres,
+21 editorial reference games and 26 qualitative player signals. New samples retain
 publication dates, including older feedback; they are not all 2026 opinions.
 
 ```bash
@@ -42,4 +42,19 @@ python tools/game_intelligence.py blueprint --genre naval_strategy
 
 See [BLUEPRINT_CONTEXT.md](BLUEPRINT_CONTEXT.md) for the versioned envelope,
 provenance, corpus digest and approval boundary. See
-[the research checkpoint](research/UPDATE_2026_11_16.md) for current gaps.
+[the research checkpoint](research/UPDATE_2026_11_16_BATCH2.md) for current gaps.
+
+
+## Audited chart excerpts
+
+```bash
+python tools/game_intelligence.py charts --genre city_builder
+```
+
+Returns only identity-resolved observations, grouped by store, country, metric,
+category and displayed chart date. Seven sparse rows cover six games across four
+cohorts. Category ranks stay unchanged. Worldwide estimates are labeled and never
+pooled with country charts. Empty genre results are explicit, not filled with
+editorial references. All 143 legacy rows are excluded pending identity/archive
+resolution; three legacy chart sources now have documented date/position conflicts.
+See [chart evidence](research/CHART_EVIDENCE.md).

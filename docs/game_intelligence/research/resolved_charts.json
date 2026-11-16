@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "as_of": "2026-11-16",
+  "status": "partial_nonannual",
+  "note": "Seven sparse chart rows. Country charts and worldwide estimates must not be pooled. Ranks belong to store categories, not our genres.",
+  "batches": [
+    {
+      "id": "android_us_strategy_20261115",
+      "source_id": "rechecked_android_us_strategy_20261115",
+      "chart_date": "2026-11-15",
+      "observed_at": "2026-11-16",
+      "store": "google_play",
+      "country": "US",
+      "category": "Games: Strategy",
+      "metric": "grossing",
+      "status": "identity_resolved_excerpt",
+      "is_estimate": false,
+      "entries": [
+        {
+          "rank": 1,
+          "game_id": "kingshot",
+          "app_id": "com.run.tower.defense",
+          "publisher": "Century Games PTE. LTD.",
+          "identity_source_id": "chart_identity_kingshot",
+          "genre_source_ids": [
+            "primary_kingshot"
+          ]
+        },
+        {
+          "rank": 3,
+          "game_id": "whiteout_survival",
+          "app_id": "com.gof.global",
+          "publisher": "Century Games PTE. LTD.",
+          "identity_source_id": "chart_identity_whiteout_survival",
+          "genre_source_ids": [
+            "primary_whiteout_survival"
+          ]
+        },
+        {
+          "rank": 17,
+          "game_id": "rise_of_kingdoms",
+          "app_id": "com.lilithgame.roc.gp",
+          "publisher": "LilithGames",
+          "identity_source_id": "chart_identity_rise_of_kingdoms",
+          "genre_source_ids": [
+            "primary_rise_of_kingdoms"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "android_ww_sim_20261113",
+      "source_id": "rechecked_android_ww_sim_20261113",
+      "chart_date": "2026-11-13",
+      "observed_at": "2026-11-16",
+      "store": "google_play",
+      "country": "WW",
+      "category": "Games: Simulation",
+      "metric": "grossing",
+      "status": "identity_resolved_excerpt",
+      "is_estimate": true,
+      "entries": [
+        {
+          "rank": 16,
+          "game_id": "the_tower",
+          "app_id": "com.TechTreeGames.TheTower",
+          "publisher": "Tech Tree Games",
+          "identity_source_id": "chart_identity_the_tower",
+          "genre_source_ids": [
+            "primary_the_tower"
+          ]
+        },
+        {
+          "rank": 24,
+          "game_id": "simcity_buildit",
+          "app_id": "com.ea.game.simcitymobile_row",
+          "publisher": "ELECTRONIC ARTS",
+          "identity_source_id": "chart_identity_simcity_buildit",
+          "genre_source_ids": [
+            "primary_simcity_buildit"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ios_us_games_20261116",
+      "source_id": "rechecked_ios_us_games_20261116",
+      "chart_date": "2026-11-16",
+      "observed_at": "2026-11-16",
+      "store": "app_store",
+      "country": "US",
+      "category": "Games",
+      "metric": "grossing",
+      "status": "identity_resolved_excerpt",
+      "is_estimate": false,
+      "entries": [
+        {
+          "rank": 12,
+          "game_id": "township",
+          "app_id": "638689075",
+          "publisher": "Playrix",
+          "identity_source_id": "chart_identity_township",
+          "genre_source_ids": [
+            "primary_township"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ios_de_games_20261115",
+      "source_id": "rechecked_ios_de_games_20261115",
+      "chart_date": "2026-11-15",
+      "observed_at": "2026-11-16",
+      "store": "app_store",
+      "country": "DE",
+      "category": "Games",
+      "metric": "grossing",
+      "status": "identity_resolved_excerpt",
+      "is_estimate": false,
+      "entries": [
+        {
+          "rank": 11,
+          "game_id": "township",
+          "app_id": "638689075",
+          "publisher": "Playrix",
+          "identity_source_id": "chart_identity_township",
+          "genre_source_ids": [
+            "primary_township"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -364,6 +364,23 @@
       "mechanics_to_study": [
         "Tower placement, upgrade branches and heroes counter invading waves."
       ]
+    },
+    {
+      "id": "the_tower",
+      "title": "The Tower - Idle Tower Defense",
+      "platforms": [
+        "android"
+      ],
+      "genres": [
+        "tower_defense"
+      ],
+      "source_url": "https://play.google.com/store/apps/details?hl=en-US&id=com.TechTreeGames.TheTower",
+      "basis": "Primary store listing, editorial genre classification; no annual popularity claim.",
+      "confidence": "medium",
+      "mechanics_to_study": [
+        "wave_upgrades",
+        "permanent_research"
+      ]
     }
   ],
   "ranking_policy": "No annual or custom-genre rank assigned. Source chart positions remain in snapshots, independent from these editorial labels."

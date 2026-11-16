@@ -24,8 +24,8 @@ Source: https://appwinners.eu/methodology
 - For each genre publish a ranked list only when 100 distinct verified eligible games exist and ranking coverage is sufficient. Otherwise publish `observed_count`, `target_count=100`, `coverage_status=incomplete`, `missing_sources`.
 - Maintain separate `top_observed` (rank-supported) and `interesting_references` (editorial selection). PC titles like Capitalism Lab belong ONLY in references.
 
-## Current verified partial dataset
-`snapshots_2026_11_16.json` holds **143 chart observations**, across six source charts. This is NOT 143 unique games and not 143 eligible custom-genre entries. Android US Strategy has 50 ranks; Android worldwide Simulation has ranks 1–30 and 46–50 with an explicit gap; other snapshots are partial excerpts. Source pages and rank metadata are in `sources.json`.
+## Legacy partial dataset — verification limitations
+`snapshots_2026_11_16.json` retains **143 legacy chart observations**, across six source charts. This is NOT 143 unique games and not 143 eligible custom-genre entries. Android US Strategy has 50 ranks; Android worldwide Simulation has ranks 1–30 and 46–50 with an explicit gap; other snapshots are partial excerpts. Source pages and rank metadata are in `sources.json`.
 
 ## Research priorities
 - Finish date-scoped chart snapshots for relevant markets and dimensions.
@@ -43,3 +43,18 @@ Source: https://appwinners.eu/methodology
 - Never fabricate reviews, player counts, ratings or download/revenue estimates.
 - Do not collect personal identifiers or reproduce large copyrighted review texts.
 - A green CI validates data integrity, NOT independent truth of each source.
+
+
+## Batch 2 correction and identity-resolved evidence
+
+A repeat retrieval found chart/date conflicts for three legacy sources; see
+`chart_audit.json` and `CHART_EVIDENCE.md`. Historical data is preserved, not silently
+rewritten. All legacy rows are excluded from the new resolved reports because they
+lack stable app identities; a date-conflicted page also needs archival verification.
+
+`resolved_charts.json` now holds seven sparse source-backed rows with explicit
+`chart_date` and `observed_at`, stable app IDs, publishers, identity-source and
+genre-source references. The four cohorts must stay separate; the WW Simulation
+cohort is a provider estimate. Original store-category ranks are not renumbered
+into genre ranks. No annual score is computed from these excerpts and genre
+membership remains editorial, so verified genre top-100 counters remain zero.

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.game_intelligence import ROOT, blueprint_context, architect_brief, check_url, context, game_catalog, validate
+from tools.game_intelligence import ROOT, chart_report, blueprint_context, architect_brief, check_url, context, game_catalog, validate
 
 
 class GameIntelligenceTests(unittest.TestCase):
@@ -17,12 +17,12 @@ class GameIntelligenceTests(unittest.TestCase):
         result = validate()
         self.assertEqual(result["genre_count"], 12)
         self.assertEqual(result["chart_entries"], 143)
-        self.assertEqual(result["player_signals"], 14)
+        self.assertEqual(result["player_signals"], 26)
         self.assertEqual(result["genre_blueprints"], 12)
-        self.assertEqual(result["editorial_games"], 20)
+        self.assertEqual(result["editorial_games"], 21)
         self.assertEqual(result["market_insights"], 4)
         self.assertEqual(result["genres_with_top100_complete"], 0)
-        self.assertEqual(result["mechanic_templates"], 12)
+        self.assertEqual(result["mechanic_templates"], 20)
 
     def test_not_claiming_annual_top100(self):
         self.assertFalse(validate()["annual_top100_completed"])
@@ -140,7 +140,7 @@ class GameIntelligenceTests(unittest.TestCase):
                 blueprint_context("mmorpg", target)
 
     def test_dossier_counts(self):
-        self.assertEqual(validate()["game_dossiers"], 12)
+        self.assertEqual(validate()["game_dossiers"], 16)
 
     def test_dossier_duplicate_rejected(self):
         result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"].append(d["dossiers"][0]))
@@ -163,7 +163,7 @@ class GameIntelligenceTests(unittest.TestCase):
         self.assertTrue(any("unrelated review" in e for e in result["errors"]))
 
     def test_dossier_pc_identity_rejected(self):
-        result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][-1].update(store_identity={"store": "app_store", "app_id": "123"}))
+        result = self.mutate("research/game_dossiers.json", lambda d: next(x for x in d["dossiers"] if x["game_id"] == "capitalism_lab").update(store_identity={"store": "app_store", "app_id": "123"}))
         self.assertTrue(any("PC reference" in e for e in result["errors"]))
 
     def test_dossier_store_id_must_match_source(self):
@@ -177,6 +177,118 @@ class GameIntelligenceTests(unittest.TestCase):
     def test_dossier_missing_caveats_rejected(self):
         result = self.mutate("research/game_dossiers.json", lambda d: d["dossiers"][0].update(limitations=[]))
         self.assertTrue(any("missing limitations" in e for e in result["errors"]))
+
+    def test_every_genre_has_mechanic_contracts(self):
+        genres = json.loads((ROOT / "genres.json").read_text())["genres"]
+        for g in genres:
+            with self.subTest(genre=g["id"]):
+                templates = context(g["id"])["mechanic_templates"]
+                self.assertTrue(templates)
+                self.assertTrue(all(t["contracts"] and t["tests"] for t in templates))
+
+    def test_chart_report_separates_estimates(self):
+        result = chart_report("city_builder")
+        self.assertEqual(result["distinct_reference_games"], 2)
+        self.assertEqual(result["resolved_observations"], 3)
+        self.assertEqual(len(result["cohorts"]), 3)
+        self.assertEqual(sum(c["is_estimate"] for c in result["cohorts"]), 1)
+        self.assertFalse(result["top100_complete"])
+        self.assertEqual(result["legacy_observations_excluded"], 143)
+
+    def test_chart_report_keeps_original_category_ranks(self):
+        result = chart_report("4x")
+        self.assertEqual([r["rank"] for r in result["cohorts"][0]["entries"]], [1, 3, 17])
+        self.assertEqual(result["cohorts"][0]["chart_date"], "2026-11-15")
+        self.assertEqual(result["cohorts"][0]["observed_at"], "2026-11-16")
+
+    def test_chart_report_unknown_genre(self):
+        with self.assertRaises(ValueError):
+            chart_report("invented")
+
+    def test_no_chart_evidence_is_explicit(self):
+        result = chart_report("naval_strategy")
+        self.assertEqual(result["cohorts"], [])
+        self.assertEqual(result["distinct_reference_games"], 0)
+
+    def test_chart_sources_in_blueprint_envelope(self):
+        result = blueprint_context("city_builder")
+        sources = {s["id"] for s in result["sources"]}
+        for c in result["chart_evidence"]["cohorts"]:
+            self.assertIn(c["source_id"], sources)
+            self.assertTrue(all(r["identity_source_id"] in sources for r in c["entries"]))
+
+    def test_new_chart_counts_and_conflicts(self):
+        result = validate()
+        self.assertEqual(result["resolved_chart_observations"], 7)
+        self.assertEqual(result["legacy_chart_date_conflicts"], 3)
+
+    def test_chart_duplicate_rank_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][1].update(rank=1))
+        self.assertTrue(any("duplicate rank" in e for e in result["errors"]))
+
+    def test_chart_boolean_rank_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][0].update(rank=True))
+        self.assertFalse(result["ok"])
+
+    def test_chart_duplicate_identity_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"].append(dict(d["batches"][0]["entries"][0], rank=100)))
+        self.assertTrue(any("duplicate app identity" in e for e in result["errors"]))
+
+    def test_chart_wrong_identity_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][0].update(app_id="wrong.package"))
+        self.assertTrue(any("identity mismatch" in e for e in result["errors"]))
+
+    def test_chart_pc_game_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][0].update(game_id="capitalism_lab"))
+        self.assertFalse(result["ok"])
+
+    def test_chart_missing_identity_provenance_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][0].update(identity_source_id="fake"))
+        self.assertTrue(any("identity provenance" in e for e in result["errors"]))
+
+    def test_chart_wrong_country_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0].update(country="JP"))
+        self.assertTrue(any("country mismatch" in e for e in result["errors"]))
+
+    def test_chart_wrong_date_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0].update(chart_date="2026-11-16"))
+        self.assertTrue(any("chart_date mismatch" in e for e in result["errors"]))
+
+    def test_chart_future_date_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0].update(chart_date="2027-01-01"))
+        self.assertTrue(any("impossible date" in e for e in result["errors"]))
+
+    def test_chart_estimate_cannot_become_official(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][1].update(is_estimate=False))
+        self.assertTrue(any("estimate label" in e for e in result["errors"]))
+
+    def test_chart_duplicate_cohort_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"].append(dict(d["batches"][0], id="other_id")))
+        self.assertTrue(any("duplicate cohort" in e for e in result["errors"]))
+
+    def test_chart_empty_genre_provenance_rejected(self):
+        result = self.mutate("research/resolved_charts.json", lambda d: d["batches"][0]["entries"][0].update(genre_source_ids=[]))
+        self.assertFalse(result["ok"])
+
+    def test_legacy_audit_required(self):
+        result = self.mutate("research/chart_audit.json", lambda d: d["items"].pop())
+        self.assertTrue(any("exactly one audit" in e for e in result["errors"]))
+
+    def test_legacy_cannot_enter_resolved_report(self):
+        result = self.mutate("research/chart_audit.json", lambda d: d["items"][0].update(eligible_for_resolved_reports=True))
+        self.assertTrue(any("unresolved legacy" in e for e in result["errors"]))
+
+    def test_review_publication_cannot_follow_observation(self):
+        result = self.mutate("research/player_signals.json", lambda d: d["items"][-1].update(published_at="2026-11-17"))
+        self.assertTrue(any("publication after observation" in e for e in result["errors"]))
+
+    def test_review_future_observation_rejected(self):
+        result = self.mutate("research/player_signals.json", lambda d: d["items"][-1].update(observed_at="2027-01-01"))
+        self.assertTrue(any("future observation" in e for e in result["errors"]))
+
+    def test_review_requires_locator(self):
+        result = self.mutate("research/player_signals.json", lambda d: d["items"][-1].pop("locator"))
+        self.assertTrue(any("locator" in e for e in result["errors"]))
 
     def mutate(self, path, fn):
         with tempfile.TemporaryDirectory() as temp:

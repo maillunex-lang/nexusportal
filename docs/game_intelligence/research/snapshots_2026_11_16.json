@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "collection_date": "2026-11-16",
-  "status": "partial_verified_excerpt",
-  "notes": "Chart positions are positions within original store category and territory, NOT ranks within editorial genres, NOT 2026 annual top-100. Titles lack app IDs and must be disambiguated before deduplication.",
+  "status": "legacy_requires_identity_and_date_audit",
+  "notes": "Chart positions are positions within original store category and territory, NOT ranks within editorial genres, NOT 2026 annual top-100. Titles lack app IDs and must be disambiguated before deduplication. Repeat retrieval found conflicts for three sources; see chart_audit.json. Excluded from resolved reports pending identity/archive checks.",
   "snapshots": [
     {
       "source_id": "aw_strategy_us_android_20261116",
