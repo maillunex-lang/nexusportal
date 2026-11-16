@@ -121,6 +121,7 @@ def apply(portal, params: dict, digest: str, *, create_repo: bool = False, priva
         raise WizardError("Репозиторий изменился после предпросмотра — обновите предпросмотр")
     p = preview["params"]
     written, skipped, pr = [], [], None
+    warnings = []
     to_create = [c for c in preview["changes"] if c["action"] == "create"]
     if p["repo_full_name"] and to_create:
         base_sha = gh.branch_sha(p["repo_full_name"], p["default_branch"])
@@ -130,7 +131,14 @@ def apply(portal, params: dict, digest: str, *, create_repo: bool = False, priva
             if gh.get_file(p["repo_full_name"], c["path"], branch) is not None:
                 skipped.append(c["path"])  # появился после предпросмотра — не трогаем
                 continue
-            gh.create_file(p["repo_full_name"], c["path"], c["content"], f"NEXUS PORTAL: добавить {c['path']}", branch)
+            try:
+                gh.create_file(p["repo_full_name"], c["path"], c["content"], f"NEXUS PORTAL: добавить {c['path']}", branch)
+            except GitHubError as exc:
+                if c["path"].startswith(".github/workflows/") and exc.status == 403:
+                    skipped.append(c["path"])
+                    warnings.append("GitHub запретил запись workflow: " + c["path"] + ". Проверьте разрешение Workflows у токена.")
+                    continue
+                raise
             written.append(c["path"])
         if written:
             pr = gh.create_pr(p["repo_full_name"], branch, p["default_branch"],
@@ -154,7 +162,7 @@ def apply(portal, params: dict, digest: str, *, create_repo: bool = False, priva
     for path in ("docs/GDD.md", "docs/AI_RULES.md", "docs/PORTAL_PROTOCOL.md", "docs/DIRECTOR_HANDOVER.md"):
         memory.add(portal.db, pid, "doc", path, "", path)
     audit(portal.db, actor, "project_created", pid, {"repo": p["repo_full_name"], "written": written, "skipped": skipped})
-    return {"project": project, "written": written, "skipped": skipped,
+    return {"project": project, "written": written, "skipped": skipped, "warnings": warnings,
             "pull_request": pr and {"number": pr["number"], "html_url": pr["html_url"]},
             "bootstrap_prompt": preview["bootstrap_prompt"]}
 
