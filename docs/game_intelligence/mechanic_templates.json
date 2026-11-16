@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "editorial_status": "implementation templates, not tested reusable code",
+  "templates": [
+    {
+      "id": "authoritative_world",
+      "genres": [
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Single authority for persistent shared state",
+      "contracts": [
+        "client command with idempotency key",
+        "validated server event",
+        "replayable snapshot"
+      ],
+      "tests": [
+        "reject stale command",
+        "reconnect after timeout",
+        "duplicate command applies once"
+      ],
+      "risks": [
+        "untrusted client economy mutation",
+        "stale cache after map edits"
+      ]
+    },
+    {
+      "id": "combat_system",
+      "genres": [
+        "arpg",
+        "mmorpg"
+      ],
+      "purpose": "Readable and consistent combat rules",
+      "contracts": [
+        "skill definition",
+        "cooldown state",
+        "damage event"
+      ],
+      "tests": [
+        "cooldown cannot be bypassed",
+        "combat events deterministic with seed",
+        "telegraphs map to damage"
+      ],
+      "risks": [
+        "mobile aiming asymmetry",
+        "unreadable particle effects"
+      ]
+    },
+    {
+      "id": "loot_and_builds",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "idle_rpg"
+      ],
+      "purpose": "Reward loop and viable character diversity",
+      "contracts": [
+        "loot tables",
+        "item rarity and modifiers",
+        "build validation"
+      ],
+      "tests": [
+        "normalized loot odds",
+        "no negative rewards",
+        "at least two viable test builds"
+      ],
+      "risks": [
+        "pay-to-win gear",
+        "dominant meta"
+      ]
+    },
+    {
+      "id": "guilds_alliances",
+      "genres": [
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Shared goals with permissions",
+      "contracts": [
+        "membership roles",
+        "alliance events",
+        "invite/leave rules"
+      ],
+      "tests": [
+        "permission boundaries",
+        "role transfer",
+        "member leave during action"
+      ],
+      "risks": [
+        "leader lockout",
+        "time zone exclusion"
+      ]
+    },
+    {
+      "id": "production_chains",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Deep material transformation and byproducts",
+      "contracts": [
+        "recipe",
+        "integer input/output",
+        "stock ledger"
+      ],
+      "tests": [
+        "conserve stock",
+        "zero/insufficient input",
+        "overflow prevention"
+      ],
+      "risks": [
+        "free goods",
+        "unbounded profit loops"
+      ]
+    },
+    {
+      "id": "demand_market",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation",
+        "4x"
+      ],
+      "purpose": "Prices and competition tied to buyers",
+      "contracts": [
+        "cohort demand",
+        "market offers",
+        "fulfilled orders"
+      ],
+      "tests": [
+        "buyers have finite budget",
+        "supplier cannot oversell",
+        "price boundaries"
+      ],
+      "risks": [
+        "omnipresent shoppers",
+        "no effective competition"
+      ]
+    },
+    {
+      "id": "contracts_logistics",
+      "genres": [
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Supplier contracts and shipments",
+      "contracts": [
+        "contract terms",
+        "shipment states",
+        "stock reservation"
+      ],
+      "tests": [
+        "same shipment applied once",
+        "delayed route",
+        "cancel and refund"
+      ],
+      "risks": [
+        "inventory duplication",
+        "negative payment balances"
+      ]
+    },
+    {
+      "id": "city_population",
+      "genres": [
+        "economic_simulation",
+        "economic_strategy",
+        "city_builder"
+      ],
+      "purpose": "Population cohorts and economic demand",
+      "contracts": [
+        "cohort profile",
+        "employment/income",
+        "household purchases"
+      ],
+      "tests": [
+        "growth bounded",
+        "budget conservation",
+        "sensible baseline demand"
+      ],
+      "risks": [
+        "unrealistic population jumps",
+        "static consumption"
+      ]
+    },
+    {
+      "id": "territory_exploration",
+      "genres": [
+        "4x",
+        "rts"
+      ],
+      "purpose": "Expansion, visibility and contest",
+      "contracts": [
+        "ownership",
+        "fog-of-war mask",
+        "battle outcomes"
+      ],
+      "tests": [
+        "hidden information not leaked",
+        "contested cells consistent",
+        "relocation permission"
+      ],
+      "risks": [
+        "newcomer farming",
+        "alliance domination"
+      ]
+    },
+    {
+      "id": "android_touch_ui",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "4x",
+        "economic_strategy",
+        "economic_simulation"
+      ],
+      "purpose": "Readable Android landscape/mobile UX",
+      "contracts": [
+        "safe-area layout",
+        "touch gesture map",
+        "scaling rules"
+      ],
+      "tests": [
+        "narrow device layout",
+        "notch safe area",
+        "gesture conflicts"
+      ],
+      "risks": [
+        "unreachable buttons",
+        "support-class unusable"
+      ]
+    },
+    {
+      "id": "update_release",
+      "genres": [
+        "arpg",
+        "mmorpg",
+        "4x"
+      ],
+      "purpose": "Safe client and server content updates",
+      "contracts": [
+        "versioned manifest",
+        "hash/host verification",
+        "rollback"
+      ],
+      "tests": [
+        "wrong hash rejected",
+        "incompatible client blocked",
+        "rollback works"
+      ],
+      "risks": [
+        "APK/content mismatch",
+        "exposed keys"
+      ]
+    },
+    {
+      "id": "scenario_simulator",
+      "genres": [
+        "economic_simulation",
+        "economic_strategy"
+      ],
+      "purpose": "Reproducible balance experiments",
+      "contracts": [
+        "scenario schema",
+        "seed",
+        "KPIs and golden results"
+      ],
+      "tests": [
+        "same seed matches",
+        "edge parameters rejected",
+        "sensitivity run"
+      ],
+      "risks": [
+        "misleading synthetic outcomes",
+        "unbounded CPU loops"
+      ]
+    }
+  ]
+}
