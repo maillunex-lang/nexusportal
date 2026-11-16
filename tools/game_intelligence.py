@@ -109,6 +109,26 @@ def validate(root: Path = ROOT) -> dict:
             errors.append(f"editorial: invalid confidence for {g.get('id')}")
         if "pc" in g.get("platforms", []) and len(g["platforms"]) == 1 and g.get("mobile_rank") is not None:
             errors.append(f"editorial: PC-only title cannot have mobile rank {g.get('id')}")
+    market = read_json("research/market_2026.json", root).get("insights", [])
+    market_ids = [m.get("id") for m in market]
+    if len(market_ids) != len(set(market_ids)) or any(not x for x in market_ids):
+        errors.append("market: missing or duplicate id")
+    for m in market:
+        if not m.get("period") or not m.get("metric") or not m.get("attribution") or not m.get("limitations"):
+            errors.append(f"market: incomplete evidence for {m.get('id')}")
+        if not check_url(m.get("source", "")):
+            errors.append(f"market: invalid source for {m.get('id')}")
+        if m.get("genre") not in ids and m.get("genre") != "strategy":
+            errors.append(f"market: unknown genre for {m.get('id')}")
+    coverage = read_json("research/coverage_2026.json", root)
+    coverage_ids = [g.get("genre_id") for g in coverage.get("genres", [])]
+    if set(coverage_ids) != set(ids) or len(coverage_ids) != len(ids):
+        errors.append("coverage: must contain exactly one entry for every genre")
+    for g in coverage.get("genres", []):
+        count = g.get("verified_eligible_ranked_games")
+        target = g.get("target")
+        if not isinstance(count, int) or isinstance(count, bool) or count < 0 or not isinstance(target, int) or target != 100 or count > target:
+            errors.append(f"coverage: invalid count for {g.get('genre_id')}")
     return {
         "ok": not errors,
         "errors": errors,
@@ -118,6 +138,8 @@ def validate(root: Path = ROOT) -> dict:
         "player_signals": len(seen_signals),
         "genre_blueprints": len(blueprints),
         "editorial_games": len(editorial),
+        "market_insights": len(market),
+        "genres_with_top100_complete": sum(g.get("verified_eligible_ranked_games", 0) >= 100 for g in coverage.get("genres", [])),
         "mechanic_templates": len(templates),
         "annual_top100_completed": False,
         "note": "Snapshot observations do not constitute 2026 annual genre top-100 rankings.",
