@@ -102,6 +102,41 @@
       "type": "industry_report_summary",
       "date": "2026-07-16",
       "method": "Third party interpretation of AppMagic estimates; not direct store telemetry"
+    },
+    {
+      "id": "reddit_caplab_margin_20260411",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1siox9r/how_can_i_make_profits_more_realistic_in/",
+      "type": "player_discussion",
+      "date": "2026-04-11",
+      "method": "Self-selected public Reddit discussion"
+    },
+    {
+      "id": "reddit_caplab_city_20260524",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1tmr0qm/do_you_play_with_ces_enabled/",
+      "type": "player_discussion",
+      "date": "2026-05-24",
+      "method": "Self-selected public Reddit discussion"
+    },
+    {
+      "id": "reddit_caplab_clicks_20241230",
+      "url": "https://www.reddit.com/r/capitalismlab/comments/1hpxupa",
+      "type": "player_discussion",
+      "date": "2024-12-30",
+      "method": "Older public Reddit discussion"
+    },
+    {
+      "id": "caplab_forum_ux_20260210",
+      "url": "https://capitalism2.com/forum/viewtopic.php?t=10583",
+      "type": "player_discussion",
+      "date": "2026-02-10",
+      "method": "Public forum complaint thread; edited URL canonical"
+    },
+    {
+      "id": "reddit_mobile_ads_2026",
+      "url": "https://www.reddit.com/r/MobileGaming/comments/1u5twu6/the_mendacification_of_mobile_advertisements/",
+      "type": "player_discussion",
+      "date": "2026-06-01",
+      "method": "Single public discussion post"
     }
   ]
 }
