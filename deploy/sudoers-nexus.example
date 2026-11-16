@@ -1,0 +1,3 @@
+# Пример: разрешить пользователю nexus перезапускать ТОЛЬКО службы проектов портала.
+# Установить: visudo -f /etc/sudoers.d/nexus  (проверьте синтаксис!)
+nexus ALL=(root) NOPASSWD: /usr/bin/systemctl restart nexus-*-*.service

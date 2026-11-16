@@ -1,0 +1,35 @@
+# Пример виртуального хоста nginx для NEXUS PORTAL. Скопируйте вручную в /etc/nginx/sites-available/,
+# проверьте `nginx -t` и перезагрузите nginx. Установщик nginx не изменяет.
+server {
+    listen 443 ssl http2;
+    server_name portal.example.org;
+
+    ssl_certificate     /etc/letsencrypt/live/portal.example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/portal.example.org/privkey.pem;
+
+    client_max_body_size 200m;
+
+    location / {
+        proxy_pass http://127.0.0.1:8787;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+        proxy_read_timeout 900s;
+    }
+}
+
+# Публичные загрузки релизов (NEXUS_PUBLIC_DOWNLOAD_BASE=https://dl.example.org)
+server {
+    listen 443 ssl http2;
+    server_name dl.example.org;
+    ssl_certificate     /etc/letsencrypt/live/dl.example.org/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/dl.example.org/privkey.pem;
+
+    # /<slug>/<версия>/<файл> -> /srv/nexus/<slug>/downloads/<версия>/<файл>
+    location ~ ^/([a-z0-9-]+)/(.+)$ {
+        alias /srv/nexus/$1/downloads/$2;
+        default_type application/octet-stream;
+        types { application/vnd.android.package-archive apk; }
+        add_header X-Content-Type-Options nosniff;
+    }
+}

@@ -1,0 +1,10 @@
+[Unit]
+Description=Ежедневная резервная копия NEXUS PORTAL
+
+[Timer]
+OnCalendar=*-*-* 03:17:00
+RandomizedDelaySec=600
+Persistent=true
+
+[Install]
+WantedBy=timers.target

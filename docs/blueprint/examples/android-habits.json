@@ -1,0 +1,222 @@
+{
+  "format": "nexus-blueprint/1",
+  "blueprint_version": "1.0",
+  "generated_at": "2026-11-16",
+  "generated_by": "Пример стандарта NEXUS",
+  "project": {
+    "name": "Привычки",
+    "summary": "Android-приложение для трекинга привычек с напоминаниями и статистикой, офлайн.",
+    "kind": "android",
+    "platforms": [
+      "Android 8+"
+    ],
+    "tech_stack": [
+      "Kotlin",
+      "Jetpack Compose",
+      "Room"
+    ],
+    "default_branch": "main"
+  },
+  "sources": {
+    "gdd": [
+      "docs/GDD.md"
+    ],
+    "approved": true
+  },
+  "conventions": {
+    "max_parallel": 2,
+    "required_checks": [
+      "unit-tests",
+      "lint"
+    ],
+    "definition_of_done": [
+      "Unit-тесты для бизнес-логики",
+      "Нет новых предупреждений lint"
+    ]
+  },
+  "phases": [
+    {
+      "id": "M1",
+      "title": "MVP"
+    },
+    {
+      "id": "M2",
+      "title": "Выпуск"
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "data",
+      "title": "Данные"
+    },
+    {
+      "id": "ui",
+      "title": "Экраны"
+    },
+    {
+      "id": "platform",
+      "title": "Платформа"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "A1",
+      "title": "Каркас приложения и CI",
+      "phase": "M1",
+      "workstream": "platform",
+      "priority": "P0",
+      "type": "infra",
+      "estimate": "S",
+      "executor_hint": "any",
+      "goal": "Проект Compose, unit-тесты и lint в CI.",
+      "gdd_refs": [
+        "docs/GDD.md#Технологии"
+      ],
+      "depends_on": [],
+      "conflicts_with": [],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Сборка debug проходит",
+        "CI: unit-tests и lint"
+      ],
+      "verification": [
+        "unit-tests",
+        "lint"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Создай Android-проект на Kotlin с Jetpack Compose (minSdk 26), подключи Hilt для зависимостей и настрой GitHub Actions с заданиями unit-tests (./gradlew test) и lint. Если проект уже существует — изучи и доработай. Добавь пустой экран-заглушку и пример unit-теста. Зафиксируй версии зависимостей в version catalog."
+    },
+    {
+      "id": "A2",
+      "title": "Хранилище привычек",
+      "phase": "M1",
+      "workstream": "data",
+      "priority": "P0",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Room-база привычек и отметок, репозиторий с Flow.",
+      "gdd_refs": [
+        "docs/GDD.md#Данные"
+      ],
+      "depends_on": [
+        "A1"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "db-schema"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "CRUD привычек",
+        "Отметки по датам",
+        "Тесты DAO на in-memory БД"
+      ],
+      "verification": [
+        "unit-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Спроектируй сущности Habit (название, цвет, расписание по дням недели, время напоминания) и Check (habitId, дата). Реализуй Room-базу, DAO и HabitRepository с Flow. Схема экспортируется в репозиторий (exportSchema), миграции — со следующей версии. Покрой DAO тестами на in-memory базе. Публичный интерфейс репозитория опиши в KDoc — экраны будут зависеть только от него."
+    },
+    {
+      "id": "A3",
+      "title": "Экран списка привычек",
+      "phase": "M1",
+      "workstream": "ui",
+      "priority": "P0",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Список привычек на сегодня с отметкой одним касанием.",
+      "gdd_refs": [
+        "docs/GDD.md#Экраны"
+      ],
+      "depends_on": [
+        "A2"
+      ],
+      "conflicts_with": [],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Отметка сохраняется и отображается сразу",
+        "Пустое состояние с подсказкой"
+      ],
+      "verification": [
+        "unit-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Сделай экран «Сегодня»: список привычек, запланированных на текущий день, чекбокс отметки, пустое состояние. ViewModel получает данные только через HabitRepository. Добавь unit-тесты ViewModel с фейковым репозиторием. Поддержи тёмную тему и размеры шрифта системы."
+    },
+    {
+      "id": "A4",
+      "title": "Напоминания",
+      "phase": "M1",
+      "workstream": "platform",
+      "priority": "P1",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Уведомления в заданное время через WorkManager.",
+      "gdd_refs": [
+        "docs/GDD.md#Напоминания"
+      ],
+      "depends_on": [
+        "A2"
+      ],
+      "conflicts_with": [
+        "A3"
+      ],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Уведомление приходит по расписанию",
+        "Запрос разрешения на Android 13+"
+      ],
+      "verification": [
+        "unit-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Реализуй напоминания: при сохранении привычки планируй уведомление через WorkManager на её время и дни. Запрашивай POST_NOTIFICATIONS на Android 13+. Нажатие на уведомление открывает экран «Сегодня». Тесты планировщика — с TestDriver WorkManager."
+    },
+    {
+      "id": "A5",
+      "title": "Релизная сборка",
+      "phase": "M2",
+      "workstream": "platform",
+      "priority": "P0",
+      "type": "release",
+      "estimate": "S",
+      "executor_hint": "codex",
+      "goal": "Подписанный APK с release.json и SHA256SUMS.",
+      "gdd_refs": [
+        "docs/GDD.md#Релизы"
+      ],
+      "depends_on": [
+        "A3",
+        "A4"
+      ],
+      "conflicts_with": [],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Артефакт release проходит проверку портала"
+      ],
+      "verification": [
+        "Workflow Release зелёный"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Добавь workflow Release по образцу templates/release-android.yml портала: подпись ключом из секретов GitHub, артефакт release с APK, release.json (channel=release, sha=GITHUB_SHA) и SHA256SUMS. Опиши в README нужные секреты."
+    }
+  ]
+}

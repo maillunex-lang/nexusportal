@@ -1,0 +1,10 @@
+[Unit]
+Description=NEXUS PORTAL: резервная копия БД с проверкой
+
+[Service]
+Type=oneshot
+User=nexus
+Group=nexus
+WorkingDirectory=/opt/nexus-portal/current
+EnvironmentFile=/etc/nexus-portal/nexus-portal.env
+ExecStart=/opt/nexus-portal/current/venv/bin/python -m backend.cli backup

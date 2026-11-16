@@ -1,0 +1,48 @@
+# Пример релизного workflow Android для NEXUS PORTAL.
+# Скопируйте в .github/workflows/release.yml проекта. Ключ подписи хранится в секретах GitHub Actions:
+# ANDROID_KEYSTORE_BASE64, ANDROID_KEYSTORE_PASSWORD, ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD.
+name: Release
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: '17' }
+      - name: Версия
+        id: v
+        run: |
+          VERSION=$(grep -oP 'versionName\s*=?\s*"\K[^"]+' app/build.gradle* | head -1)
+          CODE=$(grep -oP 'versionCode\s*=?\s*\K[0-9]+' app/build.gradle* | head -1)
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+      - name: Ключ подписи
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/release.jks"
+      - name: Сборка подписанного APK
+        env:
+          KEYSTORE_FILE: ${{ runner.temp }}/release.jks
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: chmod +x gradlew && ./gradlew --no-daemon assembleRelease
+      - name: Проверка подписи
+        run: $ANDROID_HOME/build-tools/$(ls $ANDROID_HOME/build-tools | sort -V | tail -1)/apksigner verify app/build/outputs/apk/release/app-release.apk
+      - name: Пакет для портала
+        run: |
+          mkdir -p out
+          F="app-${{ steps.v.outputs.version }}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "out/$F"
+          (cd out && sha256sum "$F" > SHA256SUMS)
+          printf '{"version":"%s","version_code":%s,"channel":"release","sha":"%s","file":"%s"}\n' \
+            "${{ steps.v.outputs.version }}" "${{ steps.v.outputs.code }}" "$GITHUB_SHA" "$F" > out/release.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: out/
+          if-no-files-found: error

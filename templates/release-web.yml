@@ -1,0 +1,25 @@
+# Пример релизного workflow веб-игры/сайта для NEXUS PORTAL (статическая сборка в zip).
+name: Release
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: npm ci && npm run build
+      - name: Пакет для портала
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          mkdir -p out
+          F="web-$VERSION.zip"
+          (cd dist && zip -qr "../out/$F" .)
+          (cd out && sha256sum "$F" > SHA256SUMS)
+          printf '{"version":"%s","channel":"release","sha":"%s","file":"%s"}\n' "$VERSION" "$GITHUB_SHA" "$F" > out/release.json
+      - uses: actions/upload-artifact@v4
+        with: { name: release, path: out/, if-no-files-found: error }

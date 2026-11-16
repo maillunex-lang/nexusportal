@@ -1,0 +1,394 @@
+{
+  "format": "nexus-blueprint/1",
+  "blueprint_version": "1.0",
+  "generated_at": "2026-11-16",
+  "generated_by": "Пример стандарта NEXUS",
+  "project": {
+    "name": "Лесной страж",
+    "summary": "2D-платформер о духе леса: прыжки, сбор семян, 3 биома, мобильное управление. Выпуск на Android и в браузере.",
+    "kind": "game",
+    "genre": "platformer",
+    "platforms": [
+      "Android",
+      "Web"
+    ],
+    "tech_stack": [
+      "Godot 4",
+      "GDScript"
+    ],
+    "default_branch": "main"
+  },
+  "sources": {
+    "gdd": [
+      "docs/GDD.md"
+    ],
+    "roadmap": "docs/WORK_PLAN.md",
+    "decisions": [
+      "docs/gdd/DECISIONS_APPROVED.md"
+    ],
+    "approved": true
+  },
+  "conventions": {
+    "branch_pattern": "task/{id}",
+    "pr_title_pattern": "[{id}] {title}",
+    "max_parallel": 3,
+    "parallel_within_workstream": false,
+    "required_checks": [
+      "godot-tests",
+      "export-check"
+    ],
+    "definition_of_done": [
+      "Сцены открываются без ошибок в редакторе",
+      "Новые механики покрыты тестами GUT"
+    ],
+    "global_rules": [
+      "Все тексты интерфейса — через файлы локализации, без строк в коде",
+      "Не менять формат сохранений без задачи с ресурсом save-format"
+    ]
+  },
+  "phases": [
+    {
+      "id": "P1",
+      "title": "Каркас и прототип",
+      "goal": "Играбельный уровень с базовым движением",
+      "exit_criteria": [
+        "Персонаж проходит тестовый уровень",
+        "CI собирает экспорт"
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Контент и прогресс",
+      "goal": "Три биома, сохранения, меню",
+      "exit_criteria": [
+        "3 биома проходимы",
+        "Прогресс сохраняется"
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Релиз",
+      "goal": "Подписанные сборки и публикация",
+      "exit_criteria": [
+        "Релизный артефакт проходит проверку портала"
+      ]
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "core",
+      "title": "Ядро",
+      "description": "Каркас, CI, сохранения"
+    },
+    {
+      "id": "gameplay",
+      "title": "Геймплей",
+      "description": "Движение, враги, сбор"
+    },
+    {
+      "id": "ui",
+      "title": "Интерфейс",
+      "description": "Меню, HUD, сенсорное управление"
+    },
+    {
+      "id": "content",
+      "title": "Уровни",
+      "description": "Биомы и уровни"
+    },
+    {
+      "id": "release",
+      "title": "Выпуск",
+      "description": "Сборки и публикация"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "G01",
+      "title": "Каркас проекта Godot и CI",
+      "phase": "P1",
+      "workstream": "core",
+      "priority": "P0",
+      "type": "infra",
+      "estimate": "M",
+      "executor_hint": "claude",
+      "goal": "Пустой проект Godot 4 с тестами GUT и CI, собирающим Web и Android (debug).",
+      "gdd_refs": [
+        "docs/GDD.md#Технологии"
+      ],
+      "depends_on": [],
+      "conflicts_with": [],
+      "resources": [
+        "project-settings",
+        "ci"
+      ],
+      "deliverables": [
+        "Проект Godot",
+        "Workflow CI",
+        "README"
+      ],
+      "acceptance_criteria": [
+        "Проект открывается в Godot 4.3 без ошибок",
+        "CI запускает тесты GUT и экспорт Web",
+        "В README описан запуск тестов"
+      ],
+      "verification": [
+        "Задание CI godot-tests зелёное",
+        "Задание CI export-check зелёное"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Создай каркас проекта на Godot 4 (GDScript) согласно разделу «Технологии» GDD. Если в репозитории уже есть проект — изучи его и доработай, ничего не удаляя. Подключи фреймворк тестов GUT, добавь один пример теста. Настрой GitHub Actions: задание godot-tests (headless-запуск тестов) и задание export-check (экспорт Web-сборки, debug Android допустим). Используй официальные образы/actions для Godot с фиксированной версией. Опиши в README, как запускать тесты локально. Не добавляй игровую логику — она будет в следующих задачах."
+    },
+    {
+      "id": "G02",
+      "title": "Контроллер персонажа",
+      "phase": "P1",
+      "workstream": "gameplay",
+      "priority": "P0",
+      "type": "feature",
+      "estimate": "L",
+      "executor_hint": "any",
+      "goal": "Персонаж бегает, прыгает (койот-тайм, буфер прыжка), реагирует на столкновения.",
+      "gdd_refs": [
+        "docs/GDD.md#Управление"
+      ],
+      "depends_on": [
+        "G01"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "player-controller",
+        "input-map"
+      ],
+      "deliverables": [
+        "Сцена игрока",
+        "Ресурс параметров",
+        "Тесты"
+      ],
+      "acceptance_criteria": [
+        "Параметры движения вынесены в ресурс и настраиваются без кода",
+        "Койот-тайм 0.1 с и буфер прыжка 0.1 с работают",
+        "Тесты GUT проверяют прыжок и приземление"
+      ],
+      "verification": [
+        "godot-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Реализуй контроллер персонажа по разделу GDD «Управление и движение»: бег, прыжок переменной высоты, койот-тайм, буфер прыжка, падение с ограничением скорости. Используй CharacterBody2D. Все численные параметры вынеси в отдельный Resource, чтобы гейм-дизайнер мог их менять. Ввод получай через действия InputMap (move_left, move_right, jump) — сенсорное управление сделает другая задача и будет вызывать те же действия. Добавь тесты GUT на физику прыжка с фиксированным шагом. Не делай анимации сложнее idle/run/jump."
+    },
+    {
+      "id": "G03",
+      "title": "Тестовый уровень и камера",
+      "phase": "P1",
+      "workstream": "content",
+      "priority": "P1",
+      "type": "content",
+      "estimate": "S",
+      "executor_hint": "any",
+      "goal": "Тестовый уровень с платформами и камерой, следующей за игроком.",
+      "gdd_refs": [
+        "docs/GDD.md#Уровни"
+      ],
+      "depends_on": [
+        "G01"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "level-test"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Уровень проходим от старта до финиша",
+        "Камера плавно следует с ограничением по границам уровня"
+      ],
+      "verification": [
+        "godot-tests",
+        "export-check"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Собери тестовый уровень на TileMap с платформами разной высоты, ямой и финишной зоной. Добавь Camera2D с плавным следованием и границами по размеру уровня. Пока персонаж не готов, используй заглушку-сцену; после слияния задачи G02 уровень должен работать с настоящим персонажем через общий интерфейс сцены игрока (узел Player в группе player). Добавь smoke-тест: уровень загружается, финишная зона существует. Тайлсет — простые цветные плитки, финальная графика не нужна."
+    },
+    {
+      "id": "G04",
+      "title": "Сенсорное управление",
+      "phase": "P1",
+      "workstream": "ui",
+      "priority": "P1",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Экранные кнопки для Android, вызывающие действия InputMap.",
+      "gdd_refs": [
+        "docs/GDD.md#Управление"
+      ],
+      "depends_on": [
+        "G02"
+      ],
+      "conflicts_with": [
+        "G06"
+      ],
+      "resources": [
+        "input-map",
+        "hud"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Кнопки появляются только на сенсорных устройствах",
+        "Мультитач: бег + прыжок одновременно",
+        "Учтены safe-area экрана"
+      ],
+      "verification": [
+        "godot-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Сделай слой сенсорного управления: две кнопки направления и кнопка прыжка, которые генерируют те же действия InputMap, что и клавиатура (move_left, move_right, jump). Слой отображается только при наличии сенсорного экрана. Поддержи одновременное нажатие бега и прыжка. Расположение учитывает безопасные зоны экрана (вырезы). Размер кнопок настраивается. Тест: эмуляция событий касания вызывает нужные действия. Не меняй контроллер персонажа."
+    },
+    {
+      "id": "G05",
+      "title": "Система сохранений",
+      "phase": "P2",
+      "workstream": "core",
+      "priority": "P0",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Сохранение прогресса (открытые уровни, семена) с версией формата.",
+      "gdd_refs": [
+        "docs/GDD.md#Прогресс"
+      ],
+      "depends_on": [
+        "G01"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "save-format"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Файл сохранения содержит поле версии",
+        "Повреждённый файл не роняет игру, создаётся новый",
+        "Тесты на запись/чтение/миграцию"
+      ],
+      "verification": [
+        "godot-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Реализуй автозагружаемый синглтон сохранений: открытые уровни, собранные семена по уровням, настройки звука. Формат — JSON в user://, с полем version и функцией миграции со старых версий (пока одна версия). Запись атомарная (временный файл + переименование). При повреждении файла — резервная копия и новый профиль. Публичный API: load(), save(), get_level_state(id), set_level_state(id, state). Покрой тестами, включая повреждённый файл."
+    },
+    {
+      "id": "G06",
+      "title": "Главное меню и пауза",
+      "phase": "P2",
+      "workstream": "ui",
+      "priority": "P1",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Главное меню, выбор уровня, пауза, настройки звука.",
+      "gdd_refs": [
+        "docs/GDD.md#Интерфейс"
+      ],
+      "depends_on": [
+        "G05"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "hud"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Меню показывает только открытые уровни",
+        "Пауза останавливает игру и не теряет ввод",
+        "Настройки сохраняются через систему сохранений"
+      ],
+      "verification": [
+        "godot-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Сделай главное меню (Играть, Уровни, Настройки, Выход), экран выбора уровня (данные из системы сохранений G05), меню паузы и настройки громкости музыки и эффектов. Все строки — через локализацию (ru, en). Навигация с клавиатуры, геймпада и касанием. Тесты: открытые уровни отображаются корректно, настройки сохраняются. Не меняй формат сохранений — используй публичный API."
+    },
+    {
+      "id": "G07",
+      "title": "Биом «Опушка»",
+      "phase": "P2",
+      "workstream": "content",
+      "priority": "P1",
+      "type": "content",
+      "estimate": "L",
+      "executor_hint": "any",
+      "goal": "Три уровня первого биома с семенами и врагами-слизнями.",
+      "gdd_refs": [
+        "docs/GDD.md#Биомы"
+      ],
+      "depends_on": [
+        "G02",
+        "G03",
+        "G05"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "levels-glade"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Три уровня проходимы",
+        "Семена учитываются в сохранении",
+        "Слизень наносит урон и побеждается прыжком сверху"
+      ],
+      "verification": [
+        "godot-tests"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "По разделу GDD «Биомы → Опушка» создай три уровня возрастающей сложности, коллекционные семена (по 5 на уровень) и врага-слизня с патрулированием. Победа над врагом — прыжком сверху. Завершение уровня открывает следующий через систему сохранений. Добавь тест-прохождение: бот-скрипт проверяет, что финиш достижим (по навигационным точкам). Не меняй контроллер персонажа; если нужен новый параметр — опиши в PR."
+    },
+    {
+      "id": "G08",
+      "title": "Подписанный релиз Android и Web",
+      "phase": "P3",
+      "workstream": "release",
+      "priority": "P0",
+      "type": "release",
+      "estimate": "M",
+      "executor_hint": "codex",
+      "goal": "Релизный workflow: подписанный APK и Web-сборка с release.json и SHA256SUMS.",
+      "gdd_refs": [
+        "docs/GDD.md#Релизы"
+      ],
+      "depends_on": [
+        "G06",
+        "G07"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "ci",
+        "project-settings"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "APK подписан релизным ключом из секретов GitHub",
+        "Артефакт release содержит release.json, SHA256SUMS и APK",
+        "Портал принимает артефакт без ошибок"
+      ],
+      "verification": [
+        "Workflow Release завершается успешно на main"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Создай workflow Release (на push в main): экспорт Android с подписью ключом из секретов GitHub Actions и экспорт Web. Упакуй APK в артефакт release с файлами release.json (version из настроек проекта, version_code, channel=release, sha=GITHUB_SHA, file) и SHA256SUMS. Пример — templates/release-android.yml портала. Проверь подпись apksigner. Никогда не коммить ключи; опиши в README, какие секреты нужно добавить владельцу."
+    }
+  ]
+}

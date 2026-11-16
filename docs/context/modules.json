@@ -1,0 +1,354 @@
+{
+  "version": 1,
+  "project": "NEXUS PORTAL",
+  "docs": {
+    "spec": {
+      "path": "docs/GDD.md",
+      "title": "Спецификация NP-01..NP-30",
+      "summary": "решения владельца и архитектура"
+    },
+    "arch": {
+      "path": "docs/ARCHITECTURE.md",
+      "title": "Архитектура и решения IMP",
+      "summary": "модули, принятые решения, безопасность критических операций"
+    },
+    "protocol": {
+      "path": "docs/PORTAL_PROTOCOL.md",
+      "title": "Протокол портала",
+      "summary": "жизненный цикл задачи, автослияние, релизы"
+    },
+    "install": {
+      "path": "docs/INSTALL.md",
+      "title": "Установка и откат",
+      "summary": "VPS, секреты, GitHub, SSH, Telegram/MAX"
+    },
+    "rules": {
+      "path": "docs/AI_RULES.md",
+      "title": "Правила ИИ",
+      "summary": "обязательные правила исполнителей"
+    },
+    "blueprint": {
+      "path": "docs/blueprint/README.md",
+      "title": "Стандарт Blueprint",
+      "summary": "формат nexus-blueprint/1, очерёдность, параллелизм, жизненный цикл"
+    }
+  },
+  "always_docs": [
+    "rules"
+  ],
+  "modules": [
+    {
+      "id": "core",
+      "title": "N1",
+      "paths": [
+        "backend/core/**",
+        "backend/migrations/**",
+        "backend/api/**",
+        "backend/main.py",
+        "backend/cli.py"
+      ],
+      "docs": [
+        "arch",
+        "spec"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_core.py"
+      ],
+      "public": [
+        "Portal",
+        "Database.migrate()",
+        "Auth",
+        "audit()",
+        "redact()"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "ui",
+      "title": "N2",
+      "paths": [
+        "frontend/**"
+      ],
+      "docs": [
+        "spec"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [],
+      "public": [
+        "REST /api/*"
+      ],
+      "depends_on": [
+        "core"
+      ]
+    },
+    {
+      "id": "projects",
+      "title": "N3",
+      "paths": [
+        "backend/projects/**"
+      ],
+      "docs": [
+        "spec"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_wizard.py"
+      ],
+      "public": [
+        "wizard.build_preview()",
+        "wizard.apply()"
+      ],
+      "depends_on": [
+        "core",
+        "github",
+        "prompts",
+        "roadmap"
+      ]
+    },
+    {
+      "id": "prompts",
+      "title": "N4",
+      "paths": [
+        "backend/prompts/**"
+      ],
+      "docs": [
+        "spec",
+        "protocol"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_wizard.py"
+      ],
+      "public": [
+        "generator.project_files()",
+        "generator.director_bootstrap_prompt()"
+      ],
+      "depends_on": [
+        "roadmap",
+        "context"
+      ]
+    },
+    {
+      "id": "roadmap",
+      "title": "N5",
+      "paths": [
+        "backend/roadmap/**",
+        "tools/work_plan.py"
+      ],
+      "docs": [
+        "protocol"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_roadmap.py"
+      ],
+      "public": [
+        "engine.check()",
+        "engine.ready()",
+        "engine.prompt()",
+        "service.set_status()"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "context",
+      "title": "SC",
+      "paths": [
+        "backend/context/**",
+        "tools/context_pack.py"
+      ],
+      "docs": [
+        "protocol"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_context.py"
+      ],
+      "public": [
+        "engine.pack()",
+        "engine.check()",
+        "engine.render_index()"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "github",
+      "title": "N6",
+      "paths": [
+        "backend/github/**"
+      ],
+      "docs": [
+        "spec",
+        "install"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_github.py"
+      ],
+      "public": [
+        "GitHubClient",
+        "sync.handle_event()",
+        "webhooks.verify_signature()"
+      ],
+      "depends_on": [
+        "core"
+      ]
+    },
+    {
+      "id": "orchestration",
+      "title": "N7",
+      "paths": [
+        "backend/orchestration/**"
+      ],
+      "docs": [
+        "protocol",
+        "spec"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_automerge.py"
+      ],
+      "public": [
+        "automerge.process_pr()",
+        "automerge.on_merged()"
+      ],
+      "depends_on": [
+        "github",
+        "roadmap",
+        "memory"
+      ]
+    },
+    {
+      "id": "deploy",
+      "title": "N8",
+      "paths": [
+        "backend/deploy/**",
+        "deploy/**"
+      ],
+      "docs": [
+        "install",
+        "arch"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_deploy.py"
+      ],
+      "public": [
+        "deploy.deploy()",
+        "deploy.rollback()"
+      ],
+      "depends_on": [
+        "core",
+        "memory"
+      ]
+    },
+    {
+      "id": "releases",
+      "title": "N9",
+      "paths": [
+        "backend/releases/**",
+        "templates/**"
+      ],
+      "docs": [
+        "protocol",
+        "install"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_releases.py"
+      ],
+      "public": [
+        "verify_artifact()",
+        "process_run()"
+      ],
+      "depends_on": [
+        "deploy",
+        "github"
+      ]
+    },
+    {
+      "id": "memory",
+      "title": "N10",
+      "paths": [
+        "backend/memory/**",
+        "backend/notifications/**"
+      ],
+      "docs": [
+        "spec"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md"
+      ],
+      "tests": [
+        "backend/tests/test_memory_notify.py"
+      ],
+      "public": [
+        "memory.handover_prompt()",
+        "notify()"
+      ],
+      "depends_on": [
+        "core"
+      ]
+    },
+    {
+      "id": "blueprint",
+      "title": "BP",
+      "paths": [
+        "backend/blueprint/**",
+        "backend/api/blueprint.py",
+        "docs/blueprint/**",
+        "tools/blueprint.py"
+      ],
+      "docs": [
+        "blueprint",
+        "protocol"
+      ],
+      "contracts": [
+        "docs/ARCHITECTURE.md",
+        "docs/blueprint/blueprint.schema.json"
+      ],
+      "tests": [
+        "backend/tests/test_blueprint.py"
+      ],
+      "public": [
+        "core.validate()",
+        "core.schedule()",
+        "core.render_assignment()",
+        "service.submit()",
+        "service.approve()",
+        "service.now()"
+      ],
+      "depends_on": [
+        "roadmap",
+        "orchestration",
+        "memory"
+      ]
+    }
+  ],
+  "critical_rules": [
+    "Токены и ключи только в файлах 0600 на сервере; браузеру и логам не отдаются.",
+    "Слияние только после обязательного CI на актуальном SHA; done только после подтверждённого слияния.",
+    "Команды деплоя из PR не выполняются; продакшен — только с разрешения владельца."
+  ]
+}

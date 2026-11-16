@@ -1,0 +1,145 @@
+{
+  "format": "nexus-blueprint/1",
+  "blueprint_version": "1.0",
+  "project": {
+    "name": "Каталог мастерских",
+    "summary": "Сайт-каталог мастерских с поиском и заявками; бэкенд API и админка.",
+    "kind": "web",
+    "tech_stack": [
+      "TypeScript",
+      "React",
+      "FastAPI",
+      "PostgreSQL"
+    ]
+  },
+  "sources": {
+    "gdd": [
+      "docs/GDD.md"
+    ],
+    "approved": true
+  },
+  "conventions": {
+    "max_parallel": 3,
+    "parallel_within_workstream": true,
+    "required_checks": [
+      "backend",
+      "frontend"
+    ]
+  },
+  "phases": [
+    {
+      "id": "S1",
+      "title": "Основа"
+    },
+    {
+      "id": "S2",
+      "title": "Функции"
+    }
+  ],
+  "workstreams": [
+    {
+      "id": "api",
+      "title": "API"
+    },
+    {
+      "id": "web",
+      "title": "Сайт"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "W1",
+      "title": "Контракт API каталога",
+      "phase": "S1",
+      "workstream": "api",
+      "priority": "P0",
+      "type": "docs",
+      "estimate": "S",
+      "executor_hint": "any",
+      "goal": "OpenAPI-описание каталога и заявок, согласованное для фронтенда и бэкенда.",
+      "gdd_refs": [
+        "docs/GDD.md#API"
+      ],
+      "depends_on": [],
+      "conflicts_with": [],
+      "resources": [
+        "api-contract"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Файл OpenAPI проходит валидацию в CI"
+      ],
+      "verification": [
+        "backend"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Опиши контракт API в формате OpenAPI 3.1: список мастерских с фильтрами и пагинацией, карточка мастерской, создание заявки. Валидация схемы — в CI. Контракт станет источником истины для задач W2 и W3: фронтенд генерирует клиент, бэкенд реализует эндпоинты. Не реализуй сами эндпоинты."
+    },
+    {
+      "id": "W2",
+      "title": "Эндпоинты каталога",
+      "phase": "S2",
+      "workstream": "api",
+      "priority": "P0",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Реализация API каталога по контракту с тестами.",
+      "gdd_refs": [
+        "docs/GDD.md#API"
+      ],
+      "depends_on": [
+        "W1"
+      ],
+      "conflicts_with": [],
+      "resources": [
+        "db-schema"
+      ],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Ответы соответствуют OpenAPI",
+        "Тесты на фильтры и пагинацию"
+      ],
+      "verification": [
+        "backend"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Реализуй эндпоинты каталога строго по контракту из W1. Добавь миграции БД и тесты (включая проверку ответа по схеме). Если контракт неудобен — не меняй его молча: опиши предложение в PR. Изучи существующую структуру репозитория и следуй принятым в нём соглашениям об именовании и организации кода. Обработай ошибки и пограничные случаи (пустые результаты, некорректные параметры, недоступность сервера), опиши допущения в PR."
+    },
+    {
+      "id": "W3",
+      "title": "Страница каталога",
+      "phase": "S2",
+      "workstream": "web",
+      "priority": "P1",
+      "type": "feature",
+      "estimate": "M",
+      "executor_hint": "any",
+      "goal": "Поиск и фильтры каталога на сайте через сгенерированный клиент.",
+      "gdd_refs": [
+        "docs/GDD.md#Каталог"
+      ],
+      "depends_on": [
+        "W1"
+      ],
+      "conflicts_with": [],
+      "resources": [],
+      "deliverables": [],
+      "acceptance_criteria": [
+        "Фильтры отражаются в URL",
+        "Адаптив от 360 px"
+      ],
+      "verification": [
+        "frontend"
+      ],
+      "scope_hints": [],
+      "out_of_scope": [],
+      "risks": [],
+      "prompt": "Сделай страницу каталога: поиск, фильтры, пагинация, состояния загрузки и ошибок. Клиент API сгенерируй из контракта W1, пока бэкенд не готов — используй моки на его основе. Добавь тесты компонентов. Изучи существующую структуру репозитория и следуй принятым в нём соглашениям об именовании и организации кода. Обработай ошибки и пограничные случаи (пустые результаты, некорректные параметры, недоступность сервера), опиши допущения в PR."
+    }
+  ]
+}
