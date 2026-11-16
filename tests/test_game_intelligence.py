@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.game_intelligence import ROOT, check_url, context, game_catalog, validate
+from tools.game_intelligence import ROOT, architect_brief, check_url, context, game_catalog, validate
 
 
 class GameIntelligenceTests(unittest.TestCase):
@@ -66,6 +66,21 @@ class GameIntelligenceTests(unittest.TestCase):
         result = self.mutate("research/editorial_games.json", broken)
         self.assertFalse(result["ok"])
         self.assertTrue(any("PC-only" in s for s in result["errors"]))
+
+    def test_architect_brief_has_sources_and_risks(self):
+        result = architect_brief("economic_strategy")
+        self.assertEqual(result["status"], "design_proposal_not_implemented")
+        self.assertTrue(result["mvp"])
+        self.assertTrue(result["architecture"])
+        self.assertTrue(result["pitfalls"])
+        self.assertTrue(result["reference_games"])
+        self.assertTrue(result["player_feedback"])
+        self.assertTrue(all("source_url" in x for x in result["player_feedback"]))
+
+    def test_unfinished_genre_is_not_presented_as_ready(self):
+        result = architect_brief("tower_defense")
+        self.assertEqual(result["status"], "taxonomy_only")
+        self.assertTrue(result["questions"])
 
     def test_unknown_genre_rejected(self):
         with self.assertRaises(ValueError):
